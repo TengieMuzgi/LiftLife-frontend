@@ -1,6 +1,9 @@
 import React from "react";
-import "./App.css";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import LandingPage from "./pages/LandingPage";
 
-function App() {}
+const App = () => {
+  return <LandingPage />;
+};
 
 export default App;

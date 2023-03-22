@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
+import Carousel from "../components/Carousel";
 
 const LandingPage = () => {
   const placeGridCenter = {
@@ -8,7 +9,7 @@ const LandingPage = () => {
     alignItems: "center",
   };
   const smallPacket = {
-    transform: "scale(0.8)",
+    transform: "scale(0.9)",
   };
 
   return (
@@ -156,7 +157,19 @@ const LandingPage = () => {
       </Grid>
 
       {/* Nasi trenerzy (może jakiś swiper z preview 3-5 osób?)*/}
-
+      <Grid container item>
+        <Grid item {...placeGridCenter}>
+          <Carousel
+            links={[
+              "assets\\images\\trainer_placeholder.png",
+              "assets\\images\\trainer_placeholder.png",
+              "assets\\images\\trainer_placeholder.png",
+              "assets\\images\\trainer_placeholder.png",
+              "assets\\images\\trainer_placeholder.png",
+            ]}
+          />
+        </Grid>
+      </Grid>
       {/* Break do podziału contentu wymyśl se coś */}
 
       {/* Basic footer - bez nawigacji? */}

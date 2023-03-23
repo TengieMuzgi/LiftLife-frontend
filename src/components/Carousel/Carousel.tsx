@@ -1,39 +1,30 @@
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/scrollbar";
 import { Navigation, Scrollbar, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import styled from "styled-components";
 import React from "react";
+import { CarouselProps } from "./Carousel.constants";
+import { SwiperImage } from "./Carousel.styles";
 
-type CarouselProps = {
-  links: string[];
-};
-
-const SwiperImage = styled("img")`
-  width: 50vw;
-  height: 50vh;
-  object-fit: cover;
-`;
-
-const Carousel = ({ links }: CarouselProps) => {
+export const Carousel = ({ links }: CarouselProps) => {
   return (
     <Swiper
+      effect="fade"
       modules={[Navigation, Scrollbar, Autoplay]}
       slidesPerView={1}
       navigation
       pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
-      autoHeight
       autoplay={{ delay: 5000 }}
+      centeredSlides
+      centeredSlidesBounds
+      cssMode
+      loop
+      allowSlideNext
+      allowSlidePrev
     >
       {links.map((itemLink, key) => (
         <SwiperSlide key={key}>
-          <SwiperImage src={itemLink} alt="temporary" />
+          <SwiperImage src={itemLink} />
         </SwiperSlide>
       ))}
     </Swiper>
   );
 };
-
-export default Carousel;

@@ -11,12 +11,10 @@ export const Carousel = ({ links }: CarouselProps) => {
       modules={[Navigation, Scrollbar, Autoplay]}
       slidesPerView={1}
       navigation
-      pagination={{ clickable: true }}
-      autoplay={{ delay: 5000 }}
+      autoplay={{ delay: 10000 }}
       centeredSlides
       centeredSlidesBounds
       cssMode
-      loop
       allowSlideNext
       allowSlidePrev
     >

@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import Carousel from "../components/Carousel";
+import { Carousel } from "../components/Carousel";
 import { PlanTile } from "../components/PlanTile";
 import { PlanProps } from "../components/PlanTile";
 import { Footer } from "../components/Footer";
@@ -18,21 +18,22 @@ const LandingPage = () => {
     planDescription: "Test description",
   };
 
+  //temporary
+  const antiHorizontalScroll = {
+    minWidth: "99vw",
+    maxWidth: "50vw",
+  };
+
   return (
     <Grid container spacing={3}>
       {/* Logo + banner */}
       {/* TODO: Delete mt property from grid below after AppBar is created */}
-      <Grid
-        container
-        item
-        direction="row"
-        {...placeGridCenter}
-        mt={"10vh"}
-      >
+      <Grid container item direction="row" {...placeGridCenter} mt={"10vh"}>
         {/* TODO: Zebra wave from animatedbackgrounds or react-wavify ? https://www.npmjs.com/package/react-wavify */}
         <Grid item>
           <img
-            src="assets\images\banner_placeholder.png" style={{minWidth: "100vw", maxWidth: "50vw"}}
+            src="assets\images\banner_placeholder.png"
+            style={{ ...antiHorizontalScroll }}
           />
         </Grid>
       </Grid>
@@ -74,7 +75,7 @@ const LandingPage = () => {
         <Grid item>
           <img
             src="assets\images\cbreaker_placeholder.png"
-            style={{ maxWidth: "80vw" }}
+            style={{ ...antiHorizontalScroll }}
           />
         </Grid>
       </Grid>
@@ -141,7 +142,7 @@ const LandingPage = () => {
         <Grid item>
           <img
             src="assets\images\cbreaker_placeholder.png"
-            style={{ maxWidth: "80vw" }}
+            style={{ ...antiHorizontalScroll }}
           />
         </Grid>
       </Grid>
@@ -163,23 +164,22 @@ const LandingPage = () => {
       {/* Explore trainers - swiper */}
 
       <Grid container item direction="row">
-        <Grid item {...placeGridCenter} className="swiper-container">
-          <Carousel
-            links={[
-              "assets\\images\\trainer_placeholder.png",
-              "assets\\images\\trainer_placeholder.png",
-              "assets\\images\\trainer_placeholder.png",
-              "assets\\images\\trainer_placeholder.png",
-              "assets\\images\\trainer_placeholder.png",
-            ]}
-          />
-        </Grid>
+        <Grid item {...placeGridCenter} className="swiper-container"></Grid>
+        <Carousel
+          links={[
+            "assets\\images\\trainer_placeholder.png",
+            "assets\\images\\trainer_placeholder.png",
+            "assets\\images\\trainer_placeholder.png",
+            "assets\\images\\trainer_placeholder.png",
+            "assets\\images\\trainer_placeholder.png",
+          ]}
+        />
       </Grid>
 
       {/* Footer */}
       <Grid container item direction="row">
         <Grid item xs={12} md={12}>
-          <Footer/>
+          <Footer />
         </Grid>
       </Grid>
     </Grid>

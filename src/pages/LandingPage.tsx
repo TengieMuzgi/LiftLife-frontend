@@ -5,6 +5,10 @@ import { Carousel } from "../components/Carousel";
 import { PlanTile } from "../components/PlanTile";
 import { PlanProps } from "../components/PlanTile";
 import { Footer } from "../components/Footer";
+import { StepTile } from "../components/StepTile";
+import { StepTileProps } from "../components/StepTile";
+import { BenefitsTile } from "../components/BenefitsTile/BenefitsTile";
+import { BenefitsTileProps } from "../components/BenefitsTile/BenefitsTile.constants";
 
 const LandingPage = () => {
   const placeGridCenter = {
@@ -16,6 +20,15 @@ const LandingPage = () => {
     planName: "Test plan",
     planCost: 10,
     planDescription: "Test description",
+  };
+  const testStepProps: StepTileProps = {
+    title: "Test",
+    description: "testing description",
+  };
+  const testBenefitsTileProps: BenefitsTileProps = {
+    alt: "",
+    title: "Test Pexels title",
+    description: "Test description",
   };
 
   //temporary
@@ -33,6 +46,7 @@ const LandingPage = () => {
         <Grid item>
           <img
             src="assets\images\banner_placeholder.png"
+            alt="banner"
             style={{ ...antiHorizontalScroll }}
           />
         </Grid>
@@ -56,16 +70,16 @@ const LandingPage = () => {
         columnGap={3}
       >
         <Grid item>
-          <img src="assets\images\tile_placeholder.png" />
+          <StepTile {...testStepProps} />
         </Grid>
         <Grid item>
-          <img src="assets\images\tile_placeholder.png" />
+          <StepTile {...testStepProps} />
         </Grid>
         <Grid item>
-          <img src="assets\images\tile_placeholder.png" />
+          <StepTile {...testStepProps} />
         </Grid>
         <Grid item>
-          <img src="assets\images\tile_placeholder.png" />
+          <StepTile {...testStepProps} />
         </Grid>
       </Grid>
 
@@ -74,8 +88,10 @@ const LandingPage = () => {
       <Grid container item {...placeGridCenter}>
         <Grid item>
           <img
-            src="assets\images\cbreaker_placeholder.png"
+            src="https://i0.wp.com/pointblank-uk.com/wp-content/uploads/2020/11/wideangle-photo-of-a-gym.jpg"
+            alt="content-breaker"
             style={{ ...antiHorizontalScroll }}
+            className="fadeImage"
           />
         </Grid>
       </Grid>
@@ -90,50 +106,24 @@ const LandingPage = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container columns={2} {...placeGridCenter} columnGap={30}>
-          <Grid item>
-            <Typography>Pexels tile description</Typography>
-          </Grid>
-          <Grid item>
-            <img src="assets\images\pexels_placeholder.png" />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          columns={2}
-          {...placeGridCenter}
-          columnGap={30}
-          direction="row-reverse"
-        >
-          <Grid item>
-            <Typography>Pexels tile description</Typography>
-          </Grid>
-          <Grid item>
-            <img src="assets\images\pexels_placeholder.png" />
-          </Grid>
-        </Grid>
-        <Grid container columns={2} {...placeGridCenter} columnGap={30}>
-          <Grid item>
-            <Typography>Pexels tile description</Typography>
-          </Grid>
-          <Grid item>
-            <img src="assets\images\pexels_placeholder.png" />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          columns={2}
-          {...placeGridCenter}
-          columnGap={30}
-          direction="row-reverse"
-        >
-          <Grid item>
-            <Typography>Pexels tile description</Typography>
-          </Grid>
-          <Grid item>
-            <img src="assets\images\pexels_placeholder.png" />
-          </Grid>
-        </Grid>
+        <BenefitsTile
+          {...testBenefitsTileProps}
+          imgSrc="assets\\images\\pexels\\pexels1.jpg"
+        />
+        <BenefitsTile
+          {...testBenefitsTileProps}
+          reverse
+          imgSrc="assets\\images\\pexels\\pexels2.jpg"
+        />
+        <BenefitsTile
+          {...testBenefitsTileProps}
+          imgSrc="assets\\images\\pexels\\pexels3.jpg"
+        />
+        <BenefitsTile
+          {...testBenefitsTileProps}
+          reverse
+          imgSrc="assets\\images\\pexels\\pexels4.jpg"
+        />
       </Grid>
 
       {/* Content breaker */}
@@ -141,8 +131,10 @@ const LandingPage = () => {
       <Grid container item {...placeGridCenter}>
         <Grid item>
           <img
-            src="assets\images\cbreaker_placeholder.png"
+            src="https://i0.wp.com/pointblank-uk.com/wp-content/uploads/2020/11/wideangle-photo-of-a-gym.jpg"
+            alt="content-breaker"
             style={{ ...antiHorizontalScroll }}
+            className="fadeImage"
           />
         </Grid>
       </Grid>

@@ -9,11 +9,15 @@ export const PlanTile = (props: PlanProps) => {
     : planTileStyles;
   return (
     <Box>
-      <Paper elevation={3} sx={planSx}>
+      <Paper elevation={3} sx={planSx} className="hoverScale">
         <Typography>{props.planName}</Typography>
         <Typography>Cost: {props.planCost} $</Typography>
         <Typography>{props.planDescription}</Typography>
-        <Button variant="contained" size="small">
+        <Button
+          variant="contained"
+          size="small"
+          sx={{ borderRadius: "1.5rem", padding: 1.5 }}
+        >
           Test button
         </Button>
       </Paper>

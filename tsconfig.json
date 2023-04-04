@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "incremental": false,
+    "incremental": true,
     "noImplicitAny": true,
-    "module": "es2022",
+    "module": "es2020",
     "target": "es2022",
-    "lib": ["es5", "es6", "dom", "dom.iterable", "esnext"],
+    "lib": ["es6", "dom", "dom.iterable", "esnext"],
     "jsx": "react",
     "allowJs": false,
     "esModuleInterop": true,
@@ -21,13 +21,7 @@
     "noImplicitThis": true,
     "outDir": "./build",
     "rootDirs": ["src", "node_modules"],
-    "types": [
-      "react",
-      "react-dom",
-      "node",
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["react", "react-dom", "jest"],
     "plugins": [],
     "noErrorTruncation": true
   },

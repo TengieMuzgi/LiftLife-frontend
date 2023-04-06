@@ -1,5 +1,5 @@
 export const planTileStyles = {
-  minHeight: "40vh",
-  minWidth: "15vw",
-  textAlign: "center",
+  minHeight: '40vh',
+  minWidth: '15vw',
+  textAlign: 'center',
 };

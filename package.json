@@ -7,6 +7,9 @@
     "@emotion/styled": "^11.10.6",
     "@faker-js/faker": "^7.6.0",
     "@fontsource/roboto": "^4.5.8",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/base": "^5.0.0-alpha.121",
     "@mui/material": "^5.11.13",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -25,6 +28,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.8",
+    "swiper": "^9.1.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.5.4",
@@ -48,14 +52,32 @@
     "prettier-format": "yarn prettier --config .prettierrc src/**/* --write"
   },
   "eslintConfig": {
-    "extends": ["react-app", "react-app/jest", "eslint:recommended"],
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "eslint:recommended"
+    ],
     "rules": {
-      "quotes": ["error", "single"],
-      "semi": ["error", "always"]
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
     }
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

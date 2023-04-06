@@ -68,7 +68,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <></>
+      <LandingPage />
     </ThemeProvider>
   );
 }

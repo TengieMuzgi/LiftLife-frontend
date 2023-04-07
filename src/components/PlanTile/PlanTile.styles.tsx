@@ -1,5 +1,8 @@
+//TODO: discuss if we will be using clip-path for plan tiles
 export const planTileStyles = {
   minHeight: '40vh',
-  minWidth: '15vw',
+  minWidth: '30vw',
   textAlign: 'center',
+  p: 3,
+  borderRadius: '45px',
 };

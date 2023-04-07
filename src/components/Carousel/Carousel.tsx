@@ -4,7 +4,7 @@ import 'swiper/css/scrollbar';
 import { Navigation, Scrollbar, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React from 'react';
-import { CarouselProps } from './Carousel.constants';
+import { CarouselProps } from './Carousel.types';
 import { SwiperImage } from './Carousel.styles';
 
 export const Carousel = ({ links }: CarouselProps) => {

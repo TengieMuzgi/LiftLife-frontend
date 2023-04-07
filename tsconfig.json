@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "incremental": false,
+    "incremental": true,
     "noImplicitAny": true,
     "module": "es2022",
     "target": "es2022",
@@ -21,13 +21,7 @@
     "noImplicitThis": true,
     "outDir": "./build",
     "rootDirs": ["src", "node_modules"],
-    "types": [
-      "react",
-      "react-dom",
-      "node",
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["react", "react-dom", "node", "jest", "@testing-library/jest-dom"],
     "plugins": [],
     "noErrorTruncation": true
   },

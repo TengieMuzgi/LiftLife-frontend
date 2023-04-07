@@ -2,25 +2,32 @@ import { TableCellBaseProps, useTheme } from '@mui/material';
 import React, { ElementType } from 'react';
 import { useDrop } from 'react-dnd';
 import { DndItemTypes } from '../Calendar.constants';
-import { CalendarTileConfigType } from './CalendarTile.constants';
+import type { CalendarTileConfigType } from './CalendarTile.types';
 import { ColoredTableCell } from './CalendarTile.styles';
 
 type CalendarTileProps = {
   width?: string | number;
   component?: ElementType<TableCellBaseProps>;
   scope?: string;
-  onReserve?: (id: string) => void;
+  onReserve?: (itemId: string, tileId: string) => void;
   id: string;
 } & CalendarTileConfigType;
 
-export const CalendarTile = (props: CalendarTileProps) => {
-  const { width, component, scope, children, isReserved, onReserve } = props;
+export const CalendarTile = ({
+  width,
+  component,
+  scope,
+  onReserve,
+  id,
+  children,
+  isReserved,
+}: CalendarTileProps) => {
   const theme = useTheme();
 
   // TODO: implement defined type
   function handleDrop(item: { id: string }) {
     if (onReserve) {
-      onReserve(item.id);
+      onReserve(item.id, id);
     }
   }
 

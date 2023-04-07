@@ -1,4 +1,4 @@
-import { CalendarTileConfigType } from './CalendarTile/CalendarTile.constants';
+import type { CalendarConfigType } from './Calendar.types';
 import { OptionPickerItemProps } from './OptionPicker/OptionPickerItem';
 
 export const DUMMY_WEEKDAYS = ['pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.', 'nie.'];
@@ -34,15 +34,13 @@ export const DndItemTypes = {
   OPTION_PICKER_ITEM: 'OptionPickerItem',
 };
 
-export type CalendarConfigType = {
-  horizontalDescriptors: string[];
-  verticalDescriptors: string[];
-  tileConfig: Array<Array<CalendarTileConfigType>>;
-};
-
+/**
+ * The most important config to Calendar component.
+ * We should verify its structure and discuss with backend
+ */
 export const calendarConfig: CalendarConfigType = {
-  horizontalDescriptors: DUMMY_WEEKDAYS,
-  verticalDescriptors: HOURS,
+  columnDescriptors: DUMMY_WEEKDAYS,
+  rowDescriptors: HOURS,
   tileConfig: [],
 };
 

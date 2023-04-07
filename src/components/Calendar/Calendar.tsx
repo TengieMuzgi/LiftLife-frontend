@@ -10,7 +10,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { CalendarConfigType } from './Calendar.constants';
+import type { CalendarConfigType } from './Calendar.types';
 import { ColoredTableRow } from './Calendar.styles';
 import { OptionPicker } from './OptionPicker/OptionPicker';
 import { CalendarTile } from './CalendarTile/CalendarTile';
@@ -24,10 +24,11 @@ type CalendarProps = {
   calendarConfig: CalendarConfigType;
   /**
    *
-   * @param id id of `CalendarTile` that fired drop event
+   * @param itemId id of `OptionPickerItem` that was dragged
+   * @param tileId id of `CalendarTile` that triggered drop event
    * @returns
    */
-  onDrop?: (id: string) => void;
+  onDrop?: (itemId: string, tileId: string) => void;
   /**
    * Set of data to be shown in OptionPicker
    */
@@ -39,15 +40,14 @@ type CalendarProps = {
   optionPickerTitle?: string;
 };
 
-export const Calendar = (props: CalendarProps) => {
-  const {
-    sx,
-    onDrop,
-    options,
-    showOptionPicker,
-    optionPickerTitle,
-    calendarConfig: config,
-  } = props;
+export const Calendar = ({
+  sx,
+  onDrop,
+  options,
+  showOptionPicker,
+  optionPickerTitle,
+  calendarConfig,
+}: CalendarProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const columnWidth = 100 / 8 + '%';
@@ -59,7 +59,7 @@ export const Calendar = (props: CalendarProps) => {
           <TableHead>
             <ColoredTableRow>
               <CalendarTile id="placeholder" width={columnWidth}></CalendarTile>
-              {config.horizontalDescriptors.map((node, i) => (
+              {calendarConfig.columnDescriptors.map((node, i) => (
                 <CalendarTile id={i.toString()} key={i.toString()} width={columnWidth}>
                   <Box>{node}</Box>
                 </CalendarTile>
@@ -67,16 +67,10 @@ export const Calendar = (props: CalendarProps) => {
             </ColoredTableRow>
           </TableHead>
           <TableBody>
-            {config.verticalDescriptors.map((descriptor, index) => (
+            {calendarConfig.rowDescriptors.map((descriptor, index) => (
               <ColoredTableRow key={`${descriptor}-${index}`}>
                 <>
-                  <CalendarTile
-                    width={columnWidth}
-                    component="th"
-                    scope="row"
-                    key={descriptor}
-                    id={descriptor}
-                  >
+                  <CalendarTile width={columnWidth} component="th" scope="row" id={descriptor}>
                     <Typography
                       sx={{
                         backgroundColor: theme.palette.background.paper,
@@ -88,8 +82,8 @@ export const Calendar = (props: CalendarProps) => {
                       {descriptor}
                     </Typography>
                   </CalendarTile>
-                  {config.tileConfig.length > 0 &&
-                    config.tileConfig[index].map(tileItem => {
+                  {calendarConfig.tileConfig.length > 0 &&
+                    calendarConfig.tileConfig[index].map(tileItem => {
                       return (
                         <CalendarTile
                           width={columnWidth}

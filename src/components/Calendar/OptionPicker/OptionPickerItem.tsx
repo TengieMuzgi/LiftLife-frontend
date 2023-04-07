@@ -3,6 +3,10 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import { DndItemTypes } from '../Calendar.constants';
 
+/**
+ * TODO: verify if `children` should be replaced by something else
+ * e.g. `text`
+ */
 export type OptionPickerItemProps = {
   children: React.ReactNode;
   id: string;

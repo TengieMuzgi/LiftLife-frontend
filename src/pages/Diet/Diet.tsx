@@ -2,13 +2,13 @@ import dayjs, { Dayjs } from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import {
   calendarConfig,
-  CalendarConfigType,
   DUMMY_OPTIONLIST,
   DUMMY_WEEKDAYS,
 } from '../../components/Calendar/Calendar.constants';
 import { faker } from '@faker-js/faker';
-import { CalendarTileConfigType } from '../../components/Calendar/CalendarTile/CalendarTile.constants';
+import type { CalendarTileConfigType } from '../../components/Calendar/CalendarTile/CalendarTile.types';
 import { Calendar } from '../../components/Calendar';
+import type { CalendarConfigType } from '../../components/Calendar/Calendar.types';
 
 type Props = {};
 
@@ -51,7 +51,7 @@ export const Diet = (props: Props) => {
   const [config, setConfig] = useState<CalendarConfigType>(calendarConfig);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  function onReserve(id: string) {
+  function onReserve(itemId: string, tileId: string) {
     console.log(id);
   }
 

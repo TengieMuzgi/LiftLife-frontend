@@ -7,9 +7,7 @@ type OptionPickerPropsType = {
   title?: string;
 };
 
-export const OptionPicker = (props: OptionPickerPropsType) => {
-  const { items, title } = props;
-
+export const OptionPicker = ({ items, title }: OptionPickerPropsType) => {
   return (
     <Paper>
       <List

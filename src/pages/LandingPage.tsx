@@ -34,25 +34,25 @@ const LandingPage = () => {
     {
       title: 'Test Step',
       description:
-        'test description aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description',
       icon: 'description',
     },
     {
       title: 'Test Step 2',
       description:
-        'test description 2 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description 2',
       icon: 'forum',
     },
     {
       title: 'Test Step 3',
       description:
-        'test description 3 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description 3',
       icon: 'local_mall',
     },
     {
       title: 'Test Step 4',
       description:
-        'test description 4 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description 4',
       icon: 'fitness_center',
       last: true,
     },

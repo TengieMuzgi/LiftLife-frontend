@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Carousel } from '../components/Carousel';
 import { PlanTile, PlanProps } from '../components/PlanTile';
 import { Footer } from '../components/Footer';
@@ -28,13 +28,34 @@ const LandingPage = () => {
     description: 'Test description',
   };
 
-//TODO: discuss if we will use contained or outlined icons - if outlined we need to find valid link
-// from Google Fonts since 'Material+Icons+Outlined' doesn't seem to work  
+  //TODO: discuss if we will use contained or outlined icons - if outlined we need to find valid link
+  // from Google Fonts since 'Material+Icons+Outlined' doesn't seem to work
   const StepsItems = [
-    { title: 'Test Step', description: 'test description', icon: 'description' },
-    { title: 'Test Step 2', description: 'test description 2', icon: 'forum' },
-    { title: 'Test Step 3', description: 'test description 3', icon: 'local_mall' },
-    { title: 'Test Step 4', description: 'test description 4', icon: 'fitness_center', last: true },
+    {
+      title: 'Test Step',
+      description:
+        'test description aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+      icon: 'description',
+    },
+    {
+      title: 'Test Step 2',
+      description:
+        'test description 2 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+      icon: 'forum',
+    },
+    {
+      title: 'Test Step 3',
+      description:
+        'test description 3 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+      icon: 'local_mall',
+    },
+    {
+      title: 'Test Step 4',
+      description:
+        'test description 4 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+      icon: 'fitness_center',
+      last: true,
+    },
   ];
 
   return (
@@ -43,26 +64,41 @@ const LandingPage = () => {
       {/* TODO: Delete mt property from grid below after AppBar is created */}
       <Grid container item direction="row" {...placeGridCenter} mt={'10vh'}>
         {/* TODO: Zebra wave from animatedbackgrounds or react-wavify ? https://www.npmjs.com/package/react-wavify */}
-        <Grid item sx={{width: '100%'}}>
-          <img alt='' src="assets\images\banner_placeholder.png" style={{width: '100%'}}/>
+        <Grid item sx={{ width: '100%' }}>
+          <img alt="" src="assets\images\banner_placeholder.png" style={{ width: '100%' }} />
         </Grid>
       </Grid>
 
       {/* Cooperation steps */}
 
       <Grid container item {...placeGridCenter}>
-        <ContentBreaker text="How working with us looks like?" bgColor="primary.main" />
+        <ContentBreaker bgColor="primary.main">
+          <Typography fontSize={'24px'} textAlign={'center'}>
+            How working with us looks like?
+          </Typography>
+        </ContentBreaker>
       </Grid>
-      <Grid container item direction={isMobile ? 'column' : 'row'} {...placeGridCenter} gap={3} wrap='nowrap'>
-        {StepsItems.map(item => (
-          <StepTile {...item} />
+      <Grid
+        container
+        item
+        direction={{ mobile: 'column', desktop: 'row' }}
+        {...placeGridCenter}
+        gap={3}
+        wrap="nowrap"
+      >
+        {StepsItems.map((item, key) => (
+          <StepTile {...item} key={key} />
         ))}
       </Grid>
 
       {/* Content breaker */}
 
       <Grid container item columns={2} {...placeGridCenter}>
-        <ContentBreaker text="What are the benefits of working with us?" bgColor="secondary.main" />
+        <ContentBreaker bgColor="secondary.main">
+          <Typography fontSize={'24px'} textAlign={'center'}>
+            What are the benefits of working with us?
+          </Typography>
+        </ContentBreaker>
       </Grid>
 
       {/* Pexels tiles with benefits */}
@@ -77,10 +113,11 @@ const LandingPage = () => {
       {/* Content breaker */}
 
       <Grid container item {...placeGridCenter}>
-        <ContentBreaker
-          text="Check out our plans and choose which one suits you best!"
-          bgColor="primary.main"
-        />
+        <ContentBreaker bgColor="primary.main">
+          <Typography fontSize={'24px'} textAlign={'center'}>
+            Check out our plans and choose which one suits you best!
+          </Typography>
+        </ContentBreaker>
       </Grid>
 
       {/* Packs */}

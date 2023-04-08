@@ -1,4 +1,6 @@
+import { ReactNode } from 'react';
+
 export type ContentBreakerProps = {
-  text: string;
   bgColor: string;
+  children?: ReactNode;
 };

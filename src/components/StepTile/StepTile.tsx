@@ -13,24 +13,12 @@ export const StepTile = (props: StepTileProps) => {
         <Box>
           <Paper sx={StepTilePaperStyles} elevation={3}>
             <Icon sx={StepIconStyles}>{props.icon}</Icon>
-            <Typography variant="h5" align="center" display="block">
-              {props.title}
-            </Typography>
-            <Typography variant="body1" align="center" display="block">
-              {props.description}
-            </Typography>
+            <Typography variant='h5' align='center' >{props.title}</Typography>
+            <Typography variant='body1' align='center' >{props.description}</Typography>
           </Paper>
         </Box>
       </Grid>
-      {!props.last && (
-        <Grid item>
-          {isMobile ? (
-            <South sx={{ fontSize: '5vh', color: 'primary.main' }} />
-          ) : (
-            <East sx={{ fontSize: '3vw', color: 'primary.main' }} />
-          )}
-        </Grid>
-      )}
+      {!props.last && <Grid item>{isMobile ? <South sx={{fontSize: '5vh', color: 'primary.main'}}/> : <East sx={{fontSize: '3vw', color: 'primary.main'}}/>}</Grid>}
     </>
   );
 };

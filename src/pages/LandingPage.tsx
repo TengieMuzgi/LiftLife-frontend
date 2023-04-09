@@ -26,6 +26,7 @@ const LandingPage = () => {
   const testBenefitsProps: BenefitsTileProps = {
     title: 'Test title',
     description: 'Test description',
+    alt: 'benefits-image',
   };
 
   //TODO: discuss if we will use contained or outlined icons - if outlined we need to find valid link
@@ -34,25 +35,25 @@ const LandingPage = () => {
     {
       title: 'Test Step',
       description:
-        'test description aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description',
       icon: 'description',
     },
     {
       title: 'Test Step 2',
       description:
-        'test description 2 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description 2',
       icon: 'forum',
     },
     {
       title: 'Test Step 3',
       description:
-        'test description 3 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description 3',
       icon: 'local_mall',
     },
     {
       title: 'Test Step 4',
       description:
-        'test description 4 aaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaa',
+        'test description 4',
       icon: 'fitness_center',
       last: true,
     },
@@ -65,7 +66,7 @@ const LandingPage = () => {
       <Grid container item direction="row" {...placeGridCenter} mt={'10vh'}>
         {/* TODO: Zebra wave from animatedbackgrounds or react-wavify ? https://www.npmjs.com/package/react-wavify */}
         <Grid item sx={{ width: '100%' }}>
-          <img alt="" src="assets\images\banner_placeholder.png" style={{ width: '100%' }} />
+          <img alt='banner-placeholder' src="assets\images\banner_placeholder.png" style={{ width: '100%' }} />
         </Grid>
       </Grid>
 

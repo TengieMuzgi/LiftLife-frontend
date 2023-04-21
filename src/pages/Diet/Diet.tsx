@@ -16,9 +16,9 @@ const generateRandomReservedTilesConfig = (conf: typeof calendarConfig) => {
   const temp: Array<Array<CalendarTileConfigType>> = [];
   let isReserved = false;
 
-  for (let i = 0; i < conf.verticalDescriptors.length; i++) {
+  for (let i = 0; i < conf.rowDescriptors.length; i++) {
     temp[i] = [];
-    for (let j = 0; j < conf.horizontalDescriptors.length; j++) {
+    for (let j = 0; j < conf.columnDescriptors.length; j++) {
       isReserved = Math.random() < 0.5;
       temp[i].push({
         isReserved,
@@ -52,7 +52,7 @@ export const Diet = (props: Props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   function onReserve(itemId: string, tileId: string) {
-    console.log(id);
+    console.log(itemId, tileId);
   }
 
   useEffect(() => {
@@ -60,11 +60,12 @@ export const Diet = (props: Props) => {
     const today = dayjs();
 
     temp.tileConfig = generateRandomReservedTilesConfig(config);
-    temp.horizontalDescriptors = getWeek(today).map(
+    temp.columnDescriptors = getWeek(today).map(
       weekday => `${weekday.dayname} ${weekday.date.date()}`
     );
     setConfig(temp);
     setIsLoaded(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return isLoaded ? (

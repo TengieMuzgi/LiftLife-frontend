@@ -1,5 +1,5 @@
 import React from 'react';
-import LandingPage from './pages/LandingPage';
+//import LandingPage from './pages/LandingPage';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -9,6 +9,7 @@ import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { SignIn } from './pages/SignIn/SignIn';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -68,7 +69,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <LandingPage />
+      <SignIn />
     </ThemeProvider>
   );
 }

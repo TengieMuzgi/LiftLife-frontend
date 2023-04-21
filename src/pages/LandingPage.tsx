@@ -34,26 +34,22 @@ const LandingPage = () => {
   const StepsItems = [
     {
       title: 'Test Step',
-      description:
-        'test description',
+      description: 'test description',
       icon: 'description',
     },
     {
       title: 'Test Step 2',
-      description:
-        'test description 2',
+      description: 'test description 2',
       icon: 'forum',
     },
     {
       title: 'Test Step 3',
-      description:
-        'test description 3',
+      description: 'test description 3',
       icon: 'local_mall',
     },
     {
       title: 'Test Step 4',
-      description:
-        'test description 4',
+      description: 'test description 4',
       icon: 'fitness_center',
       last: true,
     },
@@ -66,7 +62,11 @@ const LandingPage = () => {
       <Grid container item direction="row" {...placeGridCenter} mt={'10vh'}>
         {/* TODO: Zebra wave from animatedbackgrounds or react-wavify ? https://www.npmjs.com/package/react-wavify */}
         <Grid item sx={{ width: '100%' }}>
-          <img alt='banner-placeholder' src="assets\images\banner_placeholder.png" style={{ width: '100%' }} />
+          <img
+            alt="banner-placeholder"
+            src="assets\images\banner_placeholder.png"
+            style={{ width: '100%' }}
+          />
         </Grid>
       </Grid>
 
@@ -75,7 +75,7 @@ const LandingPage = () => {
       <Grid container item {...placeGridCenter}>
         <ContentBreaker bgColor="primary.main">
           <Typography fontSize={'24px'} textAlign={'center'}>
-            How working with us looks like?
+            What does cooperation with us look like?
           </Typography>
         </ContentBreaker>
       </Grid>

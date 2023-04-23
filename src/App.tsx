@@ -73,6 +73,14 @@ function App() {
             padding: '16px',
           }
         }
+      },
+      MuiPaper: {
+        defaultProps: {
+          elevation: 3,
+          sx: {
+            borderRadius: '45px',
+          }
+        }
       }
     }
   });

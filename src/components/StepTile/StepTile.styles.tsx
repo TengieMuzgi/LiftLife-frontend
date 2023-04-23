@@ -8,7 +8,6 @@ export const StepIconStyles = {
 
 export const StepTilePaperStyles = {
   p: 6,
-  borderRadius: '45px',
   m: 2,
 };
 

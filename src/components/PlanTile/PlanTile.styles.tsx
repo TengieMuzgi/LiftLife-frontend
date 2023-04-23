@@ -4,5 +4,4 @@ export const planTileStyles = {
   minWidth: '30vw',
   textAlign: 'center',
   p: 3,
-  borderRadius: '45px',
 };

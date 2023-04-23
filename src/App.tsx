@@ -7,8 +7,10 @@ import updateLocale from 'dayjs/plugin/updateLocale';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
 import LandingPage from './pages/LandingPage';
+import { AppBar } from './components/AppBar';
+import { BottomNavigation } from './components/BottomNavigation';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -38,7 +40,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-function App() {
+export function App() {
   dayjs.extend(updateLocale);
   dayjs.extend(utc);
   dayjs.locale('pl');
@@ -82,13 +84,20 @@ function App() {
         },
       },
     },
+    typography: {
+      button: {
+        textTransform: 'none',
+      },
+    },
   });
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
 
   return (
     <ThemeProvider theme={theme}>
+      {!isMobile && <AppBar />}
       <LandingPage />
+      {isMobile && <BottomNavigation />}
     </ThemeProvider>
   );
 }
-
-export default App;

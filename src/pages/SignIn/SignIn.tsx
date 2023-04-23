@@ -16,8 +16,7 @@ export const SignIn = () => {
         height: '100vh',
       }}
     >
-      <Paper
-      >
+      <Paper>
         <Grid
           item
           container

@@ -8,7 +8,7 @@ import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { SignIn } from './pages/SignIn/SignIn';
+import LandingPage from './pages/LandingPage';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -37,7 +37,6 @@ declare module '@mui/material/styles' {
     };
   }
 }
-
 
 function App() {
   dayjs.extend(updateLocale);
@@ -71,23 +70,23 @@ function App() {
           root: {
             borderRadius: '3rem',
             padding: '16px',
-          }
-        }
+          },
+        },
       },
       MuiPaper: {
         defaultProps: {
           elevation: 3,
           sx: {
             borderRadius: '45px',
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   });
 
   return (
     <ThemeProvider theme={theme}>
-      <SignIn/>
+      <LandingPage />
     </ThemeProvider>
   );
 }

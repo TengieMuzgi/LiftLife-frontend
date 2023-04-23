@@ -9,7 +9,12 @@ type ButtonType = {
 
 export const Button = (props: ButtonType) => {
   return (
-    <MuiButton variant="contained" size="small" disabled={props.disabled} sx={{...(props.wide) && {px: 4}}}>
+    <MuiButton
+      variant="contained"
+      size="small"
+      disabled={props.disabled}
+      sx={{ ...(props.wide && { px: 4 }) }}
+    >
       {props.children}
     </MuiButton>
   );

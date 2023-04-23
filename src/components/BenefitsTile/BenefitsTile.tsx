@@ -20,7 +20,7 @@ export const BenefitsTile = (props: BenefitsTileProps) => {
         </Typography>
       </Grid>
       <Grid item>
-        <BenefitsImage src={props.imgSrc}  alt={props.alt}/>
+        <BenefitsImage src={props.imgSrc} alt={props.alt} />
       </Grid>
     </Grid>
   );

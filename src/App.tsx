@@ -1,5 +1,4 @@
 import React from 'react';
-//import LandingPage from './pages/LandingPage';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -39,6 +38,7 @@ declare module '@mui/material/styles' {
   }
 }
 
+
 function App() {
   dayjs.extend(updateLocale);
   dayjs.extend(utc);
@@ -65,11 +65,21 @@ function App() {
         main: '#ffc107',
       },
     },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: '3rem',
+            padding: '16px',
+          }
+        }
+      }
+    }
   });
 
   return (
     <ThemeProvider theme={theme}>
-      <SignIn />
+      <SignIn/>
     </ThemeProvider>
   );
 }

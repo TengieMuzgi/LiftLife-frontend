@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button as MuiButton } from '@mui/material';
-import { ButtonStyles } from './Button.styles';
 
 type ButtonType = {
   children: string;
@@ -9,9 +8,8 @@ type ButtonType = {
 };
 
 export const Button = (props: ButtonType) => {
-  const ButtonSx = props.wide ? { ...ButtonStyles, pl: 4, pr: 4 } : ButtonStyles;
   return (
-    <MuiButton variant="contained" size="small" disabled={props.disabled} sx={ButtonSx}>
+    <MuiButton variant="contained" size="small" disabled={props.disabled} sx={{...(props.wide) && {px: 4}}}>
       {props.children}
     </MuiButton>
   );

@@ -38,7 +38,13 @@ export const AppBar = (props: AppBarProps) => {
     <MUIAppBar>
       <Container>
         <Toolbar>
-          <Box display="flex" justifyContent="space-between" width="100%">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            width="100%"
+            sx={{ py: 1 }}
+          >
             <Box display="flex" alignItems="center">
               <Adb sx={{ display: { mobile: 'none', desktop: 'flex' }, mr: 1 }} />
               <Typography
@@ -58,25 +64,25 @@ export const AppBar = (props: AppBarProps) => {
               <Box display="flex" sx={{ gap: 1 }}>
                 {isNotLoggedIn &&
                   navigationActionData.notLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained">
+                    <Button key={item.label} variant="contained" disableElevation>
                       {item.label}
                     </Button>
                   ))}
                 {isUserLoggedIn &&
                   navigationActionData.userLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained">
+                    <Button key={item.label} variant="contained" disableElevation>
                       {item.label}
                     </Button>
                   ))}
                 {isCoachLoggedIn &&
                   navigationActionData.coachLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained">
+                    <Button key={item.label} variant="contained" disableElevation>
                       {item.label}
                     </Button>
                   ))}
                 {isAdminLoggedIn &&
                   navigationActionData.adminLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained">
+                    <Button key={item.label} variant="contained" disableElevation>
                       {item.label}
                     </Button>
                   ))}

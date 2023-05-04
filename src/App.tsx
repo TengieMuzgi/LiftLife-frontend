@@ -75,14 +75,6 @@ export function App() {
           },
         },
       },
-      MuiPaper: {
-        defaultProps: {
-          elevation: 3,
-          sx: {
-            borderRadius: '45px',
-          },
-        },
-      },
     },
     typography: {
       button: {

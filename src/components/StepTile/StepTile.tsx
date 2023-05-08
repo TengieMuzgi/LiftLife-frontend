@@ -11,8 +11,8 @@ export const StepTile = (props: StepTileProps) => {
     <>
       <Grid item>
         <Box>
-          <Paper sx={StepTilePaperStyles}>
-            <Icon sx={StepIconStyles} className="material-symbols-outlined">
+          <Paper sx={StepTilePaperStyles} elevation={3}>
+            <Icon sx={StepIconStyles} className="material-icons-outlined">
               {props.icon}
             </Icon>
             <Typography variant="h5" align="center">

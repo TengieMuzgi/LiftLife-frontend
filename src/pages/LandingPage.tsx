@@ -7,6 +7,7 @@ import { Footer } from '../components/Footer';
 import { BenefitsTile, BenefitsTileProps } from '../components/BenefitsTile';
 import { ContentBreaker } from '../components/ContentBreaker';
 import { StepTile } from '../components/StepTile';
+import { ResponsiveImage } from '../components/ResponsiveImage';
 
 const LandingPage = () => {
   const theme = useTheme();
@@ -29,8 +30,6 @@ const LandingPage = () => {
     alt: 'benefits-image',
   };
 
-  //TODO: discuss if we will use contained or outlined icons - if outlined we need to find valid link
-  // from Google Fonts since 'Material+Icons+Outlined' doesn't seem to work
   const StepsItems = [
     {
       title: 'Test Step',
@@ -58,13 +57,12 @@ const LandingPage = () => {
   return (
     <Grid container spacing={3}>
       {/* Logo + banner */}
-      {/* TODO: Delete mt property from grid below after AppBar is created */}
       <Grid container item direction="row" {...placeGridCenter} mt={'10vh'}>
         {/* TODO: Zebra wave from animatedbackgrounds or react-wavify ? https://www.npmjs.com/package/react-wavify */}
         <Grid item sx={{ width: '100%' }}>
-          <img
+          <ResponsiveImage
             alt="banner-placeholder"
-            src="assets\images\banner_placeholder.png"
+            src="banner_placeholder.png"
             style={{ width: '100%' }}
           />
         </Grid>
@@ -105,10 +103,10 @@ const LandingPage = () => {
       {/* Pexels tiles with benefits */}
 
       <Grid container item rowGap={3}>
-        <BenefitsTile {...testBenefitsProps} imgSrc="assets\images\pexels\pexels_1.jpg" />
-        <BenefitsTile {...testBenefitsProps} imgSrc="assets\images\pexels\pexels_2.jpg" reverse />
-        <BenefitsTile {...testBenefitsProps} imgSrc="assets\images\pexels\pexels_3.jpg" />
-        <BenefitsTile {...testBenefitsProps} imgSrc="assets\images\pexels\pexels_4.jpg" reverse />
+        <BenefitsTile {...testBenefitsProps} imgSrc="pexels_1.jpg" />
+        <BenefitsTile {...testBenefitsProps} imgSrc="pexels_2.jpg" reverse />
+        <BenefitsTile {...testBenefitsProps} imgSrc="pexels_3.jpg" />
+        <BenefitsTile {...testBenefitsProps} imgSrc="pexels_4.jpg" reverse />
       </Grid>
 
       {/* Content breaker */}

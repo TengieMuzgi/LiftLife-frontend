@@ -1,22 +1,34 @@
-import { Box, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  IconButton,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import React from 'react';
 import { Facebook, FitnessCenter, Google, Twitter } from '@mui/icons-material';
 import { Button } from '../../components/Button';
-import { SignInImage } from './SignIn.constants';
+import { ResponsiveImage } from '../../components/ResponsiveImage';
+import {
+  DesktopSignInImageStyles,
+  MobileSignInImageStyles,
+  containerStyles,
+} from './SignIn.constants';
 
 export const SignIn = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const imageStyles = isMobile ? MobileSignInImageStyles : DesktopSignInImageStyles;
+  const containerSx = isMobile
+    ? { ...containerStyles, mt: 5, mb: 10 }
+    : { ...containerStyles, pt: 8 };
   return (
-    <Grid
-      container
-      wrap="nowrap"
-      sx={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100vw',
-        height: '100vh',
-      }}
-    >
-      <Paper>
+    <Grid container wrap="nowrap" sx={containerSx}>
+      <Paper sx={{ borderRadius: '45px' }} elevation={3}>
         <Grid
           item
           container
@@ -26,7 +38,7 @@ export const SignIn = () => {
           sx={{ alignItems: 'center', justifyContent: 'center' }}
         >
           <Grid item>
-            <SignInImage src="assets\images\pexels\pexels-signin.jpg" alt="sign-in-image" />
+            <ResponsiveImage src="\pexels-signin.jpg" alt="sign-in-image" style={imageStyles} />
           </Grid>
           <Grid item>
             <Stack

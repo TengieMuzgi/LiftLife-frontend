@@ -7,7 +7,14 @@ export const ContentBreaker = (props: ContentBreakerProps) => {
   const textColor = props.bgColor === 'primary.main' ? 'white' : 'black';
   return (
     <Grid item sx={{ width: '100%' }}>
-      <Box sx={{ backgroundColor: props.bgColor, width: '100%', p: 8, color: textColor }}>
+      <Box
+        sx={{
+          backgroundColor: props.bgColor,
+          width: '100%',
+          p: 8,
+          color: textColor,
+        }}
+      >
         {props.children}
       </Box>
     </Grid>

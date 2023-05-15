@@ -1,3 +1,5 @@
+import { TrainerPreviewProps } from '../TrainerPreview/TrainerPreview.types';
+
 export type CarouselProps = {
-  links: string[];
+  trainers: TrainerPreviewProps[];
 };

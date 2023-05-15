@@ -1,7 +1,7 @@
 export type PlanProps = {
+  header?: string;
   planName: string;
   planCost: number;
-  //TODO: list element for planDescription
-  planDescription: string;
+  planDescription: string[];
   small?: boolean;
 };

@@ -7,10 +7,11 @@ import { StepTilePaperStyles, StepIconStyles } from './StepTile.styles';
 export const StepTile = (props: StepTileProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const boxStyles = !isMobile ? { maxWidth: '20vw' } : {};
   return (
     <>
       <Grid item>
-        <Box>
+        <Box sx={boxStyles}>
           <Paper sx={StepTilePaperStyles} elevation={3}>
             <Icon sx={StepIconStyles} className="material-icons-outlined">
               {props.icon}

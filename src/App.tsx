@@ -8,9 +8,11 @@ import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
-import LandingPage from './pages/LandingPage';
+//import LandingPage from './pages/LandingPage';
 import { AppBar } from './components/AppBar';
 import { BottomNavigation } from './components/BottomNavigation';
+import { SubpageBlock } from './components/SubpageBlock/SubpageBlock';
+import { SubpageContainer } from './components/SubpageContainer/SubpageContainer';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -88,7 +90,10 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       {!isMobile && <AppBar />}
-      <LandingPage />
+      {/* <LandingPage /> */}
+      <SubpageContainer>
+        <SubpageBlock />
+      </SubpageContainer>
       {isMobile && <BottomNavigation />}
     </ThemeProvider>
   );

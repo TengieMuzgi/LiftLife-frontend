@@ -1,36 +1,48 @@
-import { Avatar, Box, Grid, Typography } from '@mui/material';
-import React from 'react';
+import { Avatar, Box, Grid, SxProps, Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import type { UserProps } from './ProfileOverview.types';
+import { MobileContext } from '../../App';
+import { Person } from '@mui/icons-material';
+import {
+  desktopAvatarStyles,
+  desktopBoxStyles,
+  mobileAvatarStyles,
+  mobileBoxStyles,
+  profileInfoStyles,
+} from './ProfileOverview.styles';
 
-export type UserProps = {
-  avatar?: string;
-  name: string;
-  membership: string;
-  planType: string;
-};
+export const ProfileOverview = ({ avatar, name, membership, planType, accountType }: UserProps) => {
+  const isMobile = useContext(MobileContext);
 
-export const ProfileOverview = ({ avatar, name, membership, planType }: UserProps) => {
+  const avatarSx: SxProps = isMobile ? mobileAvatarStyles : desktopAvatarStyles;
+
+  const containerSx: SxProps = isMobile ? mobileBoxStyles : desktopBoxStyles;
+
+  const avatarIconSx: SxProps = isMobile ? { fontSize: '6rem' } : { fontSize: '5rem' };
+
   return (
-    <Grid item sx={{ pl: 10, py: 5, maxWidth: '100%' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+    <Grid item sx={{ width: '100%' }}>
+      <Box sx={containerSx}>
         {avatar ? (
-          <Avatar src={avatar} sx={{ width: '10vw', height: '10vw' }}></Avatar>
+          <Avatar src={avatar} sx={avatarSx}></Avatar>
         ) : (
-          <Avatar></Avatar>
+          <Avatar sx={avatarSx}>
+            <Person sx={avatarIconSx} />
+          </Avatar>
         )}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'start',
-          justifyContent: 'space-evenly',
-          px: 5,
-        }}
-      >
-        <Typography variant="h4">{name}</Typography>
-        <Typography variant="h5">Member since: {membership}</Typography>
-        <Typography variant="h5">Plan: {planType}</Typography>
-      </Box>
+        <Box sx={profileInfoStyles}>
+          <Typography variant="h4">{name}</Typography>
+          <Typography variant="body1">Member since: {membership}</Typography>
+          {accountType === 'user' ? (
+            <Typography variant="body1">Plan: {planType}</Typography>
+          ) : (
+            <Typography variant="body1" sx={{ fontWeight: 600 }}>
+              Personal Coach
+            </Typography>
+          )}
+        </Box>
       </Box>
     </Grid>
   );
 };
+export { UserProps };

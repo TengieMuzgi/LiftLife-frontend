@@ -75,7 +75,7 @@ export const Diet = (props: Props) => {
       options={DUMMY_OPTIONLIST}
       showOptionPicker
       optionPickerTitle="placeholder"
-      sx={{ width: 1024, height: 600 }}
+      sx={{ width: '100%', height: 600 }}
     />
   ) : (
     <></>

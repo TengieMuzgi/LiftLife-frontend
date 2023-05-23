@@ -1,11 +1,11 @@
-import { Box, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
+import { Box, Grid, Typography } from '@mui/material';
+import React, { useContext } from 'react';
 import { Button } from '../Button';
 import { filterBoxStyles, subtitleStyles, titleStyles, videoStyles } from './Banner.styles';
+import { MobileContext } from '../../App';
 
 export const Banner = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
 
   const responsiveTitleStyles = isMobile
     ? { ...titleStyles, mt: '50vh', fontSize: '8vh' }

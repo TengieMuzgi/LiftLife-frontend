@@ -33,11 +33,11 @@ jobs:
         with:
           node-version: 19
 
-      - name: Node dependencies
-        run: npm install --force
+      # - name: Node dependencies
+      #   run: npm install --force
 
-      - name: Build
-        run: npm run build
+      # - name: Build
+      #   run: npm run build
 
 
       # - name: Find and Replace key id

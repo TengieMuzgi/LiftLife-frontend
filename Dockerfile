@@ -1,18 +1,18 @@
-FROM nginx
-COPY dist /usr/share/nginx/html
+# FROM nginx
+# COPY dist /usr/share/nginx/html
 
-# FROM node:19-alpine
+FROM node:19-alpine
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package*.json ./
+COPY package.json ./
 
-# RUN npm install --force
+COPY yarn.lock ./
 
-# COPY . .
+RUN yarn install --frozen-lockfile
 
-# RUN npm run build
+COPY . .
 
-# ENV PORT=3000
+EXPOSE 3000
 
-# CMD ["npm", "start"]
+CMD ["npm", "start"]

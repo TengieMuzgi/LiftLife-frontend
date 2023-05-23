@@ -34,7 +34,7 @@ jobs:
           node-version: 19
 
       - name: Node dependencies
-        run: npm ci
+        run: npm install --force
 
       - name: Build
         run: npm run build

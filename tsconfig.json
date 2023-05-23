@@ -4,7 +4,7 @@
     "noImplicitAny": true,
     "module": "es2022",
     "target": "es2022",
-    "lib": ["es5", "es6", "dom", "dom.iterable", "esnext"],
+    "lib": ["es5", "es6", "dom", "dom.iterable", "esnext", "webworker"],
     "jsx": "react",
     "allowJs": false,
     "esModuleInterop": true,

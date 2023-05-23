@@ -1,7 +1,8 @@
-import { Avatar, Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
+import React, { useContext } from 'react';
 import { TrainerPreviewProps } from './TrainerPreview.types';
 import { descriptionStyles, stackSx } from './TrainerPreview.styles';
+import { MobileContext } from '../../App';
 
 export const TrainerPreview = ({
   avatar,
@@ -9,8 +10,7 @@ export const TrainerPreview = ({
   specialization,
   description,
 }: TrainerPreviewProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
   const avatarSx = isMobile ? { width: '10vh', height: '10vh' } : { width: '10vw', height: '10vw' };
   const descriptionSx = isMobile ? { ...descriptionStyles, maxWidth: '80%' } : descriptionStyles;
   return (

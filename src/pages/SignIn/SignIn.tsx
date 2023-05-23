@@ -1,15 +1,5 @@
-import {
-  Box,
-  Grid,
-  IconButton,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
-import React from 'react';
+import { Box, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
+import React, { useContext } from 'react';
 import { Facebook, FitnessCenter, Google, Twitter } from '@mui/icons-material';
 import { Button } from '../../components/Button';
 import { ResponsiveImage } from '../../components/ResponsiveImage';
@@ -18,10 +8,10 @@ import {
   MobileSignInImageStyles,
   containerStyles,
 } from './SignIn.constants';
+import { MobileContext } from '../../App';
 
 export const SignIn = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
   const imageStyles = isMobile ? MobileSignInImageStyles : DesktopSignInImageStyles;
   const containerSx = isMobile
     ? { ...containerStyles, mt: 5, mb: 10 }

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Grid from '@mui/material/Grid';
-import { Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Carousel } from '../components/Carousel';
 import { PlanTile } from '../components/PlanTile';
 import { Footer } from '../components/Footer';
@@ -9,10 +9,10 @@ import { ContentBreaker } from '../components/ContentBreaker';
 import { StepTile } from '../components/StepTile';
 import { Banner } from '../components/Banner';
 import { StepsItems, benefits, mockCoaches, placeGridCenter, plans } from './LandingPage.constants';
+import { MobileContext } from '../App';
 
 const LandingPage = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
 
   return (
     <Grid container>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -8,11 +8,9 @@ import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
-//import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage';
 import { AppBar } from './components/AppBar';
 import { BottomNavigation } from './components/BottomNavigation';
-import { SubpageBlock } from './components/SubpageBlock/SubpageBlock';
-import { SubpageContainer } from './components/SubpageContainer/SubpageContainer';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -41,6 +39,8 @@ declare module '@mui/material/styles' {
     };
   }
 }
+
+export const MobileContext = createContext(false);
 
 export function App() {
   dayjs.extend(updateLocale);
@@ -88,13 +88,12 @@ export function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
 
   return (
-    <ThemeProvider theme={theme}>
-      {!isMobile && <AppBar />}
-      {/* <LandingPage /> */}
-      <SubpageContainer>
-        <SubpageBlock />
-      </SubpageContainer>
-      {isMobile && <BottomNavigation />}
-    </ThemeProvider>
+    <MobileContext.Provider value={isMobile}>
+      <ThemeProvider theme={theme}>
+        {!isMobile && <AppBar />}
+        <LandingPage />
+        {isMobile && <BottomNavigation />}
+      </ThemeProvider>
+    </MobileContext.Provider>
   );
 }

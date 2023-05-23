@@ -1939,6 +1939,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gromy/react-swipeable-views-core@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "@gromy/react-swipeable-views-core@npm:0.15.1"
+  dependencies:
+    "@babel/runtime": 7.0.0
+    warning: ^4.0.1
+  checksum: 09ba4c18e5ffe09999cc86e5d2fbecbdcd32eaa3df11ebe2264a40342d4b06ebbcddec9efed280e7e696ba00c2a1662429f287cc0ebacb631698ed748bb13218
+  languageName: node
+  linkType: hard
+
+"@gromy/react-swipeable-views-utils@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "@gromy/react-swipeable-views-utils@npm:0.15.1"
+  dependencies:
+    "@babel/runtime": 7.0.0
+    "@gromy/react-swipeable-views-core": ^0.15.1
+    keycode: ^2.1.7
+    prop-types: ^15.6.0
+    react-event-listener: ^0.6.0
+    shallow-equal: ^1.2.1
+  checksum: b60025b69a97b6974f7fbf4d4331704156da9c9f12a7d1350664fa8d941c3518be47707984d4774fa019ee0ce57b13b898cc3516046110d39f0cafbf091814db
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.8":
   version: 0.11.8
   resolution: "@humanwhocodes/config-array@npm:0.11.8"
@@ -9194,7 +9218,7 @@ __metadata:
     react-dnd-touch-backend: ^16.0.1
     react-dom: ^18.2.0
     react-scripts: 5.0.1
-    react-swipeable-views: ^0.14.0
+    react-swipeable-views: "npm:@gromy/react-swipeable-views@^0.15.1"
     styled-components: ^5.3.8
     swiper: ^9.1.1
     typescript: ^4.9.5
@@ -11596,42 +11620,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-swipeable-views-core@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "react-swipeable-views-core@npm:0.14.0"
+"react-swipeable-views@npm:@gromy/react-swipeable-views@^0.15.1":
+  version: 0.15.1
+  resolution: "@gromy/react-swipeable-views@npm:0.15.1"
   dependencies:
     "@babel/runtime": 7.0.0
-    warning: ^4.0.1
-  checksum: 7683bcb809b57d502603396d8560677105b5af1f4db3ecad6cef03a548ae45462af78156516f8fe2f32d36b1bbd295ed2aab49f0d967ac077b3bd902697bfb07
-  languageName: node
-  linkType: hard
-
-"react-swipeable-views-utils@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "react-swipeable-views-utils@npm:0.14.0"
-  dependencies:
-    "@babel/runtime": 7.0.0
-    keycode: ^2.1.7
-    prop-types: ^15.6.0
-    react-event-listener: ^0.6.0
-    react-swipeable-views-core: ^0.14.0
-    shallow-equal: ^1.2.1
-  checksum: 560f3f1000254adfe7ba2c82c133dbd26404a3cfa05794e15eb090056c13f3494aa61f34e133d5e2c970a2eb797a0f55fd8a9bb3bbd85c78770c11912a26b9bb
-  languageName: node
-  linkType: hard
-
-"react-swipeable-views@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "react-swipeable-views@npm:0.14.0"
-  dependencies:
-    "@babel/runtime": 7.0.0
+    "@gromy/react-swipeable-views-core": ^0.15.1
+    "@gromy/react-swipeable-views-utils": ^0.15.1
     prop-types: ^15.5.4
-    react-swipeable-views-core: ^0.14.0
-    react-swipeable-views-utils: ^0.14.0
     warning: ^4.0.1
   peerDependencies:
     react: ^15.3.0 || ^16.0.0 || ^17.0.0
-  checksum: 477bcf2d6b88312cd74c069c23aff48983209ce74b8d10c0d6adabf00795735f55a9c12dc3f23e5d7168308959f18c178d486821abec02e8a562295eada3568b
+  checksum: adaad115b16fa614b3514abdbaffae5e42f10601dc32f3ce6d459edd7007db680528903d768f0615f03ac8cc23cb8aa40f6d4becbe0deb5d8ac93f77839a462c
   languageName: node
   linkType: hard
 

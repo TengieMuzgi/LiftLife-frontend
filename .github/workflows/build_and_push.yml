@@ -1,22 +1,44 @@
 name: Build and Publish
 
 on:
-  push:
-    branches: ["docker_image"]
-  # pull_request:
-  #   branches: ["main"]
-  #   types:
-  #     - closed
+  pull_request:
+    branches: ["main"]
+    types:
+      - closed
 
 jobs:
   if_merged_build-and-push-docker-image:
-    # if: github.event.pull_request.merged == true
-    name: Build Docker image and push to repositories
+    if: github.event.pull_request.merged == true
+    name: Build Docker image and push to repository
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Find and Replace api key
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "variable_api_key"
+          replace: "${{ secrets.FIREBASE_API_KEY }}"
+          include: "firebase.js"
+          regex: false
+
+      - name: Find and Replace sender id
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "variable_sender_id"
+          replace: "${{ secrets.FIREBASE_SENDER_ID }}"
+          include: "firebase.js"
+          regex: false
+      
+      - name: Find and Replace app id
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "variable_app_id"
+          replace: "${{ secrets.FIREBASE_APP_ID }}"
+          include: "firebase.js"
+          regex: false
 
       - name: Set up Docker Buildx
         id: buildx
@@ -32,29 +54,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19
-
-      # - name: Node dependencies
-      #   run: npm install --force
-
-      # - name: Build
-      #   run: npm run build
-
-
-      # - name: Find and Replace key id
-      #   uses: jacobtomlinson/gha-find-replace@v3
-      #   with:
-      #     find: "variable_private_key_id"
-      #     replace: "${{ secrets.DB_KEY_ID }}"
-      #     include: "**-firebase-adminsdk-**.json"
-      #     regex: false
-
-      # - name: Find and Replace key
-      #   uses: jacobtomlinson/gha-find-replace@v3
-      #   with:
-      #     find: "variable_private_key"
-      #     replace: "${{ secrets.DB_KEY }}"
-      #     include: "*-firebase-adminsdk-*.json"
-      #     regex: false
 
       - name: Build docker image
         run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/microservices:liftlife-frontend

@@ -1,15 +1,18 @@
-FROM node:18-alpine
+FROM nginx
+COPY dist /usr/share/nginx/html
 
-WORKDIR /app
+# FROM node:19-alpine
 
-COPY package*.json ./
+# WORKDIR /app
 
-RUN npm install --force
+# COPY package*.json ./
 
-COPY . .
+# RUN npm install --force
 
-RUN npm run build
+# COPY . .
 
-ENV PORT=3000
+# RUN npm run build
 
-CMD ["npm", "start"]
+# ENV PORT=3000
+
+# CMD ["npm", "start"]

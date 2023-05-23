@@ -31,7 +31,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 19
+
+      - name: Node dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
 
       # - name: Find and Replace key id
       #   uses: jacobtomlinson/gha-find-replace@v3

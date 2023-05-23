@@ -1,13 +1,12 @@
-import { Grid, Typography, useMediaQuery } from '@mui/material';
-import React from 'react';
+import { Grid, Typography } from '@mui/material';
+import React, { useContext } from 'react';
 import type { BenefitsTileProps } from './BenefitsTile.types';
 import { ResponsiveImage } from '../ResponsiveImage/ResponsiveImage';
-import { useTheme } from '@mui/material';
+import { MobileContext } from '../../App';
 
 export const BenefitsTile = (props: BenefitsTileProps) => {
   const isReversed = props.reverse ? 'row-reverse' : 'row';
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
   const textWidth = isMobile ? '100vw' : '20vw';
   return (
     <Grid

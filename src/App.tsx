@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -39,6 +39,8 @@ declare module '@mui/material/styles' {
     };
   }
 }
+
+export const MobileContext = createContext(false);
 
 export function App() {
   dayjs.extend(updateLocale);
@@ -86,10 +88,12 @@ export function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
 
   return (
-    <ThemeProvider theme={theme}>
-      {!isMobile && <AppBar />}
-      <LandingPage />
-      {isMobile && <BottomNavigation />}
-    </ThemeProvider>
+    <MobileContext.Provider value={isMobile}>
+      <ThemeProvider theme={theme}>
+        {!isMobile && <AppBar />}
+        <LandingPage />
+        {isMobile && <BottomNavigation />}
+      </ThemeProvider>
+    </MobileContext.Provider>
   );
 }

@@ -1,12 +1,12 @@
-import { Grid, Paper, Typography, Icon, Box, useTheme, useMediaQuery } from '@mui/material';
-import React from 'react';
+import { Grid, Paper, Typography, Icon, Box } from '@mui/material';
+import React, { useContext } from 'react';
 import { South, East } from '@mui/icons-material';
 import { StepTileProps } from './StepTile.types';
 import { StepTilePaperStyles, StepIconStyles } from './StepTile.styles';
+import { MobileContext } from '../../App';
 
 export const StepTile = (props: StepTileProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
   const boxStyles = !isMobile ? { maxWidth: '20vw' } : {};
   return (
     <>

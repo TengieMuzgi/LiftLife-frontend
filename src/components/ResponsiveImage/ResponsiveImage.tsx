@@ -1,5 +1,5 @@
-import { useMediaQuery, useTheme } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
+import { MobileContext } from '../../App';
 
 type ResponsiveImageProps = {
   src?: string;
@@ -8,8 +8,7 @@ type ResponsiveImageProps = {
 };
 
 export const ResponsiveImage = ({ src, alt, style }: ResponsiveImageProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
   const path = isMobile ? 'assets\\images\\mobile\\' + src : 'assets\\images\\desktop\\' + src;
   return <img src={path} alt={alt} style={style} />;
 };

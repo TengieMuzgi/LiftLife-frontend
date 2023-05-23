@@ -1,7 +1,7 @@
 import type { CalendarConfigType } from './Calendar.types';
 import { OptionPickerItemProps } from './OptionPicker/OptionPickerItem';
 
-export const DUMMY_WEEKDAYS = ['pon.', 'wt.', 'śr.', 'czw.', 'pt.', 'sob.', 'nie.'];
+export const DUMMY_WEEKDAYS = ['Mon.', 'Tue.', 'Wed.', 'Thur.', 'Fri.', 'Sat.', 'Sun.'];
 
 export const HOURS = [
   '00:00',

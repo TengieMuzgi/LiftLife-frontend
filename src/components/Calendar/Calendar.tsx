@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Paper,
@@ -7,7 +7,6 @@ import {
   TableContainer,
   TableHead,
   Typography,
-  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import type { CalendarConfigType } from './Calendar.types';
@@ -15,6 +14,7 @@ import { ColoredTableRow } from './Calendar.styles';
 import { OptionPicker } from './OptionPicker/OptionPicker';
 import { CalendarTile } from './CalendarTile/CalendarTile';
 import { OptionPickerItemProps } from './OptionPicker/OptionPickerItem';
+import { MobileContext } from '../../App';
 
 type CalendarProps = {
   sx?: React.CSSProperties;
@@ -49,7 +49,7 @@ export const Calendar = ({
   calendarConfig,
 }: CalendarProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isMobile = useContext(MobileContext);
   const columnWidth = 100 / 8 + '%';
 
   return (

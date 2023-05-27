@@ -34,7 +34,7 @@ export const Banner = () => {
           <Typography sx={responsiveSubtitleStyles}>
             With us you can hit your goals faster!
           </Typography>
-          <Button>Explore our coaches!</Button>
+          <Button type='button'>Explore our coaches!</Button>
         </Box>
       </Grid>
     </>

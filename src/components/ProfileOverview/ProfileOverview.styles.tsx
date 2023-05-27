@@ -1,5 +1,4 @@
 import { SxProps } from '@mui/material';
-import React from 'react';
 
 export const profileInfoStyles: SxProps = {
   justifyContent: 'space-evenly',
@@ -7,13 +6,15 @@ export const profileInfoStyles: SxProps = {
   my: '24px',
 };
 
-export const mobileAvatarStyles: React.CSSProperties = {
+export const mobileAvatarStyles: SxProps = {
   width: '15vh',
   height: '15vh',
+  bgcolor: 'primary.main',
 };
-export const desktopAvatarStyles: React.CSSProperties = {
+export const desktopAvatarStyles: SxProps = {
   width: '7vw',
   height: '7vw',
+  bgcolor: 'primary.main',
 };
 
 export const mobileBoxStyles: SxProps = {
@@ -24,5 +25,5 @@ export const mobileBoxStyles: SxProps = {
 };
 export const desktopBoxStyles: SxProps = {
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'row',  
 };

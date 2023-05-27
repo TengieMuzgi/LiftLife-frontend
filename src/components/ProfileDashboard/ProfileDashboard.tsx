@@ -19,6 +19,7 @@ export const ProfileDashboard = ({ accountType }: ProfileDashboardProps) => {
   const handleChangeIndex = (index: number) => {
     setActiveTab(index);
   };
+
   const isMobile = useContext(MobileContext);
   return (
     <Box sx={{ width: '100%', height: '100%' }}>

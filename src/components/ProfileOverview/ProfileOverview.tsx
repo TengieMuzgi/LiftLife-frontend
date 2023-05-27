@@ -18,7 +18,6 @@ export const ProfileOverview = ({ avatar, name, membership, planType, accountTyp
 
   const containerSx: SxProps = isMobile ? mobileBoxStyles : desktopBoxStyles;
 
-  const avatarIconSx: SxProps = isMobile ? { fontSize: '6rem' } : { fontSize: '5rem' };
 
   return (
     <Grid item sx={{ width: '100%' }}>
@@ -27,7 +26,7 @@ export const ProfileOverview = ({ avatar, name, membership, planType, accountTyp
           <Avatar src={avatar} sx={avatarSx}></Avatar>
         ) : (
           <Avatar sx={avatarSx}>
-            <Person sx={avatarIconSx} />
+            <Person sx={{fontSize: {desktop: '5rem', mobile: '6rem'}}} />
           </Avatar>
         )}
         <Box sx={profileInfoStyles}>

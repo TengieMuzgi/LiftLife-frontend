@@ -2,11 +2,11 @@ import { Grid, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import type { BenefitsTileProps } from './BenefitsTile.types';
 import { ResponsiveImage } from '../ResponsiveImage/ResponsiveImage';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 
 export const BenefitsTile = (props: BenefitsTileProps) => {
   const isReversed = props.reverse ? 'row-reverse' : 'row';
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
   const textWidth = isMobile ? '100vw' : '20vw';
   return (
     <Grid

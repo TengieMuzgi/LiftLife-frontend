@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Button as MuiButton } from '@mui/material';
 
 type ButtonType = {
@@ -6,6 +6,7 @@ type ButtonType = {
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   wide?: boolean;
+  onClick? : MouseEventHandler<HTMLButtonElement>;
 };
 
 export const Button = (props: ButtonType) => {
@@ -15,6 +16,7 @@ export const Button = (props: ButtonType) => {
       size="small"
       disabled={props.disabled}
       type={props.type}
+      onClick={props.onClick}
       sx={{ ...(props.wide && { px: 4 }) }}
     >
       {props.children}

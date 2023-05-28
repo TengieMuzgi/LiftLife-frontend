@@ -5,5 +5,5 @@ export const mockUser: UserProps = {
   name: 'Tester User',
   membership: '20.03.2023',
   planType: 'Combo',
-  accountType: 'coach',
+  accountType: 'user',
 };

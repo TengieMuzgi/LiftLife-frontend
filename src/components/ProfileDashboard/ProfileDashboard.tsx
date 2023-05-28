@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { TabPanel } from './TabPanel/TabPanel';
 import { TrainerPreview } from '../TrainerPreview/TrainerPreview';
 import { Diet } from '../../pages/Diet/Diet';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 import { coachTabsLabels, mockTrainer, userTabsLabels } from './ProfileDashboard.constants';
 
 type ProfileDashboardProps = {
@@ -20,7 +20,7 @@ export const ProfileDashboard = ({ accountType }: ProfileDashboardProps) => {
     setActiveTab(index);
   };
 
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
   return (
     <Box sx={{ width: '100%', height: '100%' }}>
       <Tabs

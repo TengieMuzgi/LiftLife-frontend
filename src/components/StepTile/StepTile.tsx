@@ -3,10 +3,10 @@ import React, { useContext } from 'react';
 import { South, East } from '@mui/icons-material';
 import { StepTileProps } from './StepTile.types';
 import { StepTilePaperStyles, StepIconStyles } from './StepTile.styles';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 
 export const StepTile = (props: StepTileProps) => {
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
   const boxStyles = !isMobile ? { maxWidth: '20vw' } : {};
   return (
     <>

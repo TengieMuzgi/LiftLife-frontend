@@ -2,7 +2,7 @@ import { Avatar, Box, Stack, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { TrainerPreviewProps } from './TrainerPreview.types';
 import { descriptionStyles, stackSx } from './TrainerPreview.styles';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 
 export const TrainerPreview = ({
   avatar,
@@ -10,7 +10,7 @@ export const TrainerPreview = ({
   specialization,
   description,
 }: TrainerPreviewProps) => {
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
   const avatarSx = isMobile ? { width: '10vh', height: '10vh' } : { width: '10vw', height: '10vw' };
   const descriptionSx = isMobile ? { ...descriptionStyles, maxWidth: '80%' } : descriptionStyles;
   return (

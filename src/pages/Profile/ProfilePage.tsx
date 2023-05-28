@@ -4,10 +4,10 @@ import { mockUser } from './ProfilePage.constants';
 import { Grid, Paper } from '@mui/material';
 import { ProfileOverview } from '../../components/ProfileOverview';
 import { profileBoxStyles, tabsContainerStyles } from './ProfilePage.styles';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 
 export const ProfilePage = () => {
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
   const profilePaperStyles = isMobile
     ? profileBoxStyles
     : { ...profileBoxStyles, marginTop: '10vh', marginLeft: '32px' };

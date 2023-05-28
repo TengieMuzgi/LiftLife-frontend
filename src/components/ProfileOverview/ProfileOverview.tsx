@@ -1,7 +1,7 @@
 import { Avatar, Box, Grid, SxProps, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import type { UserProps } from './ProfileOverview.types';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 import { Person } from '@mui/icons-material';
 import {
   desktopAvatarStyles,
@@ -12,7 +12,7 @@ import {
 } from './ProfileOverview.styles';
 
 export const ProfileOverview = ({ avatar, name, membership, planType, accountType }: UserProps) => {
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
 
   const avatarSx: SxProps = isMobile ? mobileAvatarStyles : desktopAvatarStyles;
 

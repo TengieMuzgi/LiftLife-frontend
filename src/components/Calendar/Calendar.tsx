@@ -14,7 +14,7 @@ import { ColoredTableRow } from './Calendar.styles';
 import { OptionPicker } from './OptionPicker/OptionPicker';
 import { CalendarTile } from './CalendarTile/CalendarTile';
 import { OptionPickerItemProps } from './OptionPicker/OptionPickerItem';
-import { MobileContext } from '../../App';
+import { AppContext } from '../../App';
 
 type CalendarProps = {
   sx?: React.CSSProperties;
@@ -49,7 +49,7 @@ export const Calendar = ({
   calendarConfig,
 }: CalendarProps) => {
   const theme = useTheme();
-  const isMobile = useContext(MobileContext);
+  const {isMobile} = useContext(AppContext);
   const columnWidth = 100 / 8 + '%';
 
   return (

@@ -1,20 +1,10 @@
-import React, { useState } from 'react';
-import {
-  AppBar as MUIAppBar,
-  Avatar,
-  Box,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import React, { useContext } from 'react';
+import { AppBar as MUIAppBar, Box, Button, Toolbar, Typography, IconButton } from '@mui/material';
 import { Container } from '@mui/system';
-import { Adb } from '@mui/icons-material';
-import { LoggedInProfileSettings, NotLoggedInProfileSettings } from './AppBar.constants';
+import { Adb, Logout } from '@mui/icons-material';
 import { navigationActionData } from '../BottomNavigation/BottomNavigation.constants';
+import { AppContext } from '../../App';
+import { setCookie } from 'typescript-cookie';
 
 type AppBarProps = {};
 
@@ -23,15 +13,10 @@ export const AppBar = (props: AppBarProps) => {
   const isCoachLoggedIn = false;
   const isAdminLoggedIn = false;
   const isNotLoggedIn = false;
+  const { isAuthenticated } = useContext(AppContext);
 
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleLogout = () => {
+    setCookie('userToken', undefined);
   };
 
   return (
@@ -59,7 +44,7 @@ export const AppBar = (props: AppBarProps) => {
                   mr: 2,
                 }}
               >
-                LOGO
+                LiftLife
               </Typography>
               <Box display="flex" sx={{ gap: 1 }}>
                 {isNotLoggedIn &&
@@ -88,42 +73,13 @@ export const AppBar = (props: AppBarProps) => {
                   ))}
               </Box>
             </Box>
-
-            <Box>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Profile avatar">P</Avatar>
+            {isAuthenticated && (
+              <Box>
+                <IconButton onClick={handleLogout}>
+                  <Logout sx={{ color: 'white' }} />
                 </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {isNotLoggedIn
-                  ? NotLoggedInProfileSettings.map(setting => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    ))
-                  : LoggedInProfileSettings.map(setting => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    ))}
-              </Menu>
-            </Box>
+              </Box>
+            )}
           </Box>
         </Toolbar>
       </Container>

@@ -8,11 +8,10 @@ import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
-//import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage';
 import { AppBar } from './components/AppBar';
 import { BottomNavigation } from './components/BottomNavigation';
-import { SignIn } from './pages/SignIn';
-//import { ProfilePage } from './pages/Profile/ProfilePage';
+import { getCookie } from 'typescript-cookie';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -42,7 +41,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const MobileContext = createContext(false);
+export const AppContext = createContext({isMobile: false, isAuthenticated: false});
 
 export function App() {
   dayjs.extend(updateLocale);
@@ -88,16 +87,15 @@ export function App() {
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+  const isAuthenticated = getCookie('userToken') !== 'undefined';
 
   return (
-    <MobileContext.Provider value={isMobile}>
+    <AppContext.Provider value={{isMobile, isAuthenticated}}>
       <ThemeProvider theme={theme}>
         {!isMobile && <AppBar />}
-        {/* <LandingPage /> */}
-        <SignIn/>
-        {/* <ProfilePage/> */}
+        <LandingPage />
         {isMobile && <BottomNavigation />}
       </ThemeProvider>
-    </MobileContext.Provider>
+    </AppContext.Provider>
   );
 }

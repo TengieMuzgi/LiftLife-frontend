@@ -6,13 +6,16 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import {BrowserRouter} from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
+    <BrowserRouter>
     <DndProvider backend={HTML5Backend}>
       <App />
     </DndProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

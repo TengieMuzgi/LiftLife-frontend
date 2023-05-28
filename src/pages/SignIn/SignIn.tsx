@@ -6,12 +6,14 @@ import { SignInPanel } from './SignInPanel';
 import { setCookie } from 'typescript-cookie';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
+import { useNavigate } from 'react-router-dom';
 
 const googleProvider = new GoogleAuthProvider();
 const authentication = getAuth();
 authentication.languageCode = 'en';
 
 export const SignIn = () => {
+  const navigate = useNavigate();
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
   /**
@@ -39,11 +41,11 @@ export const SignIn = () => {
       const credentials = GoogleAuthProvider.credentialFromResult(result);
       const token = credentials?.accessToken;
       setCookie('userToken', token, { expires: 2 });
+      navigate('/');
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);
     }
   };
-
   const handleLoginFail = (errorMessage: string) => {
     showSnackbar(errorMessage, 'error');
   };

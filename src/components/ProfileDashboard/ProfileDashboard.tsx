@@ -9,10 +9,12 @@ import { coachTabsLabels, mockTrainer, userTabsLabels } from './ProfileDashboard
 
 type ProfileDashboardProps = {
   accountType: 'user' | 'coach' | 'admin';
+  tabOpen?: number;
 };
 
-export const ProfileDashboard = ({ accountType }: ProfileDashboardProps) => {
-  const [activeTab, setActiveTab] = useState(0);
+export const ProfileDashboard = ({ accountType, tabOpen }: ProfileDashboardProps) => {
+  const initialTabState = tabOpen ? tabOpen : 0;
+  const [activeTab, setActiveTab] = useState(initialTabState);
   const handleActiveTabChange = (event: React.SyntheticEvent, value: number) => {
     setActiveTab(value);
   };

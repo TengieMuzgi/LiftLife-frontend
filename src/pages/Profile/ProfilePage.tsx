@@ -6,7 +6,11 @@ import { ProfileOverview } from '../../components/ProfileOverview';
 import { profileBoxStyles, tabsContainerStyles } from './ProfilePage.styles';
 import { AppContext } from '../../App';
 
-export const ProfilePage = () => {
+type ProfilePageProps = {
+  defaultTabOpened? : number;
+}
+
+export const ProfilePage = ({defaultTabOpened} : ProfilePageProps) => {
   const {isMobile} = useContext(AppContext);
   const profilePaperStyles = isMobile
     ? profileBoxStyles
@@ -20,7 +24,7 @@ export const ProfilePage = () => {
       </Paper>
       <Paper elevation={0} sx={tabsContainerStyles}>
         <Grid container>
-          <ProfileDashboard accountType={mockUser.accountType} />
+          {defaultTabOpened ? <ProfileDashboard accountType={mockUser.accountType} tabOpen={defaultTabOpened} /> : <ProfileDashboard accountType={mockUser.accountType} />}
         </Grid>
       </Paper>
     </>

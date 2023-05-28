@@ -5,6 +5,7 @@ import { Adb, Logout } from '@mui/icons-material';
 import { navigationActionData } from '../BottomNavigation/BottomNavigation.constants';
 import { AppContext } from '../../App';
 import { setCookie } from 'typescript-cookie';
+import { useNavigate } from 'react-router-dom';
 
 type AppBarProps = {};
 
@@ -14,9 +15,11 @@ export const AppBar = (props: AppBarProps) => {
   const isAdminLoggedIn = false;
   const isNotLoggedIn = false;
   const { isAuthenticated } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setCookie('userToken', undefined);
+    !isAuthenticated && navigate('/');
   };
 
   return (
@@ -49,30 +52,51 @@ export const AppBar = (props: AppBarProps) => {
               <Box display="flex" sx={{ gap: 1 }}>
                 {isNotLoggedIn &&
                   navigationActionData.notLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained" disableElevation>
+                    <Button
+                      key={item.label}
+                      variant="contained"
+                      disableElevation
+                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                    >
                       {item.label}
                     </Button>
                   ))}
                 {isUserLoggedIn &&
                   navigationActionData.userLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained" disableElevation>
+                    <Button
+                      key={item.label}
+                      variant="contained"
+                      disableElevation
+                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                    >
                       {item.label}
                     </Button>
                   ))}
                 {isCoachLoggedIn &&
                   navigationActionData.coachLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained" disableElevation>
+                    <Button
+                      key={item.label}
+                      variant="contained"
+                      disableElevation
+                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                    >
                       {item.label}
                     </Button>
                   ))}
                 {isAdminLoggedIn &&
                   navigationActionData.adminLoggedIn.map(item => (
-                    <Button key={item.label} variant="contained" disableElevation>
+                    <Button
+                      key={item.label}
+                      variant="contained"
+                      disableElevation
+                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                    >
                       {item.label}
                     </Button>
                   ))}
               </Box>
             </Box>
+            {/*TODO: fix logout button behavior: after signin it doesn't appear on appbar until page is refreshed, same after logout*/}
             {isAuthenticated && (
               <Box>
                 <IconButton onClick={handleLogout}>

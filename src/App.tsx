@@ -12,6 +12,10 @@ import LandingPage from './pages/LandingPage';
 import { AppBar } from './components/AppBar';
 import { BottomNavigation } from './components/BottomNavigation';
 import { getCookie } from 'typescript-cookie';
+import { Routes, Route } from 'react-router-dom';
+import { SignIn } from './pages/SignIn';
+import { ProfilePage } from './pages/Profile/ProfilePage';
+import { ProtectedRoute, ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -89,11 +93,25 @@ export function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const isAuthenticated = getCookie('userToken') !== 'undefined';
 
+  const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
+    isAuthenticated: isAuthenticated,
+    navigationPath: '/',
+  };
+
   return (
     <AppContext.Provider value={{isMobile, isAuthenticated}}>
       <ThemeProvider theme={theme}>
         {!isMobile && <AppBar />}
-        <LandingPage />
+        <Routes>
+        <Route path='/' element={<LandingPage />}/>
+        <Route path='/signin' element={<SignIn/>}/>
+        <Route element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<ProfilePage defaultTabOpened={0}/>} />} path='/workouts' />
+        <Route element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<ProfilePage defaultTabOpened={1}/>} />} path='/diet' />
+        <Route element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<ProfilePage defaultTabOpened={2}/>} />} path='/coach' />
+        <Route element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<ProfilePage />} />} path='/profile' />
+        {/*TODO: explore coaches */}
+        <Route element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<LandingPage />} />} path='/explore' />
+        </Routes>
         {isMobile && <BottomNavigation />}
       </ThemeProvider>
     </AppContext.Provider>

@@ -5,7 +5,7 @@ export const stackSx = {
 };
 
 export const descriptionStyles = {
-  maxWidth: '30%',
-  textAlign: 'center',
+  maxWidth: '75%',
+  textAlign: 'justify',
   fontSize: '1.10rem',
 };

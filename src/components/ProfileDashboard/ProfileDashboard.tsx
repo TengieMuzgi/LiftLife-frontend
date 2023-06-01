@@ -6,6 +6,8 @@ import { TrainerPreview } from '../TrainerPreview/TrainerPreview';
 import { Diet } from '../../pages/Diet/Diet';
 import { AppContext } from '../../App';
 import { coachTabsLabels, mockTrainer, userTabsLabels } from './ProfileDashboard.constants';
+import { Explore } from '../Explore/Explore';
+import { mockCoaches } from '../../pages/LandingPage.constants';
 
 type ProfileDashboardProps = {
   accountType: 'user' | 'coach' | 'admin';
@@ -22,7 +24,7 @@ export const ProfileDashboard = ({ accountType, tabOpen }: ProfileDashboardProps
     setActiveTab(index);
   };
 
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   return (
     <Box sx={{ width: '100%', height: '100%' }}>
       <Tabs
@@ -64,7 +66,7 @@ export const ProfileDashboard = ({ accountType, tabOpen }: ProfileDashboardProps
             <TrainerPreview {...mockTrainer} />
           </TabPanel>
           <TabPanel value={activeTab} index={3}>
-            <Typography>Explore other trainers</Typography>
+            <Explore trainers={mockCoaches} />
           </TabPanel>
         </SwipeableViews>
       )}

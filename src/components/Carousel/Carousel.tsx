@@ -7,12 +7,12 @@ import React from 'react';
 import { CarouselProps } from './Carousel.types';
 import { TrainerPreview } from '../TrainerPreview';
 
-export const Carousel = ({ trainers }: CarouselProps) => {
+export const Carousel = ({ trainers, slidesPerView }: CarouselProps) => {
   return (
     <Swiper
       effect="flip"
       modules={[Navigation, Scrollbar, Autoplay]}
-      slidesPerView={1}
+      slidesPerView={slidesPerView ?? 1}
       navigation
       pagination={{ clickable: true }}
       autoplay={{ delay: 10000 }}

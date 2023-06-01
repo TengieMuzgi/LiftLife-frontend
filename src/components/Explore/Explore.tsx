@@ -1,14 +1,13 @@
-import React from 'react'
-import { TrainerPreviewProps } from '../TrainerPreview'
-import { Box } from '@mui/material';
+import React, { useContext } from 'react';
+import { TrainerPreviewProps } from '../TrainerPreview';
+import { Carousel } from '../Carousel';
+import { AppContext } from '../../App';
 
 type ExploreProps = {
-    trainers: TrainerPreviewProps[];
-}
+  trainers: TrainerPreviewProps[];
+};
 
-export const Explore = ({trainers}: ExploreProps) => {
-  return (
-  <Box>
-    
-  </Box>)
-}
+export const Explore = ({ trainers }: ExploreProps) => {
+  const { isMobile } = useContext(AppContext);
+  return <Carousel trainers={trainers} slidesPerView={isMobile ? 1 : 3} />;
+};

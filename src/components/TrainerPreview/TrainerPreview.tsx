@@ -10,11 +10,11 @@ export const TrainerPreview = ({
   specialization,
   description,
 }: TrainerPreviewProps) => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   const avatarSx = isMobile ? { width: '10vh', height: '10vh' } : { width: '10vw', height: '10vw' };
   const descriptionSx = isMobile ? { ...descriptionStyles, maxWidth: '80%' } : descriptionStyles;
   return (
-    <Box>
+    <Box sx={{ pt: 3 }}>
       <Stack sx={stackSx} spacing={1}>
         <Avatar alt={name} src={avatar} sx={avatarSx} />
         <Typography color="primary.main" sx={{ fontSize: '2rem' }}>

@@ -19,7 +19,7 @@ export const SignIn = () => {
   /**
    * Method to authenticate user that is singing in using email and password inputs. Sets user's access token as cookie
    * @param email - value from email input
-   * @param passowrd - value from password input
+   * @param password - value from password input
    */
   const onLogin = async ({ email, password }: UserCredentials) => {
     try {
@@ -27,8 +27,8 @@ export const SignIn = () => {
       const user = userCredential.user;
       const userToken = await user.getIdToken();
       setCookie('userToken', userToken, { expires: 2 });
-    } catch (error: unknown) {
-      handleLoginFail((error as Error).message);
+    } catch (error) {
+      if (error instanceof Error) handleLoginFail(error.message ?? 'Unknown error occured');
     }
   };
 

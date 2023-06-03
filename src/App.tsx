@@ -201,7 +201,6 @@ export function App() {
               }
               path="/explore-trainers"
             />
-            {/*TODO: explore coaches */}
             <Route
               element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<LandingPage />} />}
               path="/explore"

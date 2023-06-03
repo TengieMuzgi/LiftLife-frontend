@@ -29,6 +29,8 @@ export const SignIn = () => {
       const user = userCredential.user;
       const userToken = await user.getIdToken();
 
+      const idToken = await user.getIdTokenResult();
+      console.log(idToken.claims.role);
       setCookie('userToken', userToken, { expires: 2 });
       handleLoginSuccess();
     } catch (error) {
@@ -42,10 +44,13 @@ export const SignIn = () => {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(authentication, googleProvider);
-      const credentials = GoogleAuthProvider.credentialFromResult(result);
-      const token = credentials?.accessToken;
+      const user = result.user;
+      const userToken = await user.getIdToken();
 
-      setCookie('userToken', token, { expires: 2 });
+      const idToken = await user.getIdTokenResult();
+      console.log(idToken.claims.role);
+
+      setCookie('userToken', userToken, { expires: 2 });
       handleLoginSuccess();
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);

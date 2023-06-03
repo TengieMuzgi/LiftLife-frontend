@@ -10,16 +10,13 @@ export const useSnackbar = () => {
   const [snackbarState, setSnackbarState] = useState<SnackbarState | null>(null);
 
   const showSnackbar = (message: string, severity: AlertColor) => {
-    setSnackbarState({message: message, severity: severity });
+    setSnackbarState({ message: message, severity: severity });
+    setTimeout(hideSnackbar, 2000);
   };
 
   const hideSnackbar = () => {
     setSnackbarState(null);
   };
 
-  return [
-    snackbarState,
-    showSnackbar,
-    hideSnackbar,
-   ] as const;
+  return [snackbarState, showSnackbar, hideSnackbar] as const;
 };

@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
 import LandingPage from './pages/LandingPage';
+import { Snackbar } from './components/Snackbar/Snackbar';
 import { AppBar } from './components/AppBar';
 import { BottomNavigation } from './components/BottomNavigation';
 import { getCookie } from 'typescript-cookie';
@@ -17,6 +18,7 @@ import { SignIn } from './pages/SignIn';
 import { ProfilePage } from './pages/Profile/ProfilePage';
 import { ProtectedRoute, ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useSnackbar } from './hooks/useSnackbar';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -46,7 +48,17 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const AppContext = createContext({ isMobile: false, isAuthenticated: false });
+type AppContextType = {
+  isMobile: boolean;
+  isAuthenticated: boolean;
+  onAuthenticatedChange: (nextAuthenticatedState: boolean) => void;
+};
+
+export const AppContext = createContext<AppContextType>({
+  isMobile: false,
+  isAuthenticated: false,
+  onAuthenticatedChange: nextAuthenticatedState => {},
+});
 
 export function App() {
   dayjs.extend(updateLocale);
@@ -93,7 +105,14 @@ export function App() {
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
-  const isAuthenticated = getCookie('userToken') !== 'undefined';
+  const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
+  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
+
+  const onAuthenticatedChange = (nextAuthenticatedState: boolean) => {
+    setIsAuthenticated(nextAuthenticatedState);
+    if (nextAuthenticatedState) showSnackbar('You have been successfully logged in!', 'success');
+    else showSnackbar('You have been logged off!', 'info');
+  };
 
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
     isAuthenticated: isAuthenticated,
@@ -101,10 +120,18 @@ export function App() {
   };
 
   return (
-    <AppContext.Provider value={{ isMobile, isAuthenticated }}>
+    <AppContext.Provider value={{ isMobile, isAuthenticated, onAuthenticatedChange }}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           {!isMobile && <AppBar />}
+          {snackbarState !== null && (
+            <Snackbar
+              isOpen={true}
+              message={snackbarState.message}
+              severity={snackbarState.severity}
+              onClose={hideSnackbar}
+            />
+          )}
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/signin" element={<SignIn />} />

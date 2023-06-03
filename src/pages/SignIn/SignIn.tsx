@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { UserCredentials } from './SignIn.types';
 import { auth, signInWithEmailAndPassword } from './firebase';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -7,6 +7,7 @@ import { setCookie } from 'typescript-cookie';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../App';
 
 const googleProvider = new GoogleAuthProvider();
 const authentication = getAuth();
@@ -14,6 +15,7 @@ authentication.languageCode = 'en';
 
 export const SignIn = () => {
   const navigate = useNavigate();
+  const { onAuthenticatedChange } = useContext(AppContext);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
   /**
@@ -26,7 +28,9 @@ export const SignIn = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const userToken = await user.getIdToken();
+
       setCookie('userToken', userToken, { expires: 2 });
+      handleLoginSuccess();
     } catch (error) {
       if (error instanceof Error) handleLoginFail(error.message ?? 'Unknown error occured');
     }
@@ -40,14 +44,21 @@ export const SignIn = () => {
       const result = await signInWithPopup(authentication, googleProvider);
       const credentials = GoogleAuthProvider.credentialFromResult(result);
       const token = credentials?.accessToken;
+
       setCookie('userToken', token, { expires: 2 });
-      navigate('/');
+      handleLoginSuccess();
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);
     }
   };
+
   const handleLoginFail = (errorMessage: string) => {
     showSnackbar(errorMessage, 'error');
+  };
+
+  const handleLoginSuccess = () => {
+    onAuthenticatedChange(true);
+    navigate('/');
   };
 
   const signInPanelFunctions = {

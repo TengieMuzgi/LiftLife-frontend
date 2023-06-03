@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppBar as MUIAppBar, Box, Button, Toolbar, Typography, IconButton } from '@mui/material';
 import { Container } from '@mui/system';
-import { Adb, Logout } from '@mui/icons-material';
+import { Adb, Login, Logout } from '@mui/icons-material';
 import { navigationActionData } from '../BottomNavigation/BottomNavigation.constants';
 import { AppContext } from '../../App';
 import { setCookie } from 'typescript-cookie';
@@ -14,12 +14,13 @@ export const AppBar = (props: AppBarProps) => {
   const isCoachLoggedIn = false;
   const isAdminLoggedIn = false;
   const isNotLoggedIn = false;
-  const { isAuthenticated } = useContext(AppContext);
+  const { isAuthenticated, onAuthenticatedChange } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setCookie('userToken', undefined);
-    !isAuthenticated && navigate('/');
+    onAuthenticatedChange(false);
+    navigate('/');
   };
 
   return (
@@ -96,11 +97,17 @@ export const AppBar = (props: AppBarProps) => {
                   ))}
               </Box>
             </Box>
-            {/*TODO: fix logout button behavior: after signin it doesn't appear on appbar until page is refreshed, same after logout*/}
             {isAuthenticated && (
               <Box>
                 <IconButton onClick={handleLogout}>
                   <Logout sx={{ color: 'white' }} />
+                </IconButton>
+              </Box>
+            )}
+            {!isAuthenticated && (
+              <Box>
+                <IconButton onClick={() => navigate('/signin')}>
+                  <Login sx={{ color: 'white' }} />
                 </IconButton>
               </Box>
             )}

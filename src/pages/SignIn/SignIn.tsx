@@ -42,8 +42,8 @@ export const SignIn = () => {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(authentication, googleProvider);
-      const credentials = GoogleAuthProvider.credentialFromResult(result);
-      const token = credentials?.accessToken;
+      const user = result.user;
+      const token = await user.getIdToken();
 
       setCookie('userToken', token, { expires: 2 });
       handleLoginSuccess();

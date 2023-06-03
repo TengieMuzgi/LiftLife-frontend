@@ -101,7 +101,6 @@ export const AppBar = (props: AppBarProps) => {
                   ))}
               </Box>
             </Box>
-            {/*TODO: fix logout button behavior: after signin it doesn't appear on appbar until page is refreshed, same after logout*/}
             {isAuthenticated ? (
               <Box>
                 <IconButton onClick={handleLogout}>

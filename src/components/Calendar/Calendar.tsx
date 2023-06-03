@@ -49,7 +49,7 @@ export const Calendar = ({
   calendarConfig,
 }: CalendarProps) => {
   const theme = useTheme();
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   const columnWidth = 100 / 8 + '%';
 
   return (

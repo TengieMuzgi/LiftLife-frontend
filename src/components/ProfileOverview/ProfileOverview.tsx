@@ -12,12 +12,11 @@ import {
 } from './ProfileOverview.styles';
 
 export const ProfileOverview = ({ avatar, name, membership, planType, accountType }: UserProps) => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
 
   const avatarSx: SxProps = isMobile ? mobileAvatarStyles : desktopAvatarStyles;
 
   const containerSx: SxProps = isMobile ? mobileBoxStyles : desktopBoxStyles;
-
 
   return (
     <Grid item sx={{ width: '100%' }}>
@@ -26,7 +25,7 @@ export const ProfileOverview = ({ avatar, name, membership, planType, accountTyp
           <Avatar src={avatar} sx={avatarSx}></Avatar>
         ) : (
           <Avatar sx={avatarSx}>
-            <Person sx={{fontSize: {desktop: '5rem', mobile: '6rem'}}} />
+            <Person sx={{ fontSize: { desktop: '5rem', mobile: '6rem' } }} />
           </Avatar>
         )}
         <Box sx={profileInfoStyles}>

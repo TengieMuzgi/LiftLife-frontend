@@ -25,5 +25,5 @@ export const mobileBoxStyles: SxProps = {
 };
 export const desktopBoxStyles: SxProps = {
   display: 'flex',
-  flexDirection: 'row',  
+  flexDirection: 'row',
 };

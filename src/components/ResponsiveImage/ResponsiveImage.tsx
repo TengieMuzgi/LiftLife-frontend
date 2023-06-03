@@ -8,7 +8,7 @@ type ResponsiveImageProps = {
 };
 
 export const ResponsiveImage = ({ src, alt, style }: ResponsiveImageProps) => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   const path = isMobile ? 'assets\\images\\mobile\\' + src : 'assets\\images\\desktop\\' + src;
   return <img src={path} alt={alt} style={style} />;
 };

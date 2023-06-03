@@ -11,19 +11,20 @@ import {
 
 export const navigationActionData = {
   userLoggedIn: [
-    { label: 'Workouts', icon: <FitnessCenterOutlined /> },
-    { label: 'Diet', icon: <LunchDiningOutlined /> },
-    { label: 'Coach', icon: <SupervisedUserCircleOutlined /> },
-    { label: 'Profile', icon: <PersonOutline /> },
+    { href: 'my-workouts', label: 'Workouts', icon: <FitnessCenterOutlined /> },
+    { href: 'my-diet', label: 'Diet', icon: <LunchDiningOutlined /> },
+    { href: 'my-coach', label: 'Coach', icon: <SupervisedUserCircleOutlined /> },
+    { href: 'profile', label: 'Profile', icon: <PersonOutline /> },
+    { href: 'explore-trainers', label: 'Explore trainers', icon: <PersonOutline /> },
   ],
-  notLoggedIn: [{ label: 'Explore', icon: <SearchOutlined /> }],
+  notLoggedIn: [{ href: '', label: 'Explore', icon: <SearchOutlined /> }],
   coachLoggedIn: [
-    { label: 'Workouts', icon: <FitnessCenterOutlined /> },
-    { label: 'Diets', icon: <LunchDiningOutlined /> },
-    { label: 'Clients', icon: <PeopleAltOutlined /> },
+    { href: 'workouts', label: 'Workouts', icon: <FitnessCenterOutlined /> },
+    { href: 'diets', label: 'Diets', icon: <LunchDiningOutlined /> },
+    { href: 'clients', label: 'Clients', icon: <PeopleAltOutlined /> },
   ],
   adminLoggedIn: [
-    { label: 'Logs', icon: <FeedOutlined /> },
-    { label: 'Profiles', icon: <PersonOutline /> },
+    { href: 'logs', label: 'Logs', icon: <FeedOutlined /> },
+    { href: 'profiles', label: 'Profiles', icon: <PersonOutline /> },
   ],
 } as const;

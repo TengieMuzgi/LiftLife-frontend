@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Carousel } from '../Carousel';
+import { Carousel } from '../../components/Carousel';
 import { AppContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { storage } from '../../pages/SignIn/firebase';
+import { storage } from '../SignIn/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../Snackbar/Snackbar';
+import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { Box, CircularProgress, Typography } from '@mui/material';
 
 type coachProps = {

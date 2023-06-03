@@ -19,6 +19,11 @@ import { ProfilePage } from './pages/Profile/ProfilePage';
 import { ProtectedRoute, ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSnackbar } from './hooks/useSnackbar';
+import { Workouts } from './pages/Workouts/Workouts';
+import { Diet } from './pages/Diet/Diet';
+import { TrainerPreview } from './components/TrainerPreview';
+import { mockTrainer } from './components/TrainerPreview/TrainerPreview.constants';
+import { Explore } from './pages/Explore/Explore';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -139,32 +144,62 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage defaultTabOpened={0} />}
+                  outlet={
+                    <ProfilePage>
+                      <Workouts />
+                    </ProfilePage>
+                  }
                 />
               }
-              path="/workouts"
+              path="/my-workouts"
             />
             <Route
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage defaultTabOpened={1} />}
+                  outlet={
+                    <ProfilePage>
+                      <Diet />
+                    </ProfilePage>
+                  }
                 />
               }
-              path="/diet"
+              path="/my-diet"
             />
             <Route
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage defaultTabOpened={2} />}
+                  outlet={
+                    <ProfilePage>
+                      <TrainerPreview {...mockTrainer} />
+                    </ProfilePage>
+                  }
                 />
               }
-              path="/coach"
+              path="/my-coach"
             />
             <Route
-              element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<ProfilePage />} />}
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={<ProfilePage></ProfilePage>}
+                />
+              }
               path="/profile"
+            />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={
+                    <ProfilePage>
+                      <Explore />
+                    </ProfilePage>
+                  }
+                />
+              }
+              path="/explore-trainers"
             />
             {/*TODO: explore coaches */}
             <Route

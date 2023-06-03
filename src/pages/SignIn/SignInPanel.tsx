@@ -17,7 +17,7 @@ type SignInPanelProps = {
 };
 
 export const SignInPanel: React.FC<SignInPanelProps> = ({ onLogin, signInWithGoogle }) => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   const imageStyles = isMobile ? MobileSignInImageStyles : DesktopSignInImageStyles;
   const containerSx = isMobile
     ? { ...containerStyles, mb: 10, height: 'auto' }

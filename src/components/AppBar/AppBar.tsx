@@ -61,7 +61,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                      onClick={() => navigate('/' + item.href)}
                     >
                       {item.label}
                     </Button>
@@ -72,7 +72,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                      onClick={() => navigate('/' + item.href)}
                     >
                       {item.label}
                     </Button>
@@ -83,7 +83,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                      onClick={() => navigate('/' + item.href)}
                     >
                       {item.label}
                     </Button>
@@ -94,7 +94,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.label.toLowerCase())}
+                      onClick={() => navigate('/' + item.href)}
                     >
                       {item.label}
                     </Button>

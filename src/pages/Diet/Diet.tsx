@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   calendarConfig,
   DUMMY_OPTIONLIST,
@@ -9,6 +9,7 @@ import { faker } from '@faker-js/faker';
 import type { CalendarTileConfigType } from '../../components/Calendar/CalendarTile/CalendarTile.types';
 import { Calendar } from '../../components/Calendar';
 import type { CalendarConfigType } from '../../components/Calendar/Calendar.types';
+import { AppContext } from '../../App';
 
 type Props = {};
 
@@ -50,6 +51,7 @@ const getWeek = (day: Dayjs): Array<{ date: Dayjs; dayname: string }> => {
 export const Diet = (props: Props) => {
   const [config, setConfig] = useState<CalendarConfigType>(calendarConfig);
   const [isLoaded, setIsLoaded] = useState(false);
+  const { isMobile } = useContext(AppContext);
 
   function onReserve(itemId: string, tileId: string) {
     console.log(itemId, tileId);
@@ -75,7 +77,7 @@ export const Diet = (props: Props) => {
       options={DUMMY_OPTIONLIST}
       showOptionPicker
       optionPickerTitle="placeholder"
-      sx={{ width: '100%', height: 600 }}
+      sx={{ width: '100%', height: isMobile ? 512 : 700 }}
     />
   ) : (
     <></>

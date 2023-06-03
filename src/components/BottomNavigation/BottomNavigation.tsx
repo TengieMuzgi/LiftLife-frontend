@@ -22,7 +22,14 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
 
   return (
     <Paper
-      sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: theme.zIndex.appBar }}
+      sx={{
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: theme.zIndex.appBar,
+        width: '100vw',
+      }}
       elevation={3}
     >
       <MUIBottomNavigation
@@ -38,7 +45,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.label.toLowerCase())}
+              onClick={() => navigate('/' + item.href)}
             />
           ))}
         {isUserLoggedIn &&
@@ -47,7 +54,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.label.toLowerCase())}
+              onClick={() => navigate('/' + item.href)}
             />
           ))}
         {isCoachLoggedIn &&
@@ -56,7 +63,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.label.toLowerCase())}
+              onClick={() => navigate('/' + item.href)}
             />
           ))}
         {isAdminLoggedIn &&
@@ -65,7 +72,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.label.toLowerCase())}
+              onClick={() => navigate('/' + item.href)}
             />
           ))}
       </MUIBottomNavigation>

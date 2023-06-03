@@ -6,7 +6,7 @@ import { AppContext } from '../../App';
 
 export const BenefitsTile = (props: BenefitsTileProps) => {
   const isReversed = props.reverse ? 'row-reverse' : 'row';
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   const textWidth = isMobile ? '100vw' : '20vw';
   return (
     <Grid

@@ -6,7 +6,7 @@ import { StepTilePaperStyles, StepIconStyles } from './StepTile.styles';
 import { AppContext } from '../../App';
 
 export const StepTile = (props: StepTileProps) => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
   const boxStyles = !isMobile ? { maxWidth: '20vw' } : {};
   return (
     <>

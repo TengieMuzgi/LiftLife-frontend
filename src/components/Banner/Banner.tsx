@@ -5,7 +5,14 @@ import { filterBoxStyles, subtitleStyles, titleStyles, videoStyles } from './Ban
 import { AppContext } from '../../App';
 
 export const Banner = () => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
+
+  const handleScroll = () => {
+    const element = document.getElementById('explore-coaches');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const responsiveTitleStyles = isMobile
     ? { ...titleStyles, mt: '50vh', fontSize: '8vh' }
@@ -34,7 +41,9 @@ export const Banner = () => {
           <Typography sx={responsiveSubtitleStyles}>
             With us you can hit your goals faster!
           </Typography>
-          <Button type='button'>Explore our coaches!</Button>
+          <Button type="button" onClick={handleScroll}>
+            Explore our coaches!
+          </Button>
         </Box>
       </Grid>
     </>

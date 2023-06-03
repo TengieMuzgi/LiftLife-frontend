@@ -6,7 +6,8 @@ type ButtonType = {
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   wide?: boolean;
-  onClick? : MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  href?: string;
 };
 
 export const Button = (props: ButtonType) => {
@@ -18,6 +19,7 @@ export const Button = (props: ButtonType) => {
       type={props.type}
       onClick={props.onClick}
       sx={{ ...(props.wide && { px: 4 }) }}
+      href={props.href}
     >
       {props.children}
     </MuiButton>

@@ -14,7 +14,6 @@ const authentication = getAuth();
 authentication.languageCode = 'en';
 
 export const SignIn = () => {
-  const { setAuthenticated } = useContext(AppContext);
   const navigate = useNavigate();
   const { onAuthenticatedChange } = useContext(AppContext);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
@@ -28,15 +27,10 @@ export const SignIn = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log(user);
       const userToken = await user.getIdToken();
 
       setCookie('userToken', userToken, { expires: 2 });
-<<<<<<< HEAD
       handleLoginSuccess();
-=======
-      setAuthenticated(true);
->>>>>>> b81f12a (feat(Explore): added explore component)
     } catch (error) {
       if (error instanceof Error) handleLoginFail(error.message ?? 'Unknown error occured');
     }
@@ -48,21 +42,11 @@ export const SignIn = () => {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(authentication, googleProvider);
-<<<<<<< HEAD
       const credentials = GoogleAuthProvider.credentialFromResult(result);
       const token = credentials?.accessToken;
 
       setCookie('userToken', token, { expires: 2 });
       handleLoginSuccess();
-=======
-      const token = await result.user.getIdToken();
-      const test = await auth.currentUser?.getIdTokenResult();
-      const claim = test?.claims.role;
-      console.log(claim);
-      setAuthenticated(true);
-      navigate('/');
-      setCookie('userToken', token, { expires: 2 });
->>>>>>> b81f12a (feat(Explore): added explore component)
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);
     }

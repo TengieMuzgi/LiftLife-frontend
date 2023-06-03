@@ -12,7 +12,7 @@ import { StepsItems, benefits, mockCoaches, placeGridCenter, plans } from './Lan
 import { AppContext } from '../App';
 
 const LandingPage = () => {
-  const {isMobile} = useContext(AppContext);
+  const { isMobile } = useContext(AppContext);
 
   return (
     <Grid container>
@@ -66,7 +66,14 @@ const LandingPage = () => {
 
       {/* Content breaker */}
 
-      <Grid container item {...placeGridCenter} my={3}>
+      <Grid
+        id="explore-coaches"
+        container
+        item
+        {...placeGridCenter}
+        my={3}
+        sx={{ scrollBehavior: 'smooth' }}
+      >
         <ContentBreaker bgColor="secondary.main">
           <Typography fontSize={'2rem'} textAlign={'center'}>
             Explore our coaches and select one that fits your needs!

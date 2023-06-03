@@ -17,7 +17,7 @@ export const Carousel = ({ trainers, slidesPerView }: CarouselProps) => {
       slidesPerView={slidesPerView ?? 1}
       navigation={isMobile ? false : true}
       autoplay={{ delay: 10000 }}
-      allowTouchMove={isMobile ? true : false}
+      allowTouchMove={!isMobile}
       cssMode
       loop
     >

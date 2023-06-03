@@ -22,17 +22,15 @@ export const ProfilePage = ({ defaultTabOpened }: ProfilePageProps) => {
           <ProfileOverview {...mockUser} />
         </Grid>
       </Paper>
-      {!isMobile && (
-        <Paper elevation={0} sx={tabsContainerStyles}>
-          <Grid container>
-            {defaultTabOpened ? (
-              <ProfileDashboard accountType={mockUser.accountType} tabOpen={defaultTabOpened} />
-            ) : (
-              <ProfileDashboard accountType={mockUser.accountType} />
-            )}
-          </Grid>
-        </Paper>
-      )}
+      <Paper elevation={0} sx={tabsContainerStyles}>
+        <Grid container>
+          {defaultTabOpened ? (
+            <ProfileDashboard accountType={mockUser.accountType} tabOpen={defaultTabOpened} />
+          ) : (
+            <ProfileDashboard accountType={mockUser.accountType} />
+          )}
+        </Grid>
+      </Paper>
     </>
   );
 };

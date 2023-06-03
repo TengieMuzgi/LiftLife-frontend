@@ -115,13 +115,6 @@ export const AppBar = (props: AppBarProps) => {
                 </IconButton>
               </Box>
             )}
-            {!isAuthenticated && (
-              <Box>
-                <IconButton onClick={() => navigate('/signin')}>
-                  <Login sx={{ color: 'white' }} />
-                </IconButton>
-              </Box>
-            )}
           </Box>
         </Toolbar>
       </Container>

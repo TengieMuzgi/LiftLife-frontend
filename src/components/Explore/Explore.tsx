@@ -7,6 +7,7 @@ import { storage } from '../../pages/SignIn/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { Snackbar } from '../Snackbar/Snackbar';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 type coachProps = {
   firstName: string;
@@ -28,6 +29,7 @@ export const Explore = () => {
   const { isLoading, isError, data, error } = useQuery(['coaches'], async () => {
     const { data } = await axios.get('http://localhost:8081/api/user/coaches');
     const coachesData: coachProps[] = data;
+    //Resolve coach avatar and update data with avatar link
     const coachesWithAvatars = await Promise.all(
       coachesData.map(async coach => {
         const storageRef = ref(storage, `${coach.id}`);
@@ -56,7 +58,19 @@ export const Explore = () => {
   const { isMobile } = useContext(AppContext);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <CircularProgress size="4rem" />
+        <Typography>Loading coaches data</Typography>
+      </Box>
+    );
   }
 
   if (isError && error instanceof Error) {

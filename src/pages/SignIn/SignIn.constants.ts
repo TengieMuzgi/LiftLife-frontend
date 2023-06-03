@@ -5,7 +5,7 @@ export const MobileSignInImageStyles: React.CSSProperties = {
   minWidth: '100vw',
 };
 export const DesktopSignInImageStyles: React.CSSProperties = {
-  maxWidth: '55vw',
+  maxWidth: '60vw',
   objectFit: 'cover',
   minHeight: 'auto',
   borderRadius: '45px 0 0 45px',

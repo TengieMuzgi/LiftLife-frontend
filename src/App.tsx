@@ -24,6 +24,7 @@ import { Diet } from './pages/Diet/Diet';
 import { TrainerPreview } from './components/TrainerPreview';
 import { mockTrainer } from './components/TrainerPreview/TrainerPreview.constants';
 import { Explore } from './pages/Explore/Explore';
+import { SignUp } from './pages/SignUp/SignUp';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -139,7 +140,8 @@ export function App() {
           )}
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/signin" element={<SignIn />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
             <Route
               element={
                 <ProtectedRoute

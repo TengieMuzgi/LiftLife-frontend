@@ -14,7 +14,6 @@ export const Snackbar = ({ message, severity, isOpen, onClose }: SnackbarProps) 
       open={isOpen}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       onClose={onClose}
-      autoHideDuration={5000}
     >
       <Alert onClose={onClose} severity={severity}>
         {message}

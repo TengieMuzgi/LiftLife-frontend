@@ -23,6 +23,10 @@ export const AppBar = (props: AppBarProps) => {
     navigate('/');
   };
 
+  const handleLoginRedirect = () => {
+    navigate('/signin');
+  };
+
   return (
     <MUIAppBar>
       <Container>
@@ -97,10 +101,17 @@ export const AppBar = (props: AppBarProps) => {
                   ))}
               </Box>
             </Box>
-            {isAuthenticated && (
+            {/*TODO: fix logout button behavior: after signin it doesn't appear on appbar until page is refreshed, same after logout*/}
+            {isAuthenticated ? (
               <Box>
                 <IconButton onClick={handleLogout}>
                   <Logout sx={{ color: 'white' }} />
+                </IconButton>
+              </Box>
+            ) : (
+              <Box>
+                <IconButton onClick={handleLoginRedirect}>
+                  <Login sx={{ color: 'white' }} />
                 </IconButton>
               </Box>
             )}

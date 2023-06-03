@@ -6,7 +6,8 @@ import { AppContext } from '../../App';
 
 export const TrainerPreview = ({
   avatar,
-  name,
+  firstName,
+  lastName,
   specialization,
   description,
 }: TrainerPreviewProps) => {
@@ -16,9 +17,9 @@ export const TrainerPreview = ({
   return (
     <Box sx={{ pt: 3 }}>
       <Stack sx={stackSx} spacing={1}>
-        <Avatar alt={name} src={avatar} sx={avatarSx} />
+        <Avatar alt={firstName} src={avatar} sx={avatarSx} />
         <Typography color="primary.main" sx={{ fontSize: '2rem' }}>
-          {name}
+          {firstName + ' ' + lastName}
         </Typography>
         <Typography variant="subtitle1" sx={{ fontSize: '1.5rem' }}>
           {specialization}

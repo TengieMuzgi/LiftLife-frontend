@@ -107,7 +107,8 @@ export const mockCoaches: TrainerPreviewProps[] = [
   {
     avatar:
       'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    name: 'John Doe',
+    firstName: 'John',
+    lastName: 'Doe',
     specialization: 'Calisthenics',
     description:
       'I am a personal coach of calisthenics, dedicated to empowering individuals to reach their full potential through customized programs and unwavering support, guiding them towards remarkable strength, flexibility, and overall fitness.',
@@ -115,7 +116,8 @@ export const mockCoaches: TrainerPreviewProps[] = [
   {
     avatar:
       'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    name: 'Emily Smith',
+    firstName: 'Emily',
+    lastName: 'Smith',
     specialization: 'Swimming',
     description:
       'I am a personal swimming coach, committed to helping individuals unlock their swimming prowess by providing personalized training programs, refining technique, and instilling a love for the water, enabling them to achieve their swimming goals with confidence.',
@@ -123,7 +125,8 @@ export const mockCoaches: TrainerPreviewProps[] = [
   {
     avatar:
       'https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    name: 'Michael Johnson',
+    firstName: 'Michael',
+    lastName: 'Johnson',
     specialization: 'Marathon Running',
     description:
       'As a personal coach specializing in marathon running, I empower athletes to conquer long distances by creating tailored training plans, optimizing endurance, and instilling mental toughness, guiding them towards crossing the finish line with pride.',
@@ -131,7 +134,8 @@ export const mockCoaches: TrainerPreviewProps[] = [
   {
     avatar:
       'https://images.pexels.com/photos/991199/pexels-photo-991199.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    name: 'Sarah Lee',
+    firstName: 'Sarah',
+    lastName: 'Lee',
     specialization: 'Yoga',
     description:
       'Im a personal yoga coach, devoted to helping individuals find balance, strength, and inner peace through customized yoga practices, mindful breathing techniques, and guidance in achieving physical and mental well-being.',

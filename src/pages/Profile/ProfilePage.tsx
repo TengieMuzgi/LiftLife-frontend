@@ -7,11 +7,11 @@ import { profileBoxStyles, tabsContainerStyles } from './ProfilePage.styles';
 import { AppContext } from '../../App';
 
 type ProfilePageProps = {
-  defaultTabOpened? : number;
-}
+  defaultTabOpened?: number;
+};
 
-export const ProfilePage = ({defaultTabOpened} : ProfilePageProps) => {
-  const {isMobile} = useContext(AppContext);
+export const ProfilePage = ({ defaultTabOpened }: ProfilePageProps) => {
+  const { isMobile } = useContext(AppContext);
   const profilePaperStyles = isMobile
     ? profileBoxStyles
     : { ...profileBoxStyles, marginTop: '10vh', marginLeft: '32px' };
@@ -22,11 +22,17 @@ export const ProfilePage = ({defaultTabOpened} : ProfilePageProps) => {
           <ProfileOverview {...mockUser} />
         </Grid>
       </Paper>
-      <Paper elevation={0} sx={tabsContainerStyles}>
-        <Grid container>
-          {defaultTabOpened ? <ProfileDashboard accountType={mockUser.accountType} tabOpen={defaultTabOpened} /> : <ProfileDashboard accountType={mockUser.accountType} />}
-        </Grid>
-      </Paper>
+      {!isMobile && (
+        <Paper elevation={0} sx={tabsContainerStyles}>
+          <Grid container>
+            {defaultTabOpened ? (
+              <ProfileDashboard accountType={mockUser.accountType} tabOpen={defaultTabOpened} />
+            ) : (
+              <ProfileDashboard accountType={mockUser.accountType} />
+            )}
+          </Grid>
+        </Paper>
+      )}
     </>
   );
 };

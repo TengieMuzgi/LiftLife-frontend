@@ -30,6 +30,11 @@ html {
   min-width: 0;
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+  --swiper-theme-color: #311b92;
+}
+
 *,
 *::before,
 *::after {

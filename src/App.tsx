@@ -18,7 +18,10 @@ import { SignIn } from './pages/SignIn';
 import { ProfilePage } from './pages/Profile/ProfilePage';
 import { ProtectedRoute, ProtectedRouteProps } from './components/ProtectedRoute/ProtectedRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+<<<<<<< HEAD
 import { useSnackbar } from './hooks/useSnackbar';
+=======
+>>>>>>> b81f12a (feat(Explore): added explore component)
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -48,6 +51,7 @@ declare module '@mui/material/styles' {
   }
 }
 
+<<<<<<< HEAD
 type AppContextType = {
   isMobile: boolean;
   isAuthenticated: boolean;
@@ -59,6 +63,14 @@ export const AppContext = createContext<AppContextType>({
   isAuthenticated: false,
   onAuthenticatedChange: nextAuthenticatedState => {},
 });
+=======
+export const AppContext = createContext({
+  isMobile: false,
+  isAuthenticated: false,
+  setAuthenticated: (auth: boolean) => {},
+});
+const queryClient = new QueryClient();
+>>>>>>> b81f12a (feat(Explore): added explore component)
 
 export function App() {
   dayjs.extend(updateLocale);
@@ -105,6 +117,7 @@ export function App() {
   });
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
+<<<<<<< HEAD
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
@@ -113,6 +126,9 @@ export function App() {
     if (nextAuthenticatedState) showSnackbar('You have been successfully logged in!', 'success');
     else showSnackbar('You have been logged off!', 'info');
   };
+=======
+  const [isAuthenticated, setAuthenticated] = useState(getCookie('userToken') !== 'undefined');
+>>>>>>> b81f12a (feat(Explore): added explore component)
 
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
     isAuthenticated: isAuthenticated,
@@ -120,6 +136,7 @@ export function App() {
   };
 
   return (
+<<<<<<< HEAD
     <AppContext.Provider value={{ isMobile, isAuthenticated, onAuthenticatedChange }}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
@@ -132,6 +149,12 @@ export function App() {
               onClose={hideSnackbar}
             />
           )}
+=======
+    <AppContext.Provider value={{ isMobile, isAuthenticated, setAuthenticated }}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          {!isMobile && <AppBar />}
+>>>>>>> b81f12a (feat(Explore): added explore component)
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/signin" element={<SignIn />} />

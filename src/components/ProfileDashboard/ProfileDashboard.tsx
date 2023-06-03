@@ -7,7 +7,6 @@ import { Diet } from '../../pages/Diet/Diet';
 import { AppContext } from '../../App';
 import { coachTabsLabels, mockTrainer, userTabsLabels } from './ProfileDashboard.constants';
 import { Explore } from '../Explore/Explore';
-import { mockCoaches } from '../../pages/LandingPage.constants';
 
 type ProfileDashboardProps = {
   accountType: 'user' | 'coach' | 'admin';
@@ -17,6 +16,8 @@ type ProfileDashboardProps = {
 export const ProfileDashboard = ({ accountType, tabOpen }: ProfileDashboardProps) => {
   const initialTabState = tabOpen ? tabOpen : 0;
   const [activeTab, setActiveTab] = useState(initialTabState);
+  const { isMobile } = useContext(AppContext);
+
   const handleActiveTabChange = (event: React.SyntheticEvent, value: number) => {
     setActiveTab(value);
   };
@@ -24,7 +25,6 @@ export const ProfileDashboard = ({ accountType, tabOpen }: ProfileDashboardProps
     setActiveTab(index);
   };
 
-  const { isMobile } = useContext(AppContext);
   return (
     <Box sx={{ width: '100%', height: '100%' }}>
       <Tabs
@@ -66,7 +66,7 @@ export const ProfileDashboard = ({ accountType, tabOpen }: ProfileDashboardProps
             <TrainerPreview {...mockTrainer} />
           </TabPanel>
           <TabPanel value={activeTab} index={3}>
-            <Explore trainers={mockCoaches} />
+            <Explore />
           </TabPanel>
         </SwipeableViews>
       )}

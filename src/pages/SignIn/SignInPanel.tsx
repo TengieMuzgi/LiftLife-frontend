@@ -74,10 +74,10 @@ export const SignInPanel: React.FC<SignInPanelProps> = ({ onLogin, signInWithGoo
                   <IconButton color="primary" onClick={signInWithGoogle}>
                     <Google />
                   </IconButton>
-                  <IconButton color="primary">
+                  <IconButton color="primary" disabled>
                     <Twitter />
                   </IconButton>
-                  <IconButton color="primary">
+                  <IconButton color="primary" disabled>
                     <Facebook />
                   </IconButton>
                 </Box>

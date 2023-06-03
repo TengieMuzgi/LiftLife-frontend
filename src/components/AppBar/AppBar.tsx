@@ -24,7 +24,7 @@ export const AppBar = (props: AppBarProps) => {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/signin');
+    navigate('/sign-in');
   };
 
   return (

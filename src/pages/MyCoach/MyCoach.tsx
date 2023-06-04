@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Loading } from '../../components/Loading/Loading';
+import { Spinner } from '../../components/Spinner/Spinner';
 import axios from 'axios';
 import { coachProps } from '../../constants/coach';
 import { storage } from '../SignIn/firebase';
@@ -37,7 +37,7 @@ export const MyCoach = () => {
   }
 
   if (isLoading) {
-    return <Loading message="Loading coach" />;
+    return <Spinner message="Loading coach" />;
   }
 
   return (

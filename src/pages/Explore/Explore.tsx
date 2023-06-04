@@ -10,6 +10,7 @@ import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { coachProps } from '../../constants/coach';
 import { TrainerPreviewProps } from '../../components/TrainerPreview';
+import { Spinner } from '../../components/Spinner/Spinner';
 
 export const Explore = () => {
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
@@ -46,19 +47,7 @@ export const Explore = () => {
   const { isMobile } = useContext(AppContext);
 
   if (isLoading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <CircularProgress size="4rem" />
-        <Typography>Loading coaches data</Typography>
-      </Box>
-    );
+    return <Spinner message="Loading coaches" />;
   }
 
   if (isError && error instanceof Error) {

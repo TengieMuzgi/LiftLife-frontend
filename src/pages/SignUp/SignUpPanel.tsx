@@ -35,7 +35,7 @@ export const SignUpPanel = ({ onRegister }: SignUpPanelProps) => {
   const userSchema = object({
     firstName: string().required('This field is required'),
     lastName: string().required('This field is required'),
-    email: string().email().required('This field is required'),
+    email: string().email('Must be a valid email').required('This field is required'),
     password: string()
       .required('This field is required')
       .min(8, 'Password too short')

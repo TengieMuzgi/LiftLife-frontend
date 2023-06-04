@@ -18,7 +18,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
   const { role } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const isUserLoggedIn = role === ROLES.USER;
+  const isClientLoggedIn = role === ROLES.CLIENT;
   const isCoachLoggedIn = role === ROLES.COACH;
   const isAdminLoggedIn = role === ROLES.ADMIN;
   const isNotLoggedIn = role === ROLES.NOT_LOGGED;
@@ -51,7 +51,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               onClick={() => navigate(item.href)}
             />
           ))}
-        {isUserLoggedIn &&
+        {isClientLoggedIn &&
           navigationActionData.userLoggedIn.map(item => (
             <BottomNavigationAction
               key={item.label}

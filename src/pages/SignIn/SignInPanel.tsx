@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Link, Paper, Stack, TextField, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import { Facebook, FitnessCenter, Google, Twitter } from '@mui/icons-material';
 import { Button } from '../../components/Button';
@@ -69,7 +69,10 @@ export const SignInPanel: React.FC<SignInPanelProps> = ({ onLogin, signInWithGoo
                 <Button wide type="submit">
                   Sign in
                 </Button>
-                <Typography>Or sign in using</Typography>
+                <Typography>Don't have an account yet?</Typography>
+                <Typography>
+                  <Link href="/sign-up">Sign up</Link> or sign in using
+                </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <IconButton color="primary" onClick={signInWithGoogle}>
                     <Google />

@@ -1,6 +1,5 @@
 import { Avatar, Box, Grid, SxProps, Typography } from '@mui/material';
 import React, { useContext } from 'react';
-import type { UserProps } from './ProfileOverview.types';
 import { AppContext } from '../../App';
 import { Person } from '@mui/icons-material';
 import {
@@ -10,8 +9,16 @@ import {
   mobileBoxStyles,
   profileInfoStyles,
 } from './ProfileOverview.styles';
+import type { UserProps } from '../../constants/user';
 
-export const ProfileOverview = ({ avatar, name, membership, planType, accountType }: UserProps) => {
+export const ProfileOverview = ({
+  avatar,
+  firstName,
+  lastName,
+  planType,
+  accountType,
+  registerDate,
+}: UserProps) => {
   const { isMobile } = useContext(AppContext);
 
   const avatarSx: SxProps = isMobile ? mobileAvatarStyles : desktopAvatarStyles;
@@ -29,9 +36,9 @@ export const ProfileOverview = ({ avatar, name, membership, planType, accountTyp
           </Avatar>
         )}
         <Box sx={profileInfoStyles}>
-          <Typography variant="h4">{name}</Typography>
-          <Typography variant="body1">Member since: {membership}</Typography>
-          {accountType === 'user' ? (
+          <Typography variant="h4">{firstName + ' ' + lastName}</Typography>
+          <Typography variant="body1">Member since: {registerDate}</Typography>
+          {accountType === 'CLIENT' ? (
             <Typography variant="body1">Plan: {planType}</Typography>
           ) : (
             <Typography variant="body1" sx={{ fontWeight: 600 }}>

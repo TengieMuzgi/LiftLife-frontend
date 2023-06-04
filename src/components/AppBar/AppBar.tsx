@@ -14,7 +14,7 @@ export const AppBar = (props: AppBarProps) => {
   const { role, isAuthenticated, onAuthenticatedChange } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const isUserLoggedIn = role === ROLES.USER;
+  const isClientLoggedIn = role === ROLES.CLIENT;
   const isCoachLoggedIn = role === ROLES.COACH;
   const isAdminLoggedIn = role === ROLES.ADMIN;
   const isNotLoggedIn = role === ROLES.NOT_LOGGED;
@@ -70,7 +70,7 @@ export const AppBar = (props: AppBarProps) => {
                       {item.label}
                     </Button>
                   ))}
-                {isUserLoggedIn &&
+                {isClientLoggedIn &&
                   navigationActionData.userLoggedIn.map(item => (
                     <Button
                       key={item.label}
@@ -105,7 +105,6 @@ export const AppBar = (props: AppBarProps) => {
                   ))}
               </Box>
             </Box>
-            {/*TODO: fix logout button behavior: after signin it doesn't appear on appbar until page is refreshed, same after logout*/}
             {isAuthenticated ? (
               <Box>
                 <IconButton onClick={handleLogout}>

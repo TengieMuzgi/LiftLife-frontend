@@ -21,11 +21,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useSnackbar } from './hooks/useSnackbar';
 import { Workouts } from './pages/Workouts/Workouts';
 import { Diet } from './pages/Diet/Diet';
-import { TrainerPreview } from './components/TrainerPreview';
-import { mockTrainer } from './components/TrainerPreview/TrainerPreview.constants';
 import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
 import { ROLES } from './constants/roles';
+import { MyCoach } from './pages/MyCoach/MyCoach';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -182,7 +181,7 @@ export function App() {
                   {...defaultProtectedRouteProps}
                   outlet={
                     <ProfilePage>
-                      <TrainerPreview {...mockTrainer} />
+                      <MyCoach />
                     </ProfilePage>
                   }
                 />

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Carousel } from '../../components/Carousel';
 import { AppContext } from '../../App';
 import { useQuery } from '@tanstack/react-query';
@@ -8,52 +8,40 @@ import { getDownloadURL, ref } from '@firebase/storage';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { Box, CircularProgress, Typography } from '@mui/material';
-
-type coachProps = {
-  firstName: string;
-  lastName: string;
-  specialization: string;
-  description: string;
-  id: string;
-  avatar?: string;
-};
+import { coachProps } from '../../constants/coach';
+import { TrainerPreviewProps } from '../../components/TrainerPreview';
 
 export const Explore = () => {
-  const [coaches, setCoaches] = useState<coachProps[]>([]);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
   /**
    * Query to get data about coaches
    * Also downloads coach avatar from firebase storage
    */
-  const { isLoading, isError, data, error } = useQuery(['coaches'], async () => {
-    const { data } = await axios.get('http://localhost:8081/api/user/coaches');
-    const coachesData: coachProps[] = data;
+  const { isLoading, isFetched, isError, data, error } = useQuery(['coaches'], async () => {
+    const { data } = await axios.get<coachProps[]>('http://localhost:8081/api/user/coaches');
     //Resolve coach avatar and update data with avatar link
     const coachesWithAvatars = await Promise.all(
-      coachesData.map(async coach => {
-        const storageRef = ref(storage, `${coach.id}`);
-        try {
-          const avatarURL = await getDownloadURL(storageRef);
-          return { ...coach, avatar: avatarURL };
-        } catch (error) {
-          if (error instanceof Error) {
-            return { ...coach, avatar: '' };
-          } else {
-            showSnackbar('Something unexpected happened!', 'error');
+      data.map(async coach => {
+        if (coach.hasPhoto) {
+          const storageRef = ref(storage, `${coach.id}`);
+          try {
+            const avatarURL = await getDownloadURL(storageRef);
+            return { ...coach, avatar: avatarURL };
+          } catch (error) {
+            if (error instanceof Error) {
+              return { ...coach, avatar: '' };
+            } else {
+              showSnackbar('Something unexpected happened!', 'error');
+            }
           }
+        } else {
+          return { ...coach, avatar: '' };
         }
       })
     );
     return coachesWithAvatars;
   });
-
-  useEffect(() => {
-    if (data) {
-      const coachesData = data as coachProps[];
-      setCoaches(coachesData);
-    }
-  }, [data]);
 
   const { isMobile } = useContext(AppContext);
 
@@ -79,7 +67,9 @@ export const Explore = () => {
 
   return (
     <>
-      <Carousel trainers={coaches} slidesPerView={isMobile ? 1 : 3} />
+      {isFetched && data && (
+        <Carousel trainers={data as TrainerPreviewProps[]} slidesPerView={isMobile ? 1 : 3} />
+      )}
       {snackbarState && (
         <Snackbar
           isOpen={true}

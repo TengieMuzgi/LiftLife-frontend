@@ -21,7 +21,7 @@ jobs:
         with:
           find: "variable_api_key"
           replace: "${{ secrets.FIREBASE_API_KEY }}"
-          include: "firebase.ts"
+          include: "src/constants/firebase.ts"
           regex: false
 
       - name: Find and Replace sender id
@@ -29,7 +29,7 @@ jobs:
         with:
           find: "variable_sender_id"
           replace: "${{ secrets.FIREBASE_SENDER_ID }}"
-          include: "firebase.ts"
+          include: "src/constants/firebase.ts"
           regex: false
       
       - name: Find and Replace app id
@@ -37,7 +37,7 @@ jobs:
         with:
           find: "variable_app_id"
           replace: "${{ secrets.FIREBASE_APP_ID }}"
-          include: "firebase.ts"
+          include: "src/constants/firebase.ts"
           regex: false
 
       - name: Set up Docker Buildx

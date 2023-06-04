@@ -4,7 +4,7 @@ import { Button } from './Button';
 import userEvent from '@testing-library/user-event';
 
 describe('Component: Button', () => {
-  it('should render Button', () => {
+  it('should correctly render Button', () => {
     render(<Button type="button">Test button</Button>);
 
     const element = screen.getByText('Test button');

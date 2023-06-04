@@ -6,11 +6,9 @@ on:
     types:
       - closed
       - synchronize
-  push:
-    branches: ["tests_workflow"]
 
 jobs:
-  test:
+  Tests:
     runs-on: ubuntu-latest
 
     steps:

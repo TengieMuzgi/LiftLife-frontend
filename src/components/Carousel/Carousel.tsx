@@ -20,6 +20,7 @@ export const Carousel = ({ trainers, slidesPerView }: CarouselProps) => {
       allowTouchMove={!isMobile}
       cssMode
       loop
+      id="explore-coaches"
     >
       {trainers.map((item, key) => (
         <SwiperSlide key={key}>

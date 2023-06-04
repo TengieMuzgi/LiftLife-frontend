@@ -32,9 +32,10 @@ export const SignIn = () => {
       const userToken = await user.getIdToken();
 
       const idToken = await user.getIdTokenResult();
-      console.log(idToken.claims.role);
+      const role = idToken.claims.role;
+
       setCookie('userToken', userToken, { expires: 2 });
-      handleLoginSuccess();
+      handleLoginSuccess(role);
     } catch (error) {
       if (error instanceof Error) handleLoginFail(error.message ?? 'Unknown error occured');
     }
@@ -50,10 +51,10 @@ export const SignIn = () => {
       const userToken = await user.getIdToken();
 
       const idToken = await user.getIdTokenResult();
-      console.log(idToken.claims.role);
+      const role = idToken.claims.role;
 
       setCookie('userToken', userToken, { expires: 2 });
-      handleLoginSuccess();
+      handleLoginSuccess(role);
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);
     }
@@ -63,8 +64,8 @@ export const SignIn = () => {
     showSnackbar(errorMessage, 'error');
   };
 
-  const handleLoginSuccess = () => {
-    onAuthenticatedChange(true);
+  const handleLoginSuccess = (role: string) => {
+    onAuthenticatedChange(true, role);
     navigate('/');
   };
 

@@ -1,25 +1,27 @@
 import React, { useContext } from 'react';
-import { AppBar as MUIAppBar, Box, Button, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar as MUIAppBar, Box, Button, Toolbar, Link, IconButton } from '@mui/material';
 import { Container } from '@mui/system';
 import { Adb, Login, Logout } from '@mui/icons-material';
 import { navigationActionData } from '../BottomNavigation/BottomNavigation.constants';
 import { AppContext } from '../../App';
 import { setCookie } from 'typescript-cookie';
 import { useNavigate } from 'react-router-dom';
+import { ROLES } from '../../constants/roles';
 
 type AppBarProps = {};
 
 export const AppBar = (props: AppBarProps) => {
-  const isUserLoggedIn = true;
-  const isCoachLoggedIn = false;
-  const isAdminLoggedIn = false;
-  const isNotLoggedIn = false;
-  const { isAuthenticated, onAuthenticatedChange } = useContext(AppContext);
+  const { role, isAuthenticated, onAuthenticatedChange } = useContext(AppContext);
   const navigate = useNavigate();
+
+  const isUserLoggedIn = role === ROLES.USER;
+  const isCoachLoggedIn = role === ROLES.COACH;
+  const isAdminLoggedIn = role === ROLES.ADMIN;
+  const isNotLoggedIn = role === ROLES.NOT_LOGGED;
 
   const handleLogout = () => {
     setCookie('userToken', undefined);
-    onAuthenticatedChange(false);
+    onAuthenticatedChange(false, ROLES.NOT_LOGGED);
     navigate('/');
   };
 
@@ -40,20 +42,21 @@ export const AppBar = (props: AppBarProps) => {
           >
             <Box display="flex" alignItems="center">
               <Adb sx={{ display: { mobile: 'none', desktop: 'flex' }, mr: 1 }} />
-              <Typography
+              <Link
                 variant="h6"
                 noWrap
                 component="a"
-                href="/"
+                href="/#"
                 sx={{
                   color: 'inherit',
                   display: { mobile: 'none', desktop: 'flex' },
                   textDecoration: 'none',
                   mr: 2,
+                  cursor: 'pointer',
                 }}
               >
                 LiftLife
-              </Typography>
+              </Link>
               <Box display="flex" sx={{ gap: 1 }}>
                 {isNotLoggedIn &&
                   navigationActionData.notLoggedIn.map(item => (
@@ -61,7 +64,8 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.href)}
+                      onClick={() => navigate(item.href)}
+                      href={item.href.includes('#') ? item.href : undefined}
                     >
                       {item.label}
                     </Button>
@@ -72,7 +76,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.href)}
+                      onClick={() => navigate(item.href)}
                     >
                       {item.label}
                     </Button>
@@ -83,7 +87,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.href)}
+                      onClick={() => navigate(item.href)}
                     >
                       {item.label}
                     </Button>
@@ -94,7 +98,7 @@ export const AppBar = (props: AppBarProps) => {
                       key={item.label}
                       variant="contained"
                       disableElevation
-                      onClick={() => navigate('/' + item.href)}
+                      onClick={() => navigate(item.href)}
                     >
                       {item.label}
                     </Button>

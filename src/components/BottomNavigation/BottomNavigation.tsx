@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   BottomNavigation as MUIBottomNavigation,
   BottomNavigationAction,
@@ -7,18 +7,21 @@ import {
 } from '@mui/material';
 import { navigationActionData } from './BottomNavigation.constants';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../App';
+import { ROLES } from '../../constants/roles';
 
 type BottomNavigationProps = {};
 
 export const BottomNavigation = (props: BottomNavigationProps) => {
   const [selectedTab, setSelectedTab] = useState<string>('');
   const theme = useTheme();
+  const { role } = useContext(AppContext);
   const navigate = useNavigate();
 
-  const isUserLoggedIn = true;
-  const isCoachLoggedIn = false;
-  const isAdminLoggedIn = false;
-  const isNotLoggedIn = false;
+  const isUserLoggedIn = role === ROLES.USER;
+  const isCoachLoggedIn = role === ROLES.COACH;
+  const isAdminLoggedIn = role === ROLES.ADMIN;
+  const isNotLoggedIn = role === ROLES.NOT_LOGGED;
 
   return (
     <Paper
@@ -45,7 +48,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.href)}
+              onClick={() => navigate(item.href)}
             />
           ))}
         {isUserLoggedIn &&
@@ -54,7 +57,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.href)}
+              onClick={() => navigate(item.href)}
             />
           ))}
         {isCoachLoggedIn &&
@@ -63,7 +66,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.href)}
+              onClick={() => navigate(item.href)}
             />
           ))}
         {isAdminLoggedIn &&
@@ -72,7 +75,7 @@ export const BottomNavigation = (props: BottomNavigationProps) => {
               key={item.label}
               label={item.label}
               icon={item.icon}
-              onClick={() => navigate('/' + item.href)}
+              onClick={() => navigate(item.href)}
             />
           ))}
       </MUIBottomNavigation>

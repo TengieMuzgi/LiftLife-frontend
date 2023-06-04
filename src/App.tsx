@@ -25,6 +25,7 @@ import { TrainerPreview } from './components/TrainerPreview';
 import { mockTrainer } from './components/TrainerPreview/TrainerPreview.constants';
 import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
+import { ROLES } from './constants/roles';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -56,14 +57,15 @@ declare module '@mui/material/styles' {
 
 type AppContextType = {
   isMobile: boolean;
+  role?: string | null;
   isAuthenticated: boolean;
-  onAuthenticatedChange: (nextAuthenticatedState: boolean) => void;
+  onAuthenticatedChange: (nextAuthenticatedState: boolean, role?: string | null) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
   isMobile: false,
   isAuthenticated: false,
-  onAuthenticatedChange: nextAuthenticatedState => {},
+  onAuthenticatedChange: () => {},
 });
 
 export function App() {
@@ -112,10 +114,15 @@ export function App() {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
+  // TODO: set role based on info from API, when userToken cookie is set
+  const [role, setRole] = useState<string | null | undefined>(ROLES.NOT_LOGGED);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
-  const onAuthenticatedChange = (nextAuthenticatedState: boolean) => {
+  const onAuthenticatedChange = (nextAuthenticatedState: boolean, role?: string | null) => {
+    console.log(role);
     setIsAuthenticated(nextAuthenticatedState);
+    setRole(role);
+
     if (nextAuthenticatedState) showSnackbar('You have been successfully logged in!', 'success');
     else showSnackbar('You have been logged off!', 'info');
   };
@@ -125,8 +132,9 @@ export function App() {
     navigationPath: '/',
   };
 
+  // TODO: add navigation back to landingpage, login and logout on mobile
   return (
-    <AppContext.Provider value={{ isMobile, isAuthenticated, onAuthenticatedChange }}>
+    <AppContext.Provider value={{ isMobile, isAuthenticated, onAuthenticatedChange, role }}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           {!isMobile && <AppBar />}

@@ -66,7 +66,7 @@ export const SignIn = () => {
 
   const handleLoginSuccess = (role: string) => {
     onAuthenticatedChange(true, role);
-    navigate('/');
+    navigate('/steps');
   };
 
   const signInPanelFunctions = {

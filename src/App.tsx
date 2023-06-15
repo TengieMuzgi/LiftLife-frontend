@@ -8,7 +8,7 @@ import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
 import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
-import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage/LandingPage';
 import { Snackbar } from './components/Snackbar/Snackbar';
 import { AppBar } from './components/AppBar';
 import { BottomNavigation } from './components/BottomNavigation';
@@ -25,6 +25,7 @@ import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
 import { ROLES } from './constants/roles';
 import { MyCoach } from './pages/MyCoach/MyCoach';
+import { Stepper } from './pages/Stepper/Stepper';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -147,6 +148,7 @@ export function App() {
           )}
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/steps" element={<Stepper />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route

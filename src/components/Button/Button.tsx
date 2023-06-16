@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react';
 import { Button as MuiButton } from '@mui/material';
 
 type ButtonType = {
-  children: string;
+  children: string | React.ReactNode;
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   wide?: boolean;

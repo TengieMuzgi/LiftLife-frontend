@@ -1,6 +1,6 @@
-import { BenefitsTileProps } from '../components/BenefitsTile';
-import { PlanProps } from '../components/PlanTile';
-import { TrainerPreviewProps } from '../components/TrainerPreview/TrainerPreview.types';
+import { BenefitsTileProps } from '../../components/BenefitsTile';
+import { PlanProps } from '../../components/PlanTile';
+import { TrainerPreviewProps } from '../../components/TrainerPreview/TrainerPreview.types';
 
 export const placeGridCenter = {
   justifyContent: 'center',

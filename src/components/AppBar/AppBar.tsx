@@ -22,6 +22,7 @@ export const AppBar = (props: AppBarProps) => {
   const handleLogout = () => {
     setCookie('userToken', undefined);
     onAuthenticatedChange(false, ROLES.NOT_LOGGED);
+    localStorage.removeItem('userRole');
     navigate('/');
   };
 

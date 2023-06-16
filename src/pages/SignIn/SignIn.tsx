@@ -29,12 +29,11 @@ export const SignIn = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      const userToken = await user.getIdToken();
 
-      const idToken = await user.getIdTokenResult();
-      const role = idToken.claims.role;
+      const userToken = await user.getIdTokenResult();
+      const role = userToken.claims.role;
 
-      setCookie('userToken', userToken, { expires: 2 });
+      setCookie('userToken', userToken.token, { expires: 2 });
       handleLoginSuccess(role);
     } catch (error) {
       if (error instanceof Error) handleLoginFail(error.message ?? 'Unknown error occured');
@@ -48,12 +47,11 @@ export const SignIn = () => {
     try {
       const result = await signInWithPopup(authentication, googleProvider);
       const user = result.user;
-      const userToken = await user.getIdToken();
 
-      const idToken = await user.getIdTokenResult();
-      const role = idToken.claims.role;
+      const userToken = await user.getIdTokenResult();
+      const role = userToken.claims.role;
 
-      setCookie('userToken', userToken, { expires: 2 });
+      setCookie('userToken', userToken.token, { expires: 2 });
       handleLoginSuccess(role);
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);
@@ -66,7 +64,8 @@ export const SignIn = () => {
 
   const handleLoginSuccess = (role: string) => {
     onAuthenticatedChange(true, role);
-    navigate('/');
+    localStorage.setItem('userRole', role);
+    navigate('/steps');
   };
 
   const signInPanelFunctions = {

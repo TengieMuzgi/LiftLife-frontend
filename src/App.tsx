@@ -23,7 +23,6 @@ import { Workouts } from './pages/Workouts/Workouts';
 import { Diet } from './pages/Diet/Diet';
 import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
-import { ROLES } from './constants/roles';
 import { MyCoach } from './pages/MyCoach/MyCoach';
 import { Stepper } from './pages/Stepper/Stepper';
 
@@ -57,14 +56,15 @@ declare module '@mui/material/styles' {
 
 type AppContextType = {
   isMobile: boolean;
-  role?: string | null;
+  role: string | null;
   isAuthenticated: boolean;
-  onAuthenticatedChange: (nextAuthenticatedState: boolean, role?: string | null) => void;
+  onAuthenticatedChange: (nextAuthenticatedState: boolean, role: string | null) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
   isMobile: false,
   isAuthenticated: false,
+  role: null,
   onAuthenticatedChange: () => {},
 });
 
@@ -115,11 +115,11 @@ export function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
   // TODO: set role based on info from API, when userToken cookie is set
-  const [role, setRole] = useState<string | null | undefined>(ROLES.NOT_LOGGED);
+  const getRole = localStorage.getItem('userRole') === undefined ? null : localStorage.getItem('userRole');
+  const [role, setRole] = useState<string | null>(getRole);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
-  const onAuthenticatedChange = (nextAuthenticatedState: boolean, role?: string | null) => {
-    console.log(role);
+  const onAuthenticatedChange = (nextAuthenticatedState: boolean, role: string | null) => {
     setIsAuthenticated(nextAuthenticatedState);
     setRole(role);
 

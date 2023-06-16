@@ -42,6 +42,18 @@ export const Stepper = () => {
   const [redirectButtonDisabled, setRedirectDisabled] = useState(true);
   const [isError, setError] = useState(false);
 
+  const handleCoachCodeChange = (value: string) => {
+    setCoachCodeValue(value);
+    value.length < 36 ? setDisabledNextButton(true) : setDisabledNextButton(false);
+  };
+
+  const handleUserPhysiqueChange = (param: 'age' | 'weight' | 'height', value: string) => {
+    setUserPhysique(prevUserPhysique => ({
+      ...prevUserPhysique,
+      [param]: value,
+    }));
+  };
+
   const navigate = useNavigate();
 
   const totalSteps = () => {
@@ -82,18 +94,7 @@ export const Stepper = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleCoachCodeChange = (value: string) => {
-    setCoachCodeValue(value);
-    value.length < 36 ? setDisabledNextButton(true) : setDisabledNextButton(false);
-  };
-
-  const handleUserPhysiqueChange = (param: 'age' | 'weight' | 'height', value: string) => {
-    setUserPhysique(prevUserPhysique => ({
-      ...prevUserPhysique,
-      [param]: value,
-    }));
-  };
-
+  //Update user data
   const handleSendData = async () => {
     try {
       const coachAssign = await axios.post(
@@ -120,6 +121,7 @@ export const Stepper = () => {
     }
   };
 
+  //Navigate upon completion
   const handleNavigate = () => {
     navigate('/profile');
   };
@@ -130,7 +132,7 @@ export const Stepper = () => {
         ? setDisabledNextButton(true)
         : setDisabledNextButton(false);
     }
-  }, [userPhysique]);
+  }, [userPhysique, activeStep]);
 
   return (
     <>

@@ -25,6 +25,7 @@ import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
 import { MyCoach } from './pages/MyCoach/MyCoach';
 import { Stepper } from './pages/Stepper/Stepper';
+import { ProfileInformation } from './pages/ProfileInformation/ProfileInformation';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -194,7 +195,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage></ProfilePage>}
+                  outlet={<ProfilePage><ProfileInformation/></ProfilePage>}
                 />
               }
               path="/profile"

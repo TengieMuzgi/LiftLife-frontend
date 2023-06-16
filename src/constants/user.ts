@@ -7,4 +7,7 @@ export type UserProps = {
   id: string;
   registerDate: string;
   hasAvatar: boolean;
+  age: number;
+  weight: number;
+  height: number;
 };

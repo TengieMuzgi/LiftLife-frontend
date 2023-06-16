@@ -10,6 +10,8 @@ import type { CalendarTileConfigType } from '../../components/Calendar/CalendarT
 import { Calendar } from '../../components/Calendar';
 import type { CalendarConfigType } from '../../components/Calendar/Calendar.types';
 import { AppContext } from '../../App';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { AppBarMarginTopAdjustment } from '../../components/AppBar/AppBar.constants';
 
 type Props = {};
 
@@ -57,6 +59,14 @@ export const Diet = (props: Props) => {
     console.log(itemId, tileId);
   }
 
+  function onRemove(tileId: string) {
+    console.log(tileId);
+  }
+
+  function onClick(tileId: string) {
+    console.log(tileId);
+  }
+
   useEffect(() => {
     const temp = config;
     const today = dayjs();
@@ -71,14 +81,18 @@ export const Diet = (props: Props) => {
   }, []);
 
   return isLoaded ? (
-    <Calendar
-      onDrop={onReserve}
-      calendarConfig={config}
-      options={DUMMY_OPTIONLIST}
-      showOptionPicker
-      optionPickerTitle="placeholder"
-      sx={{ width: '100%', height: isMobile ? 512 : 700 }}
-    />
+    <Box mt={isMobile ? 0 : AppBarMarginTopAdjustment}>
+      <Calendar
+        onDrop={onReserve}
+        onRemoveTile={onRemove}
+        onClickTile={onClick}
+        calendarConfig={config}
+        options={DUMMY_OPTIONLIST}
+        showOptionPicker
+        optionPickerTitle="placeholder"
+        sx={{ width: '100%', height: 600 }}
+      />
+    </Box>
   ) : (
     <></>
   );

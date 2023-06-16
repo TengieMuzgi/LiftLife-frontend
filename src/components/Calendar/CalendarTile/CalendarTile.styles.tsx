@@ -5,9 +5,9 @@ export const ColoredTableCell = styled(TableCell)(({ theme }) => ({
     minWidth: 0,
   },
   [`&.${tableCellClasses.body}`]: {
-    textOverflow: 'ellipsis',
-    wordWrap: 'break-word',
-    overflow: 'hidden',
-    maxHeight: 2.86,
+    position: 'relative',
+  },
+  [`&.${tableCellClasses.body}:hover`]: {
+    cursor: 'pointer',
   },
 }));

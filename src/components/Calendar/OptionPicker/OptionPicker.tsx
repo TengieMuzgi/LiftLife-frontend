@@ -9,13 +9,13 @@ type OptionPickerPropsType = {
 
 export const OptionPicker = ({ items, title }: OptionPickerPropsType) => {
   return (
-    <Paper>
+    <Paper sx={{ marginLeft: 2 }}>
       <List
         sx={{ margin: 2 }}
         subheader={
           title ? (
             <ListSubheader component="div" id="nested-list-subheader">
-              Option list
+              {title}
             </ListSubheader>
           ) : undefined
         }

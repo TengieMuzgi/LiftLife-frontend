@@ -25,6 +25,7 @@ import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
 import { MyCoach } from './pages/MyCoach/MyCoach';
 import { Stepper } from './pages/Stepper/Stepper';
+import { Diet } from './pages/Diet/Diet';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -115,7 +116,8 @@ export function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
   // TODO: set role based on info from API, when userToken cookie is set
-  const getRole = localStorage.getItem('userRole') === undefined ? null : localStorage.getItem('userRole');
+  const getRole =
+    localStorage.getItem('userRole') === undefined ? null : localStorage.getItem('userRole');
   const [role, setRole] = useState<string | null>(getRole);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
@@ -147,7 +149,7 @@ export function App() {
             />
           )}
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Diet />} />
             <Route path="/steps" element={<Stepper />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />

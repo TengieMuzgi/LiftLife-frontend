@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useId } from 'react';
 import {
   Box,
   Paper,
@@ -29,6 +29,8 @@ type CalendarProps = {
    * @returns
    */
   onDrop?: (itemId: string, tileId: string) => void;
+  onRemoveTile?: (tileId: string) => void;
+  onClickTile?: (tileId: string) => void;
   /**
    * Set of data to be shown in OptionPicker
    */
@@ -43,6 +45,8 @@ type CalendarProps = {
 export const Calendar = ({
   sx,
   onDrop,
+  onRemoveTile,
+  onClickTile,
   options,
   showOptionPicker,
   optionPickerTitle,
@@ -51,6 +55,7 @@ export const Calendar = ({
   const theme = useTheme();
   const { isMobile } = useContext(AppContext);
   const columnWidth = 100 / 8 + '%';
+  const id = useId();
 
   return (
     <Box display="flex">
@@ -76,21 +81,22 @@ export const Calendar = ({
                         backgroundColor: theme.palette.background.paper,
                         position: 'relative',
                       }}
-                      marginTop="-28px"
                       textAlign="center"
                     >
                       {descriptor}
                     </Typography>
                   </CalendarTile>
                   {calendarConfig.tileConfig.length > 0 &&
-                    calendarConfig.tileConfig[index].map(tileItem => {
+                    calendarConfig.tileConfig[index].map((tileItem, i) => {
                       return (
                         <CalendarTile
                           width={columnWidth}
                           isReserved={tileItem.isReserved}
                           onReserve={onDrop}
                           key={tileItem.key}
-                          id={tileItem.key ?? crypto.randomUUID()}
+                          id={tileItem.key ?? `${id}-tile-${i}`}
+                          onRemove={onRemoveTile}
+                          onClick={onClickTile}
                         >
                           {tileItem.children}
                         </CalendarTile>

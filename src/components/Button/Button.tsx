@@ -18,7 +18,7 @@ export const Button = (props: ButtonType) => {
       disabled={props.disabled}
       type={props.type}
       onClick={props.onClick}
-      sx={{ ...(props.wide && { px: 4 }) }}
+      sx={{ ...(props.wide && { px: 4 }), height: '50px' }}
       href={props.href}
     >
       {props.children}

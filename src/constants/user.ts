@@ -3,7 +3,7 @@ export type UserProps = {
   firstName: string;
   lastName: string;
   planType?: string;
-  accountType: 'CLIENT' | 'COACH' | 'ADMIN';
+  accountType: 'CLIENT' | 'COACH' | 'ADMIN' | null;
   id: string;
   registerDate: string;
   hasAvatar: boolean;
@@ -11,3 +11,5 @@ export type UserProps = {
   weight: number;
   height: number;
 };
+
+export type RoleType = 'CLIENT' | 'COACH' | 'ADMIN';

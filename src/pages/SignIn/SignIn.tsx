@@ -8,6 +8,7 @@ import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
+import { RoleType } from '../../constants/user';
 
 const googleProvider = new GoogleAuthProvider();
 const authentication = getAuth();
@@ -31,7 +32,7 @@ export const SignIn = () => {
       const user = userCredential.user;
 
       const userToken = await user.getIdTokenResult();
-      const role = userToken.claims.role;
+      const role = userToken.claims.role as RoleType;
 
       setCookie('userToken', userToken.token, { expires: 2 });
       handleLoginSuccess(role);
@@ -62,7 +63,7 @@ export const SignIn = () => {
     showSnackbar(errorMessage, 'error');
   };
 
-  const handleLoginSuccess = (role: string) => {
+  const handleLoginSuccess = (role: RoleType) => {
     onAuthenticatedChange(true, role);
     localStorage.setItem('userRole', role);
     navigate('/steps');

@@ -25,6 +25,8 @@ import { Explore } from './pages/Explore/Explore';
 import { SignUp } from './pages/SignUp/SignUp';
 import { MyCoach } from './pages/MyCoach/MyCoach';
 import { Stepper } from './pages/Stepper/Stepper';
+import { ProfileInformation } from './pages/ProfileInformation/ProfileInformation';
+import { RoleType } from './constants/user';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -56,9 +58,9 @@ declare module '@mui/material/styles' {
 
 type AppContextType = {
   isMobile: boolean;
-  role: string | null;
+  role: RoleType | null;
   isAuthenticated: boolean;
-  onAuthenticatedChange: (nextAuthenticatedState: boolean, role: string | null) => void;
+  onAuthenticatedChange: (nextAuthenticatedState: boolean, role: RoleType | null) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -115,11 +117,11 @@ export function App() {
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
   // TODO: set role based on info from API, when userToken cookie is set
-  const getRole = localStorage.getItem('userRole') === undefined ? null : localStorage.getItem('userRole');
-  const [role, setRole] = useState<string | null>(getRole);
+  const getRole = localStorage.getItem('userRole') === undefined ? null : localStorage.getItem('userRole') as RoleType | null;
+  const [role, setRole] = useState<RoleType | null>(getRole);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
-  const onAuthenticatedChange = (nextAuthenticatedState: boolean, role: string | null) => {
+  const onAuthenticatedChange = (nextAuthenticatedState: boolean, role: RoleType | null) => {
     setIsAuthenticated(nextAuthenticatedState);
     setRole(role);
 
@@ -194,7 +196,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage></ProfilePage>}
+                  outlet={<ProfilePage><ProfileInformation/></ProfilePage>}
                 />
               }
               path="/profile"

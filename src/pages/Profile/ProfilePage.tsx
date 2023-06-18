@@ -18,12 +18,15 @@ type ProfilePageProps = {
   children?: React.ReactNode;
 };
 
+type UserDataProps = Omit<UserProps, 'accountType'>
+
 export const ProfilePage = ({ children }: ProfilePageProps) => {
   const { isMobile } = useContext(AppContext);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
+  const {role} = useContext(AppContext);
 
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-profile'], async () => {
-    const { data } = await axios.get<UserProps>('http://localhost:8081/api/user/client/info', {
+    const { data } = await axios.get<UserDataProps>('http://localhost:8081/api/user/client/info', {
       headers: { Authorization: `Bearer ${getCookie('userToken')}` },
     });
     if (data.hasAvatar) {
@@ -53,7 +56,7 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   return (
     <>
       <Paper elevation={0} sx={profilePaperStyles}>
-        <Grid container>{isFetched && data && <ProfileOverview {...data} />}</Grid>
+        <Grid container>{isFetched && data && <ProfileOverview {...data} accountType={role}  />}</Grid>
       </Paper>
       <Paper elevation={0} sx={tabsContainerStyles}>
         <Grid sx={{ width: '100%' }}>{children}</Grid>

@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SignUpPanel } from './SignUpPanel';
 import { formValues } from './SignUp.types';
 import axios from 'axios';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { useNavigate } from 'react-router';
+import { AppContext } from '../../App';
 
 export const SignUp = () => {
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
   const navigate = useNavigate();
+  const { showSnackbar } = useContext(AppContext);
 
   const registerUser = async (userData: formValues) => {
     try {
@@ -31,17 +30,5 @@ export const SignUp = () => {
     showSnackbar(errorMessage, 'error');
   };
 
-  return (
-    <>
-      <SignUpPanel onRegister={registerUser} />
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
-      )}
-    </>
-  );
+  return <SignUpPanel onRegister={registerUser} />;
 };

@@ -13,10 +13,9 @@ import { EmojiEvents } from '@mui/icons-material';
 import { CoachCodePanel } from './CoachCodePanel';
 import { UserInfoPanel } from './UserInfoPanel';
 import axios, { AxiosError } from 'axios';
-import { getCookie } from 'typescript-cookie';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
+import { getCookie, removeCookie, setCookie } from 'typescript-cookie';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../../constants/firebase';
 import { AppContext } from '../../App';
 import {
   buttonsPositionStyles,
@@ -30,7 +29,7 @@ import {
 const steps = ['Enter coach code', 'Provide basic information', 'All set!'];
 
 export const Stepper = () => {
-  const { isMobile } = useContext(AppContext);
+  const { isMobile, showSnackbar, onAuthenticatedChange } = useContext(AppContext);
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
@@ -38,7 +37,6 @@ export const Stepper = () => {
   const [coachCodeValue, setCoachCodeValue] = useState('');
   const [userPhysique, setUserPhysique] = useState({ age: '18', weight: '50', height: '170' });
   const [disabledNextButton, setDisabledNextButton] = useState(true);
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
   const [redirectButtonDisabled, setRedirectDisabled] = useState(true);
   const [isError, setError] = useState(false);
 
@@ -110,6 +108,7 @@ export const Stepper = () => {
         { headers: { Authorization: `Bearer ${getCookie('userToken')}` } }
       );
       if (response.status === 200 && coachAssign.status === 200) {
+        refreshToken();
         setRedirectDisabled(false);
       }
     } catch (error) {
@@ -118,6 +117,28 @@ export const Stepper = () => {
         setError(true);
         setActiveStep(0);
       }
+    }
+  };
+
+  const refreshToken = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        //force token refresh
+        await user.getIdToken(true);
+
+        //update token
+        const token = await user.getIdTokenResult();
+        const role = token.claims.role;
+        setCookie('userToken', token.token, { expires: 1/24 });
+        localStorage.setItem('userRole', role);
+        onAuthenticatedChange(true, role);
+      }
+    } catch (error) {
+      showSnackbar('Something unexpected happened! Try to sign in again', 'error');
+      removeCookie('userToken');
+      localStorage.removeItem('userRole');
+      navigate('/sign-in');
     }
   };
 
@@ -136,14 +157,6 @@ export const Stepper = () => {
 
   return (
     <>
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
-      )}
       <Box sx={isMobile ? { ...containerStyles, mt: '5vw' } : { ...containerStyles, mt: '10vh' }}>
         <Paper sx={isMobile ? mobilePaperStyles : desktopPaperStyles}>
           <MUIStepper

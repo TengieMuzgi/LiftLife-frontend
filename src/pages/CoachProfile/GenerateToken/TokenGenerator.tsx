@@ -1,17 +1,18 @@
 import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from '../../../components/Button';
 import axios, { AxiosError } from 'axios';
 import { getCookie } from 'typescript-cookie';
 import clipboardCopy from 'clipboard-copy';
-import { ContentCopy } from '@mui/icons-material';
+import { Add, ContentCopy } from '@mui/icons-material';
+import { ContainerStyles } from './TokenGenerator.styles';
+import { AppContext } from '../../../App';
 
-type TokenGeneratorProps = {
-  showSnackbar: (message: string, severity: 'success' | 'error') => void;
-};
 
-export const TokenGenerator = ({ showSnackbar }: TokenGeneratorProps) => {
+export const TokenGenerator = () => {
   const [token, setToken] = useState('');
+  const {showSnackbar} = useContext(AppContext);
+
   const generateToken = async () => {
     try {
       const response = await axios.get('http://localhost:8081/api/user/token/generate', {
@@ -32,25 +33,24 @@ export const TokenGenerator = ({ showSnackbar }: TokenGeneratorProps) => {
       .then(() => {
         showSnackbar('Token copied to clipboard', 'success');
       })
-      .catch((error) => {
+      .catch(error => {
         showSnackbar('Failed to copy token to clipboard', 'error');
-        console.error('Error copying token to clipboard:', error);
       });
   };
 
   return (
-    <Box sx={{pt:{mobile:0,desktop:8}, display: 'flex', flexDirection: {mobile:'column',desktop:'row'}, alignItems: 'center', gap:3 }}>
-      <Button type="button" onClick={generateToken}>
-        Generate register token
+    <Box sx={ContainerStyles}>
+      <Button type="button" onClick={generateToken} icon={<Add/>}>
+        Generate invitation token
       </Button>
       {token !== '' && (
-         <TextField
+        <TextField
           InputProps={{
             readOnly: true,
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton onClick={handleCopy}>
-                  <ContentCopy sx={{ color:'primary.main'}} />
+                  <ContentCopy sx={{ color: 'primary.main' }} />
                 </IconButton>
               </InputAdornment>
             ),

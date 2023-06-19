@@ -4,8 +4,6 @@ import { auth, signInWithEmailAndPassword } from '../../constants/firebase';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { SignInPanel } from './SignInPanel';
 import { setCookie } from 'typescript-cookie';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
-import { useSnackbar } from '../../hooks/useSnackbar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { RoleType } from '../../constants/user';
@@ -17,10 +15,9 @@ authentication.languageCode = 'en';
 export const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const {role} = useContext(AppContext);
+  const { role, showSnackbar } = useContext(AppContext);
 
   const { onAuthenticatedChange } = useContext(AppContext);
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
   /**
    * Method to authenticate user that is singing in using email and password inputs. Sets user's access token as cookie
@@ -84,14 +81,6 @@ export const SignIn = () => {
   return (
     <>
       <SignInPanel {...signInPanelFunctions} />
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
-      )}
     </>
   );
 };

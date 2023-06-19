@@ -63,6 +63,7 @@ type AppContextType = {
   role: RoleType | null;
   isAuthenticated: boolean;
   onAuthenticatedChange: (nextAuthenticatedState: boolean, role: RoleType | null) => void;
+  showSnackbar: (message: string, severity: 'success' | 'error') => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -70,6 +71,7 @@ export const AppContext = createContext<AppContextType>({
   isAuthenticated: false,
   role: null,
   onAuthenticatedChange: () => {},
+  showSnackbar: () => {},
 });
 
 export function App() {
@@ -118,10 +120,13 @@ export function App() {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
-  const getRole = localStorage.getItem('userRole') === 'undefined' ? null : localStorage.getItem('userRole') as RoleType | null;
+  // TODO: set role based on info from API, when userToken cookie is set
+  const getRole =
+    localStorage.getItem('userRole') === 'undefined'
+      ? null
+      : (localStorage.getItem('userRole') as RoleType | null);
   const [role, setRole] = useState<RoleType | null>(getRole);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
-
   const onAuthenticatedChange = (nextAuthenticatedState: boolean, role: RoleType | null) => {
     setIsAuthenticated(nextAuthenticatedState);
     setRole(role);
@@ -137,7 +142,9 @@ export function App() {
 
   // TODO: add navigation back to landingpage, login and logout on mobile
   return (
-    <AppContext.Provider value={{ isMobile, isAuthenticated, onAuthenticatedChange, role }}>
+    <AppContext.Provider
+      value={{ isMobile, isAuthenticated, onAuthenticatedChange, role, showSnackbar }}
+    >
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           {!isMobile && <AppBar />}
@@ -155,10 +162,10 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  isAuthenticated={isAuthenticated && (role === ROLES.NOT_LOGGED || role === undefined)}
-                  outlet={
-                    <Stepper/>
+                  isAuthenticated={
+                    isAuthenticated && (role === ROLES.NOT_LOGGED || role === undefined)
                   }
+                  outlet={<Stepper />}
                 />
               }
               path="/steps"
@@ -208,16 +215,26 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage><ProfileInformation/></ProfilePage>}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
+                  outlet={
+                    <ProfilePage>
+                      <ProfileInformation />
+                    </ProfilePage>
+                  }
                 />
               }
               path="/profile"
             />
-                        <Route
+            <Route
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage><CoachProfile/></ProfilePage>}
+                  isAuthenticated={isAuthenticated && role === ROLES.COACH}
+                  outlet={
+                    <ProfilePage>
+                      <CoachProfile />
+                    </ProfilePage>
+                  }
                 />
               }
               path="/coach-profile"

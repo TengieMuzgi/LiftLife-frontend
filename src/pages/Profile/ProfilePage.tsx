@@ -8,8 +8,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { storage } from '../../constants/firebase';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { UserProps } from '../../constants/user';
 import { Spinner } from '../../components/Spinner/Spinner';
@@ -21,9 +19,7 @@ type ProfilePageProps = {
 type UserDataProps = Omit<UserProps, 'accountType'>
 
 export const ProfilePage = ({ children }: ProfilePageProps) => {
-  const { isMobile } = useContext(AppContext);
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
-  const {role} = useContext(AppContext);
+  const { isMobile, showSnackbar, role } = useContext(AppContext);
 
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-profile'], async () => {
     const { data } = await axios.get<UserDataProps>(`http://localhost:8081/api/user/${role?.toLowerCase()}/info`, {
@@ -61,14 +57,6 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
       <Paper elevation={0} sx={tabsContainerStyles}>
         <Grid sx={{ width: '100%' }}>{children}</Grid>
       </Paper>
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
-      )}
     </>
   );
 };

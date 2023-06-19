@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper, Box } from '@mui/material';
 import { ProfileOverview } from '../../components/ProfileOverview';
 import { profileBoxStyles, tabsContainerStyles } from './ProfilePage.styles';
 import { AppContext } from '../../App';
@@ -46,7 +46,11 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   }
 
   if (isLoading) {
-    return <Loading message="Loading user info" offset="100px" />;
+    return (
+      <Box display="flex" justifyContent="center">
+        <Loading message="Loading user info" offset="100px" />
+      </Box>
+    );
   }
 
   const profilePaperStyles = isMobile

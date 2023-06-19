@@ -121,7 +121,6 @@ export function App() {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
-  // TODO: set role based on info from API, when userToken cookie is set
   const getRole =
     localStorage.getItem('userRole') === 'undefined'
       ? null
@@ -187,6 +186,17 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
+                  outlet={<ClientList />}
+                />
+              }
+              path="/clients"
+            />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <Workouts />
@@ -200,6 +210,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <Diet />
@@ -213,6 +224,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <MyCoach />
@@ -264,7 +276,41 @@ export function App() {
               path="/explore-trainers"
             />
             <Route
-              element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<LandingPage />} />}
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.COACH}
+                  outlet={
+                    <ProfilePage>
+                      <Diet />
+                    </ProfilePage>
+                  }
+                />
+              }
+              path="/diets"
+            />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.COACH}
+                  outlet={
+                    <ProfilePage>
+                      <Workouts />
+                    </ProfilePage>
+                  }
+                />
+              }
+              path="/workouts"
+            />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.NOT_LOGGED}
+                  outlet={<LandingPage />}
+                />
+              }
               path="/explore"
             />
           </Routes>

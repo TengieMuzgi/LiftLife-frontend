@@ -7,8 +7,10 @@ import { UserProps } from '../../constants/user';
 import { getCookie } from 'typescript-cookie';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Button } from '../../components/Button';
-import { AppContext } from '../../App';
+import { Snackbar } from '../../components/Snackbar/Snackbar';
+import { useSnackbar } from '../../hooks/useSnackbar';
 import { Loading } from '../../components/Loading/Loading';
+import { AppContext } from '../../App';
 
 type fieldsType = {
   label: string;
@@ -75,7 +77,9 @@ export const ProfileInformation = () => {
       const paramValue = data[paramKey];
       return axios.put(
         `http://localhost:8081/api/user/client/update/${paramKey}`,
+
         { [paramKey]: paramValue },
+
         {
           headers: { Authorization: `Bearer ${getCookie('userToken')}` },
         }
@@ -99,9 +103,12 @@ export const ProfileInformation = () => {
   if (isError && error instanceof Error) {
     return <ErrorPage message={error.message} />;
   }
-
   if (isLoading) {
-    return <Loading message="Loading user info" />;
+    return (
+      <Box display="flex" justifyContent="center">
+        <Loading message="Loading user info" />
+      </Box>
+    );
   }
 
   const fields: Array<fieldsType> = [

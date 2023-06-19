@@ -13,11 +13,9 @@ export const OptionPicker = ({ items, title }: OptionPickerPropsType) => {
       <List
         sx={{ margin: 2 }}
         subheader={
-          title ? (
-            <ListSubheader component="div" id="nested-list-subheader">
-              Option list
-            </ListSubheader>
-          ) : undefined
+          <ListSubheader component="div" id="nested-list-subheader">
+            {title}
+          </ListSubheader>
         }
       >
         {items.map(listItem => (

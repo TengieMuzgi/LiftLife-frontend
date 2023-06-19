@@ -27,7 +27,16 @@ export const OptionPickerItem = (props: OptionPickerItemProps) => {
   );
 
   return (
-    <ListItem ref={dragRef} sx={{ opacity }}>
+    <ListItem
+      ref={dragRef}
+      sx={{
+        opacity,
+        maxWidth: '256px',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      }}
+    >
       {children}
     </ListItem>
   );

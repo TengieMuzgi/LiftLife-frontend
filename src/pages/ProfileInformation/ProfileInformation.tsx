@@ -9,7 +9,7 @@ import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Button } from '../../components/Button';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Loading } from '../../components/Loading/Loading';
 
 type fieldsType = {
   label: string;
@@ -49,7 +49,6 @@ export const ProfileInformation = () => {
     }
   };
 
-  
   const sendUpdate = (param: 'age' | 'weight' | 'height', value: number) => {
     mutation.mutate({ [param]: value });
     toggleEditMode(param);
@@ -67,7 +66,7 @@ export const ProfileInformation = () => {
     });
     return response;
   });
-  
+
   /**
    * sends update to backend and refetches updated data
    */
@@ -75,15 +74,19 @@ export const ProfileInformation = () => {
     (data: { [param: string]: number }) => {
       const paramKey = Object.keys(data)[0];
       const paramValue = data[paramKey];
-      return axios.put(`http://localhost:8081/api/user/client/update/${paramKey}`, { [paramKey]: paramValue }, {
-        headers: { Authorization: `Bearer ${getCookie('userToken')}` },
-      });
+      return axios.put(
+        `http://localhost:8081/api/user/client/update/${paramKey}`,
+        { [paramKey]: paramValue },
+        {
+          headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+        }
+      );
     },
     {
       onSuccess: () => {
         showSnackbar('Your information has been updated!', 'success');
       },
-      onError: (error) => {
+      onError: error => {
         if (error instanceof AxiosError) {
           showSnackbar(error.message, 'error');
         }
@@ -97,9 +100,12 @@ export const ProfileInformation = () => {
   if (isError && error instanceof Error) {
     return <ErrorPage message={error.message} />;
   }
-
   if (isLoading) {
-    return <Spinner message="Loading user info" />;
+    return (
+      <Box display="flex" justifyContent="center">
+        <Loading message="Loading user info" />
+      </Box>
+    );
   }
 
   const fields: Array<fieldsType> = [
@@ -125,8 +131,8 @@ export const ProfileInformation = () => {
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
-          p: {mobile: 0, desktop: 8},
-          textAlign: {mobile: 'center'},
+          p: { mobile: 0, desktop: 8 },
+          textAlign: { mobile: 'center' },
         }}
       >
         <Insights sx={{ fontSize: '4rem', color: 'primary.main' }} />
@@ -146,7 +152,7 @@ export const ProfileInformation = () => {
                     helperText={valueError && 'Please set valid number'}
                     inputProps={{ inputMode: 'numeric' }}
                     defaultValue={queryResult.data[field.value]}
-                    sx={{ px: 2, width: {mobile: '200px'} }}
+                    sx={{ px: 2, width: { mobile: '200px' } }}
                     onChange={e => handleChange(e, field.value)}
                   />
                   <Button

@@ -117,7 +117,10 @@ export function App() {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
-  const getRole = localStorage.getItem('userRole') === 'undefined' ? null : localStorage.getItem('userRole') as RoleType | null;
+  const getRole =
+    localStorage.getItem('userRole') === 'undefined'
+      ? null
+      : (localStorage.getItem('userRole') as RoleType | null);
   const [role, setRole] = useState<RoleType | null>(getRole);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
@@ -154,10 +157,10 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  isAuthenticated={isAuthenticated && (role === ROLES.NOT_LOGGED || role === undefined)}
-                  outlet={
-                    <Stepper/>
+                  isAuthenticated={
+                    isAuthenticated && (role === ROLES.NOT_LOGGED || role === undefined)
                   }
+                  outlet={<Stepper />}
                 />
               }
               path="/steps"
@@ -168,6 +171,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <Workouts />
@@ -181,6 +185,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <Diet />
@@ -194,6 +199,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <MyCoach />
@@ -207,7 +213,11 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
-                  outlet={<ProfilePage><ProfileInformation/></ProfilePage>}
+                  outlet={
+                    <ProfilePage>
+                      <ProfileInformation />
+                    </ProfilePage>
+                  }
                 />
               }
               path="/profile"
@@ -216,6 +226,7 @@ export function App() {
               element={
                 <ProtectedRoute
                   {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.CLIENT}
                   outlet={
                     <ProfilePage>
                       <Explore />
@@ -226,7 +237,41 @@ export function App() {
               path="/explore-trainers"
             />
             <Route
-              element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<LandingPage />} />}
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.COACH}
+                  outlet={
+                    <ProfilePage>
+                      <Diet />
+                    </ProfilePage>
+                  }
+                />
+              }
+              path="/diets"
+            />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.COACH}
+                  outlet={
+                    <ProfilePage>
+                      <Workouts />
+                    </ProfilePage>
+                  }
+                />
+              }
+              path="/workouts"
+            />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && role === ROLES.NOT_LOGGED}
+                  outlet={<LandingPage />}
+                />
+              }
               path="/explore"
             />
           </Routes>

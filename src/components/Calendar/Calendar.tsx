@@ -30,21 +30,24 @@ type CalendarProps = {
    */
   onDrop?: (itemId: string, tileId: string) => void;
   /**
+   *
+   * @param itemId id of `OptionPickerItem` that was dragged
+   * @param columnId id of `CalendarTile` that triggered drop event
+   * @returns
+   */
+  onColumnDrop?: (itemId: string, columnId: string) => void;
+  /**
    * Set of data to be shown in OptionPicker
    */
   options?: Array<OptionPickerItemProps>;
-  /**
-   * If set, the `OptionPicker` component will be shown
-   */
-  showOptionPicker?: boolean;
   optionPickerTitle?: string;
 };
 
 export const Calendar = ({
   sx,
   onDrop,
+  onColumnDrop,
   options,
-  showOptionPicker,
   optionPickerTitle,
   calendarConfig,
 }: CalendarProps) => {
@@ -60,7 +63,12 @@ export const Calendar = ({
             <ColoredTableRow>
               <CalendarTile id="placeholder" width={columnWidth}></CalendarTile>
               {calendarConfig.columnDescriptors.map((node, i) => (
-                <CalendarTile id={i.toString()} key={i.toString()} width={columnWidth}>
+                <CalendarTile
+                  onReserve={onColumnDrop}
+                  id={i.toString()}
+                  key={i.toString()}
+                  width={columnWidth}
+                >
                   <Box>{node}</Box>
                 </CalendarTile>
               ))}
@@ -75,8 +83,8 @@ export const Calendar = ({
                       sx={{
                         backgroundColor: theme.palette.background.paper,
                         position: 'relative',
+                        padding: 2,
                       }}
-                      marginTop="-28px"
                       textAlign="center"
                     >
                       {descriptor}
@@ -102,9 +110,7 @@ export const Calendar = ({
           </TableBody>
         </Table>
       </TableContainer>
-      {!isMobile && options && showOptionPicker && (
-        <OptionPicker title={optionPickerTitle} items={options} />
-      )}
+      {!isMobile && options && <OptionPicker title={optionPickerTitle} items={options} />}
     </Box>
   );
 };

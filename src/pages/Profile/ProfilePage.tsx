@@ -11,8 +11,8 @@ import { storage } from '../../constants/firebase';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
-import { Loading } from '../../components/Loading/Loading';
 import { UserProps } from '../../constants/user';
+import { Spinner } from '../../components/Spinner/Spinner';
 
 type ProfilePageProps = {
   children?: React.ReactNode;
@@ -47,7 +47,7 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   }
 
   if (isLoading) {
-    return <Loading message="Loading user info" offset="100px" />;
+    return <Spinner message="Loading user info" offset="100px" />;
   }
 
   const profilePaperStyles = isMobile

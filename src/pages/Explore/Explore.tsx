@@ -5,12 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
-import { coachProps } from '../../constants/coach';
+import { useSnackbar } from '../../hooks/useSnackbar';
+import { Snackbar } from '../../components/Snackbar/Snackbar';
+import { CoachProps } from '../../constants/coach';
 import { TrainerPreviewProps } from '../../components/TrainerPreview';
 import { Loading } from '../../components/Loading/Loading';
 
 export const Explore = () => {
-  
   const { isMobile, showSnackbar } = useContext(AppContext);
 
   /**
@@ -18,7 +19,7 @@ export const Explore = () => {
    * Also downloads coach avatar from firebase storage
    */
   const { isLoading, isFetched, isError, data, error } = useQuery(['coaches'], async () => {
-    const { data } = await axios.get<coachProps[]>('http://localhost:8081/api/user/coaches');
+    const { data } = await axios.get<CoachProps[]>('http://localhost:8081/api/user/coaches');
     //Resolve coach avatar and update data with avatar link
     const coachesWithAvatars = await Promise.all(
       data.map(async coach => {

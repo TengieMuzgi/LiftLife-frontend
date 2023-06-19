@@ -2,7 +2,7 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 
 type LoadingProps = {
-  message: string;
+  message?: string;
   offset?: string;
 };
 
@@ -11,10 +11,9 @@ export const Loading = ({ message, offset }: LoadingProps) => {
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
         mt: offset,
+        alignItems: 'center',
+        gap: 1,
       }}
     >
       <CircularProgress size="4rem" />

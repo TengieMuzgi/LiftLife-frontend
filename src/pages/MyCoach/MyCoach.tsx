@@ -1,24 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Loading } from '../../components/Loading/Loading';
 import axios from 'axios';
-import { coachProps } from '../../constants/coach';
+import { CoachProps } from '../../constants/coach';
 import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { TrainerPreview } from '../../components/TrainerPreview';
 import { getCookie } from 'typescript-cookie';
 import { AppContext } from '../../App';
-import { Loading } from '../../components/Loading/Loading';
 
 export const MyCoach = () => {
+  const { showSnackbar } = useContext(AppContext);
 
-  const {showSnackbar} = useContext(AppContext);
-  
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-coach'], async () => {
-    const { data } = await axios.get<coachProps>('http://localhost:8081/api/user/client/getCoach', {
+    const { data } = await axios.get<CoachProps>('http://localhost:8081/api/user/client/getCoach', {
       headers: { Authorization: `Bearer ${getCookie('userToken')}` },
     });
-    const userCoach: coachProps = data;
+    const userCoach: CoachProps = data;
     if (userCoach.hasPhoto) {
       try {
         const storageRef = ref(storage, `${userCoach.id}`);
@@ -40,9 +39,5 @@ export const MyCoach = () => {
     return <Loading message="Loading coach" />;
   }
 
-  return (
-    <>
-      {isFetched && data && <TrainerPreview {...data} />}
-    </>
-  );
+  return <>{isFetched && data && <TrainerPreview {...data} />}</>;
 };

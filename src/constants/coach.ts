@@ -1,4 +1,4 @@
-export type coachProps = {
+export type CoachProps = {
   firstName: string;
   lastName: string;
   specialization: string;

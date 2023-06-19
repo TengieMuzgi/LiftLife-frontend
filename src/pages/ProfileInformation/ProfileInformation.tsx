@@ -1,15 +1,15 @@
 import { Edit, Insights } from '@mui/icons-material';
 import { Box, IconButton, Paper, TextField, Typography } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import { UserProps } from '../../constants/user';
 import { getCookie } from 'typescript-cookie';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
-import { Loading } from '../../components/Loading/Loading';
 import { Button } from '../../components/Button';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
+import { Spinner } from '../../components/Spinner/Spinner';
 
 type fieldsType = {
   label: string;
@@ -22,6 +22,7 @@ export const ProfileInformation = () => {
   const [newFieldValue, setNewFieldValue] = useState({ age: 0, weight: 0, height: 0 });
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
   const [valueError, setError] = useState(false);
+  const queryClient = useQueryClient();
 
   const toggleEditMode = (param: 'age' | 'weight' | 'height') => {
     setEditMode(prevEditMode => ({
@@ -48,24 +49,10 @@ export const ProfileInformation = () => {
     }
   };
 
-  const sendUpdate = async (param: 'age' | 'weight' | 'height', value: number) => {
-    try {
-      const updateResult = await axios.put(
-        `http://localhost:8081/api/user/client/update/${param}`,
-        { [param]: value },
-        {
-          headers: { Authorization: `Bearer ${getCookie('userToken')}` },
-        }
-      );
-      if (updateResult.status === 200) {
-        showSnackbar('Your information has been updated!', 'success');
-        toggleEditMode(param);
-      }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        showSnackbar(error.message, 'error');
-      }
-    }
+  
+  const sendUpdate = (param: 'age' | 'weight' | 'height', value: number) => {
+    mutation.mutate({ [param]: value });
+    toggleEditMode(param);
   };
 
   const {
@@ -80,13 +67,39 @@ export const ProfileInformation = () => {
     });
     return response;
   });
+  
+  /**
+   * sends update to backend and refetches updated data
+   */
+  const mutation = useMutation(
+    (data: { [param: string]: number }) => {
+      const paramKey = Object.keys(data)[0];
+      const paramValue = data[paramKey];
+      return axios.put(`http://localhost:8081/api/user/client/update/${paramKey}`, { [paramKey]: paramValue }, {
+        headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+      });
+    },
+    {
+      onSuccess: () => {
+        showSnackbar('Your information has been updated!', 'success');
+      },
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          showSnackbar(error.message, 'error');
+        }
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(['my-data']);
+      },
+    }
+  );
 
   if (isError && error instanceof Error) {
     return <ErrorPage message={error.message} />;
   }
 
   if (isLoading) {
-    return <Loading message="Loading user info" />;
+    return <Spinner message="Loading user info" />;
   }
 
   const fields: Array<fieldsType> = [
@@ -112,7 +125,8 @@ export const ProfileInformation = () => {
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
-          p: 8,
+          p: {mobile: 0, desktop: 8},
+          textAlign: {mobile: 'center'},
         }}
       >
         <Insights sx={{ fontSize: '4rem', color: 'primary.main' }} />
@@ -132,11 +146,11 @@ export const ProfileInformation = () => {
                     helperText={valueError && 'Please set valid number'}
                     inputProps={{ inputMode: 'numeric' }}
                     defaultValue={queryResult.data[field.value]}
-                    sx={{ px: 2 }}
+                    sx={{ px: 2, width: {mobile: '200px'} }}
                     onChange={e => handleChange(e, field.value)}
                   />
                   <Button
-                  wide
+                    wide
                     type="button"
                     onClick={() => sendUpdate(field.value, newFieldValue[field.value])}
                     disabled={valueError}

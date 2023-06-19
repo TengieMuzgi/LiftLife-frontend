@@ -17,6 +17,7 @@ authentication.languageCode = 'en';
 export const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const {role} = useContext(AppContext);
 
   const { onAuthenticatedChange } = useContext(AppContext);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
@@ -63,10 +64,10 @@ export const SignIn = () => {
     showSnackbar(errorMessage, 'error');
   };
 
-  const handleLoginSuccess = (role: RoleType) => {
-    onAuthenticatedChange(true, role);
-    localStorage.setItem('userRole', role);
-    navigate('/steps');
+  const handleLoginSuccess = (userRole: RoleType) => {
+    onAuthenticatedChange(true, userRole);
+    localStorage.setItem('userRole', userRole);
+    role === null ? navigate('/steps') : navigate('/');
   };
 
   const signInPanelFunctions = {

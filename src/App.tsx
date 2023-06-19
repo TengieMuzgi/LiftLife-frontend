@@ -27,6 +27,7 @@ import { MyCoach } from './pages/MyCoach/MyCoach';
 import { Stepper } from './pages/Stepper/Stepper';
 import { ProfileInformation } from './pages/ProfileInformation/ProfileInformation';
 import { RoleType } from './constants/user';
+import { ROLES } from './constants/roles';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -116,8 +117,7 @@ export function App() {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const [isAuthenticated, setIsAuthenticated] = useState(getCookie('userToken') !== 'undefined');
-  // TODO: set role based on info from API, when userToken cookie is set
-  const getRole = localStorage.getItem('userRole') === undefined ? null : localStorage.getItem('userRole') as RoleType | null;
+  const getRole = localStorage.getItem('userRole') === 'undefined' ? null : localStorage.getItem('userRole') as RoleType | null;
   const [role, setRole] = useState<RoleType | null>(getRole);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
@@ -150,7 +150,18 @@ export function App() {
           )}
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/steps" element={<Stepper />} />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && (role === ROLES.NOT_LOGGED || role === undefined)}
+                  outlet={
+                    <Stepper/>
+                  }
+                />
+              }
+              path="/steps"
+            />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route

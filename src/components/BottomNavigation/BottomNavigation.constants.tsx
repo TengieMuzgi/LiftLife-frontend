@@ -22,6 +22,7 @@ export const navigationActionData = {
     { href: '/workouts', label: 'Workouts', icon: <FitnessCenterOutlined /> },
     { href: '/diets', label: 'Diets', icon: <LunchDiningOutlined /> },
     { href: '/clients', label: 'Clients', icon: <PeopleAltOutlined /> },
+    { href: '/coach-profile', label: 'Profile', icon: <PersonOutline /> },
   ],
   adminLoggedIn: [
     { href: '/logs', label: 'Logs', icon: <FeedOutlined /> },

@@ -28,6 +28,7 @@ import { Stepper } from './pages/Stepper/Stepper';
 import { ProfileInformation } from './pages/ProfileInformation/ProfileInformation';
 import { RoleType } from './constants/user';
 import { ROLES } from './constants/roles';
+import { CoachProfile } from './pages/CoachProfile/CoachProfile';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -211,6 +212,15 @@ export function App() {
                 />
               }
               path="/profile"
+            />
+                        <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  outlet={<ProfilePage><CoachProfile/></ProfilePage>}
+                />
+              }
+              path="/coach-profile"
             />
             <Route
               element={

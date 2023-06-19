@@ -24,6 +24,7 @@
     "@types/react-swipeable-views": "^0.13.1",
     "@types/styled-components": "5.1.26",
     "axios": "^1.4.0",
+    "clipboard-copy": "^4.0.1",
     "dayjs": "^1.11.7",
     "firebase": "^9.22.1",
     "formik": "^2.4.1",

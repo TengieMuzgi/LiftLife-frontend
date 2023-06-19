@@ -26,7 +26,7 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   const {role} = useContext(AppContext);
 
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-profile'], async () => {
-    const { data } = await axios.get<UserDataProps>('http://localhost:8081/api/user/client/info', {
+    const { data } = await axios.get<UserDataProps>(`http://localhost:8081/api/user/${role?.toLowerCase()}/info`, {
       headers: { Authorization: `Bearer ${getCookie('userToken')}` },
     });
     if (data.hasAvatar) {

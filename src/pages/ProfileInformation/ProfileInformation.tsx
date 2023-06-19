@@ -49,6 +49,7 @@ export const ProfileInformation = () => {
     }
   };
 
+  
   const sendUpdate = (param: 'age' | 'weight' | 'height', value: number) => {
     mutation.mutate({ [param]: value });
     toggleEditMode(param);

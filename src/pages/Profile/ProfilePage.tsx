@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper, Box } from '@mui/material';
 import { ProfileOverview } from '../../components/ProfileOverview';
 import { profileBoxStyles, tabsContainerStyles } from './ProfilePage.styles';
 import { AppContext } from '../../App';
@@ -12,23 +12,26 @@ import { useSnackbar } from '../../hooks/useSnackbar';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { UserProps } from '../../constants/user';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Loading } from '../../components/Loading/Loading';
 
 type ProfilePageProps = {
   children?: React.ReactNode;
 };
 
-type UserDataProps = Omit<UserProps, 'accountType'>
+type UserDataProps = Omit<UserProps, 'accountType'>;
 
 export const ProfilePage = ({ children }: ProfilePageProps) => {
   const { isMobile } = useContext(AppContext);
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
-  const {role} = useContext(AppContext);
+  const { role } = useContext(AppContext);
 
-  const { isLoading, isFetched, isError, data, error } = useQuery(['my-profile'], async () => {
-    const { data } = await axios.get<UserDataProps>('http://localhost:8081/api/user/client/info', {
-      headers: { Authorization: `Bearer ${getCookie('userToken')}` },
-    });
+  const { isFetched, isLoading, isError, data, error } = useQuery(['my-profile'], async () => {
+    const { data } = await axios.get<UserDataProps>(
+      `http://localhost:8081/api/user/${role?.toLowerCase()}/info`,
+      {
+        headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+      }
+    );
     if (data.hasAvatar) {
       try {
         const storageRef = ref(storage, `${data.id}`);
@@ -47,7 +50,11 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   }
 
   if (isLoading) {
-    return <Spinner message="Loading user info" offset="100px" />;
+    return (
+      <Box display="flex" justifyContent="center">
+        <Loading message="Loading user info" offset="100px" />
+      </Box>
+    );
   }
 
   const profilePaperStyles = isMobile
@@ -56,7 +63,9 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   return (
     <>
       <Paper elevation={0} sx={profilePaperStyles}>
-        <Grid container>{isFetched && data && <ProfileOverview {...data} accountType={role}  />}</Grid>
+        <Grid container>
+          {isFetched && data && <ProfileOverview {...data} accountType={role} />}
+        </Grid>
       </Paper>
       <Paper elevation={0} sx={tabsContainerStyles}>
         <Grid sx={{ width: '100%' }}>{children}</Grid>

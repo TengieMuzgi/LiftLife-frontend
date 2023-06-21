@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Loading } from '../../components/Loading/Loading';
 import axios from 'axios';
-import { coachProps } from '../../constants/coach';
+import { CoachProps } from '../../constants/coach';
 import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { useSnackbar } from '../../hooks/useSnackbar';
@@ -15,10 +15,10 @@ export const MyCoach = () => {
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-coach'], async () => {
-    const { data } = await axios.get<coachProps>('http://localhost:8081/api/user/client/getCoach', {
+    const { data } = await axios.get<CoachProps>('http://localhost:8081/api/user/client/getCoach', {
       headers: { Authorization: `Bearer ${getCookie('userToken')}` },
     });
-    const userCoach: coachProps = data;
+    const userCoach: CoachProps = data;
     if (userCoach.hasPhoto) {
       try {
         const storageRef = ref(storage, `${userCoach.id}`);
@@ -37,7 +37,7 @@ export const MyCoach = () => {
   }
 
   if (isLoading) {
-    return <Spinner message="Loading coach" />;
+    return <Loading message="Loading coach" />;
   }
 
   return (

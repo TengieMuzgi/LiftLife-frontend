@@ -10,8 +10,12 @@ import type { CalendarTileConfigType } from '../../components/Calendar/CalendarT
 import { Calendar } from '../../components/Calendar';
 import type { CalendarConfigType } from '../../components/Calendar/Calendar.types';
 import { AppContext } from '../../App';
-
-type Props = {};
+import { useQuery } from '@tanstack/react-query';
+import { getCookie } from 'typescript-cookie';
+import axios from 'axios';
+import { ROLES } from '../../constants/roles';
+import { Box, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { UserProps } from '../../constants/user';
 
 const generateRandomReservedTilesConfig = (conf: typeof calendarConfig) => {
   const temp: Array<Array<CalendarTileConfigType>> = [];
@@ -48,14 +52,65 @@ const getWeek = (day: Dayjs): Array<{ date: Dayjs; dayname: string }> => {
   return week;
 };
 
-export const Diet = (props: Props) => {
+export const Diet = () => {
   const [config, setConfig] = useState<CalendarConfigType>(calendarConfig);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [selectedClientId, setSelectedClientId] = useState<string>('');
   const { isMobile } = useContext(AppContext);
+  const { role } = useContext(AppContext);
 
   function onReserve(itemId: string, tileId: string) {
     console.log(itemId, tileId);
   }
+
+  function onColumnReserve(itemId: string, columnId: string) {
+    console.log(itemId, columnId);
+  }
+
+  async function onClientChange(event: SelectChangeEvent) {
+    console.log(event.target.value);
+    setSelectedClientId(event.target.value);
+  }
+
+  const { data: dietDayTemplates } = useQuery(
+    ['diet-day-templates'],
+    async () => {
+      const { data } = await axios.get<Array<{ name: string; id: string }>>(
+        'http://localhost:8081/api/dietDay/template/truncated',
+        {
+          headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+        }
+      );
+      return data;
+    },
+    { enabled: false }
+  );
+  console.log('dietDayTemplates: ', dietDayTemplates);
+
+  const { data: coachClients } = useQuery(['coach-clients'], async () => {
+    const { data } = await axios.get<Array<UserProps>>(
+      'http://localhost:8081/api/user/coach/clients',
+      {
+        headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+      }
+    );
+    return data;
+  });
+
+  const { data: userDiet } = useQuery(
+    ['user-diet'],
+    async () => {
+      const { data } = await axios.get<Array<UserProps>>(
+        `http://localhost:8081/api/dietDay/fullByUser/${selectedClientId}`,
+        {
+          headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+        }
+      );
+      return data;
+    },
+    { enabled: selectedClientId !== '' && coachClients !== undefined }
+  );
+
+  console.log('userDiet: ', userDiet);
 
   useEffect(() => {
     const temp = config;
@@ -66,20 +121,41 @@ export const Diet = (props: Props) => {
       weekday => `${weekday.dayname} ${weekday.date.date()}`
     );
     setConfig(temp);
-    setIsLoaded(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isLoaded ? (
-    <Calendar
-      onDrop={onReserve}
-      calendarConfig={config}
-      options={DUMMY_OPTIONLIST}
-      showOptionPicker
-      optionPickerTitle="placeholder"
-      sx={{ width: '100%', height: isMobile ? 512 : 700 }}
-    />
-  ) : (
-    <></>
+  return (
+    <Box>
+      {role === ROLES.COACH && (
+        <Box sx={{ margin: 2, maxWidth: 256 }}>
+          <InputLabel id="client-name-label">Client</InputLabel>
+          <Select
+            labelId="client-name-label"
+            id="client-name"
+            value={selectedClientId}
+            onChange={onClientChange}
+            fullWidth
+          >
+            {coachClients?.map(client => {
+              return (
+                <MenuItem
+                  value={client.id}
+                  id={client.id}
+                >{`${client.firstName} ${client.lastName}`}</MenuItem>
+              );
+            })}
+          </Select>
+        </Box>
+      )}
+
+      <Calendar
+        onDrop={onReserve}
+        onColumnDrop={onColumnReserve}
+        calendarConfig={config}
+        options={role === ROLES.COACH ? DUMMY_OPTIONLIST : undefined}
+        optionPickerTitle="Template days"
+        sx={{ width: '100%', height: '100%', maxHeight: isMobile ? 512 : 700 }}
+      />
+    </Box>
   );
 };

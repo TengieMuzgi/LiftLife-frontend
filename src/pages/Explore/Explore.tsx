@@ -7,9 +7,9 @@ import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { Snackbar } from '../../components/Snackbar/Snackbar';
-import { coachProps } from '../../constants/coach';
+import { CoachProps } from '../../constants/coach';
 import { TrainerPreviewProps } from '../../components/TrainerPreview';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Loading } from '../../components/Loading/Loading';
 
 export const Explore = () => {
   const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
@@ -19,7 +19,7 @@ export const Explore = () => {
    * Also downloads coach avatar from firebase storage
    */
   const { isLoading, isFetched, isError, data, error } = useQuery(['coaches'], async () => {
-    const { data } = await axios.get<coachProps[]>('http://localhost:8081/api/user/coaches');
+    const { data } = await axios.get<CoachProps[]>('http://localhost:8081/api/user/coaches');
     //Resolve coach avatar and update data with avatar link
     const coachesWithAvatars = await Promise.all(
       data.map(async coach => {
@@ -46,7 +46,7 @@ export const Explore = () => {
   const { isMobile } = useContext(AppContext);
 
   if (isLoading) {
-    return <Spinner message="Loading coaches" />;
+    return <Loading message="Loading coaches" />;
   }
 
   if (isError && error instanceof Error) {

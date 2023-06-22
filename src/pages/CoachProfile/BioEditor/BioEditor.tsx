@@ -2,13 +2,13 @@ import { Box, Card, CardContent, TextField, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { ErrorPage } from '../../ErrorPage/ErrorPage';
-import { Spinner } from '../../../components/Spinner/Spinner';
 import axios, { AxiosError } from 'axios';
 import { getCookie } from 'typescript-cookie';
 import { Button } from '../../../components/Button';
 import { Cancel, Check, Settings } from '@mui/icons-material';
 import { ButtonBoxStyles, CardStyles } from './BioEditor.styles';
 import { AppContext } from '../../../App';
+import { Loading } from '../../../components/Loading/Loading';
 
 export const BioEditor = () => {
   const [editMode, setEditMode] = useState(false);
@@ -74,7 +74,7 @@ export const BioEditor = () => {
   }
 
   if (isLoading) {
-    return <Spinner message="Loading profile" />;
+    return <Loading message="Loading profile" />;
   }
   return (
     <Card sx={CardStyles} elevation={3}>

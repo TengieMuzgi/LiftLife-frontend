@@ -7,8 +7,8 @@ import { UserProps } from '../../constants/user';
 import { getCookie } from 'typescript-cookie';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Button } from '../../components/Button';
-import { Spinner } from '../../components/Spinner/Spinner';
 import { AppContext } from '../../App';
+import { Loading } from '../../components/Loading/Loading';
 
 type fieldsType = {
   label: string;
@@ -101,7 +101,7 @@ export const ProfileInformation = () => {
   }
 
   if (isLoading) {
-    return <Spinner message="Loading user info" />;
+    return <Loading message="Loading user info" />;
   }
 
   const fields: Array<fieldsType> = [

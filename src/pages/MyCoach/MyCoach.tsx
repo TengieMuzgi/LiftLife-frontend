@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { Spinner } from '../../components/Spinner/Spinner';
 import axios from 'axios';
 import { coachProps } from '../../constants/coach';
 import { storage } from '../../constants/firebase';
@@ -9,6 +8,7 @@ import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { TrainerPreview } from '../../components/TrainerPreview';
 import { getCookie } from 'typescript-cookie';
 import { AppContext } from '../../App';
+import { Loading } from '../../components/Loading/Loading';
 
 export const MyCoach = () => {
 
@@ -37,7 +37,7 @@ export const MyCoach = () => {
   }
 
   if (isLoading) {
-    return <Spinner message="Loading coach" />;
+    return <Loading message="Loading coach" />;
   }
 
   return (

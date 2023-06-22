@@ -29,6 +29,7 @@ import { ProfileInformation } from './pages/ProfileInformation/ProfileInformatio
 import { RoleType } from './constants/user';
 import { ROLES } from './constants/roles';
 import { CoachProfile } from './pages/CoachProfile/CoachProfile';
+import { ClientList } from './pages/ClientList/ClientList';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -63,7 +64,7 @@ type AppContextType = {
   role: RoleType | null;
   isAuthenticated: boolean;
   onAuthenticatedChange: (nextAuthenticatedState: boolean, role: RoleType | null) => void;
-  showSnackbar: (message: string, severity: 'success' | 'error') => void;
+  showSnackbar: (message: string, severity: 'success' | 'error' | 'info') => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -172,6 +173,16 @@ export function App() {
             />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route
+              element={
+                <ProtectedRoute
+                  {...defaultProtectedRouteProps}
+                  isAuthenticated={isAuthenticated && (role === ROLES.COACH || role === undefined)}
+                  outlet={<ClientList />}
+                />
+              }
+              path="/clients"
+            />
             <Route
               element={
                 <ProtectedRoute

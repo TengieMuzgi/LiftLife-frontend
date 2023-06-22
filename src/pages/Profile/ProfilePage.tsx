@@ -10,22 +10,25 @@ import { getDownloadURL, ref } from '@firebase/storage';
 import { storage } from '../../constants/firebase';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { UserProps } from '../../constants/user';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Loading } from '../../components/Loading/Loading';
 
 type ProfilePageProps = {
   children?: React.ReactNode;
 };
 
-type UserDataProps = Omit<UserProps, 'accountType'>
+type UserDataProps = Omit<UserProps, 'accountType'>;
 
 export const ProfilePage = ({ children }: ProfilePageProps) => {
   const { isMobile, showSnackbar, role } = useContext(AppContext);
 
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-profile'], async () => {
-    const { data } = await axios.get<UserDataProps>(`http://localhost:8081/api/user/${role?.toLowerCase()}/info`, {
-      headers: { Authorization: `Bearer ${getCookie('userToken')}` },
-    });
-    if (data.hasAvatar) {
+    const { data } = await axios.get<UserDataProps>(
+      `http://localhost:8081/api/user/${role?.toLowerCase()}/info`,
+      {
+        headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+      }
+    );
+    if (data.hasPhoto) {
       try {
         const storageRef = ref(storage, `${data.id}`);
         const avatarURL = await getDownloadURL(storageRef);
@@ -43,7 +46,7 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   }
 
   if (isLoading) {
-    return <Spinner message="Loading user info" offset="100px" />;
+    return <Loading message="Loading user info" offset="100px" />;
   }
 
   const profilePaperStyles = isMobile
@@ -52,7 +55,9 @@ export const ProfilePage = ({ children }: ProfilePageProps) => {
   return (
     <>
       <Paper elevation={0} sx={profilePaperStyles}>
-        <Grid container>{isFetched && data && <ProfileOverview {...data} accountType={role}  />}</Grid>
+        <Grid container>
+          {isFetched && data && <ProfileOverview {...data} accountType={role} />}
+        </Grid>
       </Paper>
       <Paper elevation={0} sx={tabsContainerStyles}>
         <Grid sx={{ width: '100%' }}>{children}</Grid>

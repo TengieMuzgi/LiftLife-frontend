@@ -6,7 +6,7 @@ export type UserProps = {
   accountType: 'CLIENT' | 'COACH' | 'ADMIN' | null;
   id: string;
   registerDate: string;
-  hasAvatar: boolean;
+  hasPhoto: boolean;
   age: number;
   weight: number;
   height: number;

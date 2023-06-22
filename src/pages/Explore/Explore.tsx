@@ -7,7 +7,7 @@ import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
 import { coachProps } from '../../constants/coach';
 import { TrainerPreviewProps } from '../../components/TrainerPreview';
-import { Spinner } from '../../components/Spinner/Spinner';
+import { Loading } from '../../components/Loading/Loading';
 
 export const Explore = () => {
   
@@ -43,7 +43,7 @@ export const Explore = () => {
   });
 
   if (isLoading) {
-    return <Spinner message="Loading coaches" />;
+    return <Loading message="Loading coaches" />;
   }
 
   if (isError && error instanceof Error) {

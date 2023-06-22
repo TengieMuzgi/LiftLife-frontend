@@ -9,12 +9,13 @@ type ButtonType = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   href?: string;
   icon?: React.ReactElement<ButtonProps>;
+  variant? : 'contained' | 'outlined';
 };
 
 export const Button = (props: ButtonType) => {
   return (
     <MuiButton
-      variant="contained"
+      variant={props.variant ? props.variant : 'contained'}
       size="small"
       disabled={props.disabled}
       type={props.type}

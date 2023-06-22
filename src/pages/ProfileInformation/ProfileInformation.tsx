@@ -2,14 +2,13 @@ import { Edit, Insights } from '@mui/icons-material';
 import { Box, IconButton, Paper, TextField, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserProps } from '../../constants/user';
 import { getCookie } from 'typescript-cookie';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Button } from '../../components/Button';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
-import { useSnackbar } from '../../hooks/useSnackbar';
 import { Spinner } from '../../components/Spinner/Spinner';
+import { AppContext } from '../../App';
 
 type fieldsType = {
   label: string;
@@ -20,8 +19,8 @@ type fieldsType = {
 export const ProfileInformation = () => {
   const [editMode, setEditMode] = useState({ age: false, weight: false, height: false });
   const [newFieldValue, setNewFieldValue] = useState({ age: 0, weight: 0, height: 0 });
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
   const [valueError, setError] = useState(false);
+  const { showSnackbar } = useContext(AppContext);
   const queryClient = useQueryClient();
 
   const toggleEditMode = (param: 'age' | 'weight' | 'height') => {
@@ -49,7 +48,6 @@ export const ProfileInformation = () => {
     }
   };
 
-  
   const sendUpdate = (param: 'age' | 'weight' | 'height', value: number) => {
     mutation.mutate({ [param]: value });
     toggleEditMode(param);
@@ -67,7 +65,7 @@ export const ProfileInformation = () => {
     });
     return response;
   });
-  
+
   /**
    * sends update to backend and refetches updated data
    */
@@ -75,15 +73,19 @@ export const ProfileInformation = () => {
     (data: { [param: string]: number }) => {
       const paramKey = Object.keys(data)[0];
       const paramValue = data[paramKey];
-      return axios.put(`http://localhost:8081/api/user/client/update/${paramKey}`, { [paramKey]: paramValue }, {
-        headers: { Authorization: `Bearer ${getCookie('userToken')}` },
-      });
+      return axios.put(
+        `http://localhost:8081/api/user/client/update/${paramKey}`,
+        { [paramKey]: paramValue },
+        {
+          headers: { Authorization: `Bearer ${getCookie('userToken')}` },
+        }
+      );
     },
     {
       onSuccess: () => {
         showSnackbar('Your information has been updated!', 'success');
       },
-      onError: (error) => {
+      onError: error => {
         if (error instanceof AxiosError) {
           showSnackbar(error.message, 'error');
         }
@@ -110,14 +112,6 @@ export const ProfileInformation = () => {
 
   return (
     <>
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
-      )}
       <Paper
         elevation={0}
         sx={{
@@ -125,8 +119,8 @@ export const ProfileInformation = () => {
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
-          p: {mobile: 0, desktop: 8},
-          textAlign: {mobile: 'center'},
+          p: { mobile: 0, desktop: 8 },
+          textAlign: { mobile: 'center' },
         }}
       >
         <Insights sx={{ fontSize: '4rem', color: 'primary.main' }} />
@@ -146,7 +140,7 @@ export const ProfileInformation = () => {
                     helperText={valueError && 'Please set valid number'}
                     inputProps={{ inputMode: 'numeric' }}
                     defaultValue={queryResult.data[field.value]}
-                    sx={{ px: 2, width: {mobile: '200px'} }}
+                    sx={{ px: 2, width: { mobile: '200px' } }}
                     onChange={e => handleChange(e, field.value)}
                   />
                   <Button

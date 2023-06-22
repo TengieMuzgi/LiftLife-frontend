@@ -1,19 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Spinner } from '../../components/Spinner/Spinner';
 import axios from 'axios';
 import { coachProps } from '../../constants/coach';
 import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { TrainerPreview } from '../../components/TrainerPreview';
 import { getCookie } from 'typescript-cookie';
+import { AppContext } from '../../App';
 
 export const MyCoach = () => {
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
 
+  const {showSnackbar} = useContext(AppContext);
+  
   const { isLoading, isFetched, isError, data, error } = useQuery(['my-coach'], async () => {
     const { data } = await axios.get<coachProps>('http://localhost:8081/api/user/client/getCoach', {
       headers: { Authorization: `Bearer ${getCookie('userToken')}` },
@@ -43,14 +43,6 @@ export const MyCoach = () => {
   return (
     <>
       {isFetched && data && <TrainerPreview {...data} />}
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
-      )}
     </>
   );
 };

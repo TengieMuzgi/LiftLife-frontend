@@ -5618,6 +5618,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clipboard-copy@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "clipboard-copy@npm:4.0.1"
+  checksum: 530a09de80dfd0536793fdefb6559a2dfb6c2706b027c41c672a0f18debafd420e69111224f3265555afcd73f9cd97517dcaf494aa25996a58a8f550a3426080
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^7.0.2":
   version: 7.0.4
   resolution: "cliui@npm:7.0.4"
@@ -9978,6 +9985,7 @@ __metadata:
     "@types/react-swipeable-views": ^0.13.1
     "@types/styled-components": 5.1.26
     axios: ^1.4.0
+    clipboard-copy: ^4.0.1
     dayjs: ^1.11.7
     firebase: ^9.22.1
     formik: ^2.4.1

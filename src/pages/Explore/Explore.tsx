@@ -5,14 +5,13 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { coachProps } from '../../constants/coach';
 import { TrainerPreviewProps } from '../../components/TrainerPreview';
 import { Spinner } from '../../components/Spinner/Spinner';
 
 export const Explore = () => {
-  const [snackbarState, showSnackbar, hideSnackbar] = useSnackbar();
+  
+  const { isMobile, showSnackbar } = useContext(AppContext);
 
   /**
    * Query to get data about coaches
@@ -43,8 +42,6 @@ export const Explore = () => {
     return coachesWithAvatars;
   });
 
-  const { isMobile } = useContext(AppContext);
-
   if (isLoading) {
     return <Spinner message="Loading coaches" />;
   }
@@ -57,14 +54,6 @@ export const Explore = () => {
     <>
       {isFetched && data && (
         <Carousel trainers={data as TrainerPreviewProps[]} slidesPerView={isMobile ? 1 : 3} />
-      )}
-      {snackbarState && (
-        <Snackbar
-          isOpen={true}
-          message={snackbarState.message}
-          severity={snackbarState.severity}
-          onClose={hideSnackbar}
-        />
       )}
     </>
   );

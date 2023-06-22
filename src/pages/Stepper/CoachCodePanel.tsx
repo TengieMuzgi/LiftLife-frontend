@@ -17,8 +17,8 @@ export const CoachCodePanel = ({ value, onChange }: CoachCodePanelProps) => {
   return (
     <Box sx={stepFormStyles}>
       <SportsGymnastics sx={stepIconStyles} />
-      <Typography variant="h5">Enter Coach Code</Typography>
-      <Typography variant="body1">Hint: you should receive it from coach on your email</Typography>
+      <Typography variant="h5">Enter Invitation Code</Typography>
+      <Typography variant="body1">Hint: you should receive it from coach or admin on your email</Typography>
       <TextField
         helperText="Coach Code"
         label="Coach Code"

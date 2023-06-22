@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import { Button as MuiButton } from '@mui/material';
+import { ButtonProps, Button as MuiButton } from '@mui/material';
 
 type ButtonType = {
   children: string | React.ReactNode;
@@ -8,6 +8,7 @@ type ButtonType = {
   wide?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   href?: string;
+  icon?: React.ReactElement<ButtonProps>;
 };
 
 export const Button = (props: ButtonType) => {
@@ -20,6 +21,7 @@ export const Button = (props: ButtonType) => {
       onClick={props.onClick}
       sx={{ ...(props.wide && { px: 4 }), height: '50px' }}
       href={props.href}
+      startIcon={props.icon}
     >
       {props.children}
     </MuiButton>

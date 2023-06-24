@@ -17,7 +17,8 @@ import { ROLES } from '../../constants/roles';
 import { Box, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { UserProps } from '../../constants/user';
 
-const generateRandomReservedTilesConfig = (conf: typeof calendarConfig) => {
+// TODO: Export to different file
+export const generateRandomReservedTilesConfig = (conf: typeof calendarConfig) => {
   const temp: Array<Array<CalendarTileConfigType>> = [];
   let isReserved = false;
 
@@ -36,7 +37,8 @@ const generateRandomReservedTilesConfig = (conf: typeof calendarConfig) => {
   return temp;
 };
 
-const getWeek = (day: Dayjs): Array<{ date: Dayjs; dayname: string }> => {
+// TODO: Export to different file
+export const getWeek = (day: Dayjs): Array<{ date: Dayjs; dayname: string }> => {
   const monday = day.local().startOf('week');
 
   const week = [

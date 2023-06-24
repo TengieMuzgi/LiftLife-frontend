@@ -37,6 +37,12 @@ type CalendarProps = {
    */
   onColumnDrop?: (itemId: string, columnId: string) => void;
   /**
+   *
+   * @param tileId id of `CalendarTile` that triggered delete event
+   * @returns
+   */
+  onRemove?: (tileId: string) => void;
+  /**
    * Set of data to be shown in OptionPicker
    */
   options?: Array<OptionPickerItemProps>;
@@ -46,6 +52,7 @@ type CalendarProps = {
 export const Calendar = ({
   sx,
   onDrop,
+  onRemove,
   onColumnDrop,
   options,
   optionPickerTitle,
@@ -90,13 +97,15 @@ export const Calendar = ({
                       {descriptor}
                     </Typography>
                   </CalendarTile>
-                  {calendarConfig.tileConfig.length > 0 &&
+                  {calendarConfig.tileConfig &&
+                    calendarConfig.tileConfig.length > 0 &&
                     calendarConfig.tileConfig[index].map(tileItem => {
                       return (
                         <CalendarTile
                           width={columnWidth}
                           isReserved={tileItem.isReserved}
                           onReserve={onDrop}
+                          onRemove={onRemove}
                           key={tileItem.key}
                           id={tileItem.key ?? crypto.randomUUID()}
                         >

@@ -7,7 +7,7 @@ import updateLocale from 'dayjs/plugin/updateLocale';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
 import 'dayjs/locale/pl';
-import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
 import LandingPage from './pages/LandingPage/LandingPage';
 import { Snackbar } from './components/Snackbar/Snackbar';
 import { AppBar } from './components/AppBar';
@@ -147,6 +147,7 @@ export function App() {
     >
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           {!isMobile && <AppBar />}
           {snackbarState !== null && (
             <Snackbar

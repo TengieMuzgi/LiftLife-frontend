@@ -5,8 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { storage } from '../../constants/firebase';
 import { getDownloadURL, ref } from '@firebase/storage';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { Snackbar } from '../../components/Snackbar/Snackbar';
 import { CoachProps } from '../../constants/coach';
 import { TrainerPreviewProps } from '../../components/TrainerPreview';
 import { Loading } from '../../components/Loading/Loading';

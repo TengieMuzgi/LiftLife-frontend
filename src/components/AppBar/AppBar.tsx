@@ -13,7 +13,6 @@ type AppBarProps = {};
 export const AppBar = (props: AppBarProps) => {
   const { role, isAuthenticated, onAuthenticatedChange } = useContext(AppContext);
   const navigate = useNavigate();
-  console.log(role);
 
   const isClientLoggedIn = role === ROLES.CLIENT;
   const isCoachLoggedIn = role === ROLES.COACH;

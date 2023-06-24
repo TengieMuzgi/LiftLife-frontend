@@ -32,7 +32,7 @@ export const SignIn = () => {
       const userToken = await user.getIdTokenResult();
       const role = userToken.claims.role as RoleType;
 
-      setCookie('userToken', userToken.token, { expires: 2 });
+      setCookie('userToken', userToken.token, { expires: 1 / 24 });
       handleLoginSuccess(role);
     } catch (error) {
       if (error instanceof Error) handleLoginFail(error.message ?? 'Unknown error occured');
@@ -50,7 +50,7 @@ export const SignIn = () => {
       const userToken = await user.getIdTokenResult();
       const role = userToken.claims.role;
 
-      setCookie('userToken', userToken.token, { expires: 2 });
+      setCookie('userToken', userToken.token, { expires: 1 / 24 });
       handleLoginSuccess(role);
     } catch (error: unknown) {
       handleLoginFail((error as Error).message);
